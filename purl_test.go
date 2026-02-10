@@ -3,7 +3,7 @@ package ecosystems
 import (
 	"testing"
 
-	packageurl "github.com/package-url/packageurl-go"
+	packageurl "github.com/git-pkgs/packageurl-go"
 )
 
 func TestPURLToRegistry(t *testing.T) {

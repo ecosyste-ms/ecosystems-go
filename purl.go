@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/ecosyste-ms/ecosystems-go/packages"
-	packageurl "github.com/package-url/packageurl-go"
+	packageurl "github.com/git-pkgs/packageurl-go"
 )
 
 // PURLToRegistry converts a PURL type to the ecosyste.ms registry name.
