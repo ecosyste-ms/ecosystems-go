@@ -79,6 +79,7 @@ type Client struct {
 	packagesClient *packages.ClientWithResponses
 	reposClient    *repos.ClientWithResponses
 	userAgent      string
+	batchSize      int
 }
 
 type Option func(*clientConfig)
@@ -90,6 +91,7 @@ type clientConfig struct {
 	userAgent      string
 	fromEmail      string
 	apiKey         string
+	batchSize      int
 }
 
 func WithPackagesServer(server string) Option {
@@ -123,6 +125,15 @@ func WithFrom(email string) Option {
 func WithAPIKey(key string) Option {
 	return func(c *clientConfig) {
 		c.apiKey = key
+	}
+}
+
+// WithBatchSize sets the number of PURLs sent per BulkLookup request.
+// Values <= 0 or greater than MaxBulkLookupSize fall back to MaxBulkLookupSize.
+// Useful for clients that need to stay within stricter server-side limits.
+func WithBatchSize(size int) Option {
+	return func(c *clientConfig) {
+		c.batchSize = size
 	}
 }
 
@@ -173,10 +184,15 @@ func NewClient(userAgent string, opts ...Option) (*Client, error) {
 		reposServer:    DefaultReposServer,
 		httpClient:     defaultHTTPClient(),
 		userAgent:      userAgent,
+		batchSize:      MaxBulkLookupSize,
 	}
 
 	for _, opt := range opts {
 		opt(cfg)
+	}
+
+	if cfg.batchSize <= 0 || cfg.batchSize > MaxBulkLookupSize {
+		cfg.batchSize = MaxBulkLookupSize
 	}
 
 	// Note: Don't set Accept-Encoding manually - the Transport handles gzip
@@ -215,21 +231,28 @@ func NewClient(userAgent string, opts ...Option) (*Client, error) {
 		packagesClient: pkgClient,
 		reposClient:    repoClient,
 		userAgent:      cfg.userAgent,
+		batchSize:      cfg.batchSize,
 	}, nil
 }
 
 // BulkLookup looks up multiple packages by PURL.
 // Returns a map keyed by PURL with package data.
-// PURLs are processed in batches of 100.
+// PURLs are processed in batches of the configured size (defaults to MaxBulkLookupSize).
+// Use WithBatchSize to lower the batch size when the server rejects larger requests.
 func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*packages.PackageWithRegistry, error) {
 	if len(purls) == 0 {
 		return map[string]*packages.PackageWithRegistry{}, nil
 	}
 
+	batchSize := c.batchSize
+	if batchSize <= 0 || batchSize > MaxBulkLookupSize {
+		batchSize = MaxBulkLookupSize
+	}
+
 	results := make(map[string]*packages.PackageWithRegistry)
 
-	for i := 0; i < len(purls); i += MaxBulkLookupSize {
-		end := i + MaxBulkLookupSize
+	for i := 0; i < len(purls); i += batchSize {
+		end := i + batchSize
 		if end > len(purls) {
 			end = len(purls)
 		}
