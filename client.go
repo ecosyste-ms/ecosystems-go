@@ -17,17 +17,21 @@ import (
 	"github.com/ecosyste-ms/ecosystems-go/repos"
 )
 
-// rateLimitHint is appended to errors that look like the server is
-// rejecting or throttling the request. It's deliberately generic so that
-// upstream wrappers can add their own configuration-specific guidance.
-const rateLimitHint = " (the server may be rate-limiting or rejecting " +
-	"unidentified clients; try WithFrom(email), WithAPIKey, or a smaller WithBatchSize)"
+// streamErrHint is appended when the underlying transport reports a
+// stream-level rejection (HTTP/2 INTERNAL_ERROR, GOAWAY, etc). These are
+// not rate limits — the server is closing the connection without a status
+// code, often because the request is too large or the shared pool is
+// overloaded.
+const streamErrHint = " (the request was rejected before a response; " +
+	"try identifying with WithFrom(email) or WithAPIKey, or a smaller WithBatchSize)"
 
-// looksLikeRateLimitErr returns true when the error from the underlying
-// HTTP client looks like a stream-level rejection from the server, which
-// commonly surfaces as an HTTP/2 INTERNAL_ERROR or GOAWAY rather than a
-// proper HTTP response.
-func looksLikeRateLimitErr(err error) bool {
+// rateLimitHint is appended to HTTP 429 responses, which ecosyste.ms
+// returns specifically for rate-limited requests.
+const rateLimitHint = " (rate limited; try identifying with WithFrom(email) or WithAPIKey)"
+
+// looksLikeStreamErr returns true when the transport-level error suggests
+// the server closed the HTTP/2 stream without sending a proper response.
+func looksLikeStreamErr(err error) bool {
 	if err == nil {
 		return false
 	}
@@ -45,28 +49,20 @@ func looksLikeRateLimitErr(err error) bool {
 	return false
 }
 
-// isThrottledStatus reports whether an HTTP status code indicates the
-// caller should back off or identify themselves.
-func isThrottledStatus(code int) bool {
-	return code == http.StatusTooManyRequests ||
-		code == http.StatusForbidden ||
-		code >= http.StatusInternalServerError
+// errBulkLookupStream wraps a transport-level stream error with a hint,
+// while preserving the original via errors.Is/As.
+func errBulkLookupStream(err error) error {
+	return fmt.Errorf("bulk lookup: %w"+streamErrHint, err)
 }
 
-// errBulkLookupRateLimited wraps the underlying error with the generic
-// rate-limit hint, while preserving the original via errors.Is/As.
-func errBulkLookupRateLimited(err error) error {
-	return fmt.Errorf("bulk lookup: %w"+rateLimitHint, err)
-}
-
-// errBulkLookupStatus formats a non-200 response, appending the rate-limit
-// hint when the status code suggests throttling.
+// errBulkLookupStatus formats a non-200 response, appending a hint when
+// the status code is one we can give actionable guidance for.
 func errBulkLookupStatus(code int, detail string) error {
 	base := fmt.Sprintf("bulk lookup failed with status %d", code)
 	if detail != "" {
 		base = fmt.Sprintf("bulk lookup failed: %s", detail)
 	}
-	if isThrottledStatus(code) {
+	if code == http.StatusTooManyRequests {
 		return errors.New(base + rateLimitHint)
 	}
 	return errors.New(base)
@@ -243,8 +239,8 @@ func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*pa
 			Purls: &batch,
 		})
 		if err != nil {
-			if looksLikeRateLimitErr(err) {
-				return nil, errBulkLookupRateLimited(err)
+			if looksLikeStreamErr(err) {
+				return nil, errBulkLookupStream(err)
 			}
 			return nil, fmt.Errorf("bulk lookup: %w", err)
 		}
