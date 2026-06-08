@@ -6,14 +6,71 @@ package ecosystems
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/ecosyste-ms/ecosystems-go/packages"
 	"github.com/ecosyste-ms/ecosystems-go/repos"
 )
+
+// rateLimitHint is appended to errors that look like the server is
+// rejecting or throttling the request. It's deliberately generic so that
+// upstream wrappers can add their own configuration-specific guidance.
+const rateLimitHint = " (the server may be rate-limiting or rejecting " +
+	"unidentified clients; try WithFrom(email), WithAPIKey, or a smaller WithBatchSize)"
+
+// looksLikeRateLimitErr returns true when the error from the underlying
+// HTTP client looks like a stream-level rejection from the server, which
+// commonly surfaces as an HTTP/2 INTERNAL_ERROR or GOAWAY rather than a
+// proper HTTP response.
+func looksLikeRateLimitErr(err error) bool {
+	if err == nil {
+		return false
+	}
+	msg := err.Error()
+	switch {
+	case strings.Contains(msg, "stream error"):
+		return true
+	case strings.Contains(msg, "INTERNAL_ERROR"):
+		return true
+	case strings.Contains(msg, "GOAWAY"):
+		return true
+	case strings.Contains(msg, "ENHANCE_YOUR_CALM"):
+		return true
+	}
+	return false
+}
+
+// isThrottledStatus reports whether an HTTP status code indicates the
+// caller should back off or identify themselves.
+func isThrottledStatus(code int) bool {
+	return code == http.StatusTooManyRequests ||
+		code == http.StatusForbidden ||
+		code >= http.StatusInternalServerError
+}
+
+// errBulkLookupRateLimited wraps the underlying error with the generic
+// rate-limit hint, while preserving the original via errors.Is/As.
+func errBulkLookupRateLimited(err error) error {
+	return fmt.Errorf("bulk lookup: %w"+rateLimitHint, err)
+}
+
+// errBulkLookupStatus formats a non-200 response, appending the rate-limit
+// hint when the status code suggests throttling.
+func errBulkLookupStatus(code int, detail string) error {
+	base := fmt.Sprintf("bulk lookup failed with status %d", code)
+	if detail != "" {
+		base = fmt.Sprintf("bulk lookup failed: %s", detail)
+	}
+	if isThrottledStatus(code) {
+		return errors.New(base + rateLimitHint)
+	}
+	return errors.New(base)
+}
 
 const (
 	DefaultPackagesServer = "https://packages.ecosyste.ms/api/v1"
@@ -186,14 +243,18 @@ func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*pa
 			Purls: &batch,
 		})
 		if err != nil {
+			if looksLikeRateLimitErr(err) {
+				return nil, errBulkLookupRateLimited(err)
+			}
 			return nil, fmt.Errorf("bulk lookup: %w", err)
 		}
 
 		if resp.StatusCode() != http.StatusOK {
+			detail := ""
 			if resp.JSON400 != nil && resp.JSON400.Error != nil {
-				return nil, fmt.Errorf("bulk lookup failed: %s", *resp.JSON400.Error)
+				detail = *resp.JSON400.Error
 			}
-			return nil, fmt.Errorf("bulk lookup failed with status %d", resp.StatusCode())
+			return nil, errBulkLookupStatus(resp.StatusCode(), detail)
 		}
 
 		if resp.JSON200 != nil {
