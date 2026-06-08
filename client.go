@@ -6,14 +6,67 @@ package ecosystems
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/ecosyste-ms/ecosystems-go/packages"
 	"github.com/ecosyste-ms/ecosystems-go/repos"
 )
+
+// streamErrHint is appended when the underlying transport reports a
+// stream-level rejection (HTTP/2 INTERNAL_ERROR, GOAWAY, etc). These are
+// not rate limits — the server is closing the connection without a status
+// code, often because the request is too large or the shared pool is
+// overloaded.
+const streamErrHint = " (the request was rejected before a response; " +
+	"try identifying with WithFrom(email) or WithAPIKey, or a smaller WithBatchSize)"
+
+// rateLimitHint is appended to HTTP 429 responses, which ecosyste.ms
+// returns specifically for rate-limited requests.
+const rateLimitHint = " (rate limited; try identifying with WithFrom(email) or WithAPIKey)"
+
+// looksLikeStreamErr returns true when the transport-level error suggests
+// the server closed the HTTP/2 stream without sending a proper response.
+func looksLikeStreamErr(err error) bool {
+	if err == nil {
+		return false
+	}
+	msg := err.Error()
+	switch {
+	case strings.Contains(msg, "stream error"):
+		return true
+	case strings.Contains(msg, "INTERNAL_ERROR"):
+		return true
+	case strings.Contains(msg, "GOAWAY"):
+		return true
+	case strings.Contains(msg, "ENHANCE_YOUR_CALM"):
+		return true
+	}
+	return false
+}
+
+// errBulkLookupStream wraps a transport-level stream error with a hint,
+// while preserving the original via errors.Is/As.
+func errBulkLookupStream(err error) error {
+	return fmt.Errorf("bulk lookup: %w"+streamErrHint, err)
+}
+
+// errBulkLookupStatus formats a non-200 response, appending a hint when
+// the status code is one we can give actionable guidance for.
+func errBulkLookupStatus(code int, detail string) error {
+	base := fmt.Sprintf("bulk lookup failed with status %d", code)
+	if detail != "" {
+		base = fmt.Sprintf("bulk lookup failed: %s", detail)
+	}
+	if code == http.StatusTooManyRequests {
+		return errors.New(base + rateLimitHint)
+	}
+	return errors.New(base)
+}
 
 const (
 	DefaultPackagesServer = "https://packages.ecosyste.ms/api/v1"
@@ -186,14 +239,18 @@ func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*pa
 			Purls: &batch,
 		})
 		if err != nil {
+			if looksLikeStreamErr(err) {
+				return nil, errBulkLookupStream(err)
+			}
 			return nil, fmt.Errorf("bulk lookup: %w", err)
 		}
 
 		if resp.StatusCode() != http.StatusOK {
+			detail := ""
 			if resp.JSON400 != nil && resp.JSON400.Error != nil {
-				return nil, fmt.Errorf("bulk lookup failed: %s", *resp.JSON400.Error)
+				detail = *resp.JSON400.Error
 			}
-			return nil, fmt.Errorf("bulk lookup failed with status %d", resp.StatusCode())
+			return nil, errBulkLookupStatus(resp.StatusCode(), detail)
 		}
 
 		if resp.JSON200 != nil {
