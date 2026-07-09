@@ -1,0 +1,391 @@
+---
+openapi: 3.1.1
+info:
+  title: 'Ecosyste.ms: commits'
+  description: 'An open API service providing commit metadata for open source projects. '
+  contact:
+    name: Ecosyste.ms
+    email: support@ecosyste.ms
+    url: https://ecosyste.ms
+  version: 1.0.0
+  license:
+    name: CC-BY-SA-4.0
+    url: https://creativecommons.org/licenses/by-sa/4.0/
+externalDocs:
+  description: GitHub Repository
+  url: https://github.com/ecosyste-ms/commits
+servers:
+- url: https://commits.ecosyste.ms/api/v1
+paths:
+  "/repositories/lookup":
+    get:
+      summary: Lookup repository metadata
+      operationId: repositoriesLookup
+      parameters:
+      - name: url
+        in: query
+        description: The URL of the repository to lookup
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Repository"
+  "/hosts":
+    get:
+      summary: list registries
+      operationId: getRegistries
+      parameters:
+      - name: page
+        in: query
+        description: pagination page number
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return
+        required: false
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Host"
+  "/hosts/{hostName}":
+    get:
+      summary: get a host by name
+      operationId: getHost
+      parameters:
+      - in: path
+        name: hostName
+        schema:
+          type: string
+        required: true
+        description: name of host
+      - name: page
+        in: query
+        description: pagination page number
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return
+        required: false
+        schema:
+          type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Host"
+  "/hosts/{hostName}/repositories":
+    get:
+      summary: get a list of repositories from a host
+      operationId: getHostRepositories
+      parameters:
+      - in: path
+        name: hostName
+        schema:
+          type: string
+        required: true
+        description: name of host
+      - name: page
+        in: query
+        description: pagination page number
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return
+        required: false
+        schema:
+          type: integer
+      - name: created_after
+        in: query
+        description: filter by created_at after given time
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: updated_after
+        in: query
+        description: filter by updated_at after given time
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: sort
+        in: query
+        description: field to order results by
+        required: false
+        schema:
+          type: string
+      - name: order
+        in: query
+        description: direction to order results by
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Repository"
+  "/hosts/{hostName}/repositories/{repoName}":
+    get:
+      summary: get a repository from a host
+      operationId: getHostRepository
+      parameters:
+      - in: path
+        name: hostName
+        schema:
+          type: string
+        required: true
+        description: name of host
+      - in: path
+        name: repoName
+        schema:
+          type: string
+        required: true
+        description: name of repository
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Repository"
+  "/hosts/{hostName}/repositories/{repoName}/commits":
+    get:
+      summary: get a list of commits from a repository
+      operationId: getRepositoryCommits
+      parameters:
+      - in: path
+        name: hostName
+        schema:
+          type: string
+        required: true
+        description: name of host
+      - in: path
+        name: repoName
+        schema:
+          type: string
+        required: true
+        description: name of repository
+      - name: page
+        in: query
+        description: pagination page number
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        description: Number of records to return
+        required: false
+        schema:
+          type: integer
+      - name: since
+        in: query
+        description: filter by commits since given time
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: until
+        in: query
+        description: filter by commits until given time
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: sort
+        in: query
+        description: field to order results by
+        required: false
+        schema:
+          type: string
+      - name: order
+        in: query
+        description: direction to order results by
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/Commit"
+  "/hosts/{hostName}/committers/{login}":
+    get:
+      summary: get a committer from a host
+      operationId: getHostCommitter
+      parameters:
+      - in: path
+        name: hostName
+        schema:
+          type: string
+        required: true
+        description: name of host
+      - in: path
+        name: login
+        schema:
+          type: string
+        required: true
+        description: login or email of committer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Committer"
+components:
+  schemas:
+    Host:
+      type: object
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        kind:
+          type: string
+        repositories_count:
+          type: integer
+        last_synced_at:
+          type: string
+          format: date-time
+        commits_count:
+          type: integer
+        contributors_count:
+          type: integer
+        owners_count:
+          type: integer
+        icon_url:
+          type: string
+    Repository:
+      type: object
+      properties:
+        id:
+          type: integer
+        full_name:
+          type: string
+        default_branch:
+          type: string
+        committers:
+          type: array
+          items:
+            type: object
+        total_commits:
+          type: integer
+        total_committers:
+          type: integer
+        total_bot_commits:
+          type: integer
+        total_bot_committers:
+          type: integer
+        mean_commits:
+          type: number
+        dds:
+          type: number
+        past_year_committers:
+          type: array
+          items:
+            type: object
+        past_year_total_commits:
+          type: integer
+        past_year_total_committers:
+          type: integer
+        past_year_total_bot_commits:
+          type: integer
+        past_year_total_bot_committers:
+          type: integer
+        past_year_mean_commits:
+          type: number
+        past_year_dds:
+          type: number
+        last_synced_at:
+          type: string
+          format: date-time
+        last_synced_commit:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        commits_url:
+          type: string
+    Commit:
+      type: object
+      properties:
+        sha:
+          type: string
+        message:
+          type: string
+        author:
+          type: string
+        committer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        merge:
+          type: boolean
+        html_url:
+          type: string
+    Committer:
+      type: object
+      properties:
+        id:
+          type: integer
+        login:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        commits_count:
+          type: integer
+        repositories_count:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        repositories:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              full_name:
+                type: string
+              commit_count:
+                type: integer
