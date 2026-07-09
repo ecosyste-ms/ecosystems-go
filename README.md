@@ -92,6 +92,24 @@ version, err := client.GetVersionPURL(ctx, purl)
 versions, err := client.GetAllVersionsPURL(ctx, purl)
 ```
 
+## Repository Metadata
+
+The client also wraps repository-oriented ecosyste.ms services:
+
+```go
+repoURL := "https://github.com/rails/rails"
+
+repo, err := client.GetRepository(ctx, repoURL)
+packages, err := client.LookupPackagesByRepositoryURL(ctx, repoURL, 25)
+advisories, err := client.GetAdvisoriesByRepoURL(ctx, repoURL, 100)
+commits, err := client.GetCommitsSummary(ctx, repoURL)
+issues, err := client.GetIssuesSummary(ctx, repoURL)
+dependents, err := client.GetDependentPackages(ctx, "rubygems.org", "rails", 30)
+```
+
+List methods follow `Link: rel="next"` pagination and stop at the requested
+item cap when one is provided.
+
 ## Options
 
 ```go
@@ -101,6 +119,9 @@ client, err := ecosystems.NewClient("my-app/1.0",
     ecosystems.WithHTTPClient(customHTTPClient),
     ecosystems.WithPackagesServer("https://custom.packages.server"),
     ecosystems.WithReposServer("https://custom.repos.server"),
+    ecosystems.WithAdvisoriesServer("https://custom.advisories.server"),
+    ecosystems.WithCommitsServer("https://custom.commits.server"),
+    ecosystems.WithIssuesServer("https://custom.issues.server"),
 )
 ```
 
