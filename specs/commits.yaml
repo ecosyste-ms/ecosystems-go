@@ -37,7 +37,7 @@ paths:
                 "$ref": "#/components/schemas/Repository"
   "/hosts":
     get:
-      summary: list registies
+      summary: list registries
       operationId: getRegistries
       parameters:
       - name: page

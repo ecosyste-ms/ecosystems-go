@@ -314,10 +314,10 @@ func backoffDelay(attempt int, baseDelay, maxDelay time.Duration) time.Duration 
 	for range attempt - 1 {
 		delay *= backoffFactor
 		if delay >= maxDelay {
-			return jitter(maxDelay)
+			return maxDelay
 		}
 	}
-	return jitter(delay)
+	return capDelay(jitter(delay), maxDelay)
 }
 
 func capDelay(delay, maxDelay time.Duration) time.Duration {

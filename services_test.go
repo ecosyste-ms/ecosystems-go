@@ -47,6 +47,27 @@ func TestLookupPackagesByRepositoryURLFollowsLinkAndCaps(t *testing.T) {
 	}
 }
 
+func TestLookupPackagesByRepositoryURLSignalsPageCap(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		next := r.URL.Query().Get("page")
+		if next == "" {
+			next = "1"
+		}
+		w.Header().Set("Link", fmt.Sprintf(`<%s/packages/lookup?page=%s>; rel="next"`, "http://"+r.Host, next+"x"))
+		writeTestJSON(w, `[{"purl":"pkg:npm/a","name":"a","ecosystem":"npm"}]`)
+	}))
+	defer srv.Close()
+
+	client, err := NewClient("test-agent/1.0", WithPackagesServer(srv.URL))
+	if err != nil {
+		t.Fatalf("NewClient() error = %v", err)
+	}
+	_, err = client.LookupPackagesByRepositoryURL(context.Background(), "https://github.com/acme/widget", 0)
+	if err == nil || !strings.Contains(err.Error(), "pagination exceeded max pages") {
+		t.Fatalf("error = %v, want pagination cap error", err)
+	}
+}
+
 func TestLookupPackagesByPURL(t *testing.T) {
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if got := r.URL.Query().Get("purl"); got != "pkg:gem/rake" {

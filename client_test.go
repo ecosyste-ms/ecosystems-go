@@ -9,6 +9,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 )
 
 func TestNewClient(t *testing.T) {
@@ -144,6 +145,17 @@ func TestBulkLookupNoHintOnPlain400(t *testing.T) {
 		t.Errorf("error = %q, want it to preserve the 400 detail", err.Error())
 	}
 }
+
+func TestBackoffDelayHonorsMaxDelay(t *testing.T) {
+	maxDelay := time.Second
+	for i := 0; i < 100; i++ {
+		got := backoffDelay(10, 100*time.Millisecond, maxDelay)
+		if got > maxDelay {
+			t.Fatalf("backoffDelay exceeded max: got %s, want <= %s", got, maxDelay)
+		}
+	}
+}
+
 func TestNewClientDefaultBatchSize(t *testing.T) {
 	client, err := NewClient("test-agent/1.0")
 	if err != nil {

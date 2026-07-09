@@ -165,6 +165,9 @@ func appendLinkedPages[T any](c *Client, ctx context.Context, first []T, resp *h
 		}
 		next = nextLink(nextResp.Header.Get("Link"))
 	}
+	if next != "" {
+		return out, fmt.Errorf("pagination exceeded max pages %d", defaultMaxPages)
+	}
 	return out, nil
 }
 
