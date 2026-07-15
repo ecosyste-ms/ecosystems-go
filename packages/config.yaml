@@ -7,3 +7,10 @@ generate:
 output-options:
   skip-response-body-getters: true
   generate-types-for-anonymous-schemas: true
+  # make sure that we generate /all/ types, regardless of whether they're used by our API Client or not
+  skip-prune: true
+  nullable-type: true
+  prefer-skip-optional-pointer-on-container-types: true
+  name-normalizer: ToCamelCaseWithInitialisms
+compatibility:
+  always-prefix-enum-values: true

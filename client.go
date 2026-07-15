@@ -475,7 +475,7 @@ func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*pa
 		batch := purls[i:end]
 
 		resp, err := c.packagesClient.BulkLookupPackagesWithResponse(ctx, packages.BulkLookupPackagesJSONRequestBody{
-			Purls: &batch,
+			Purls: batch,
 		})
 		if err != nil {
 			if looksLikeStreamErr(err) {
@@ -589,7 +589,7 @@ func (c *Client) GetAllVersions(ctx context.Context, registry, name string) ([]p
 // GetRepository looks up a repository by URL.
 func (c *Client) GetRepository(ctx context.Context, url string) (*repos.Repository, error) {
 	resp, err := c.reposClient.RepositoriesLookupWithResponse(ctx, &repos.RepositoriesLookupParams{
-		Url: &url,
+		URL: &url,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("lookup repository: %w", err)

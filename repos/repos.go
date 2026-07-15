@@ -13,30 +13,31 @@ import (
 	"strings"
 	"time"
 
+	"github.com/oapi-codegen/nullable"
 	"github.com/oapi-codegen/runtime"
 )
 
 // Defines values for HostRobotsTxtStatus.
 const (
-	Error404     HostRobotsTxtStatus = "error_404"
-	Error500     HostRobotsTxtStatus = "error_500"
-	ErrorTimeout HostRobotsTxtStatus = "error_timeout"
-	NotFound     HostRobotsTxtStatus = "not_found"
-	Success      HostRobotsTxtStatus = "success"
+	HostRobotsTxtStatusError404     HostRobotsTxtStatus = "error_404"
+	HostRobotsTxtStatusError500     HostRobotsTxtStatus = "error_500"
+	HostRobotsTxtStatusErrorTimeout HostRobotsTxtStatus = "error_timeout"
+	HostRobotsTxtStatusNotFound     HostRobotsTxtStatus = "not_found"
+	HostRobotsTxtStatusSuccess      HostRobotsTxtStatus = "success"
 )
 
 // Valid indicates whether the value is a known member of the HostRobotsTxtStatus enum.
 func (e HostRobotsTxtStatus) Valid() bool {
 	switch e {
-	case Error404:
+	case HostRobotsTxtStatusError404:
 		return true
-	case Error500:
+	case HostRobotsTxtStatusError500:
 		return true
-	case ErrorTimeout:
+	case HostRobotsTxtStatusErrorTimeout:
 		return true
-	case NotFound:
+	case HostRobotsTxtStatusNotFound:
 		return true
-	case Success:
+	case HostRobotsTxtStatusSuccess:
 		return true
 	default:
 		return false
@@ -45,28 +46,28 @@ func (e HostRobotsTxtStatus) Valid() bool {
 
 // Defines values for HostStatus.
 const (
-	ConnectionFailed HostStatus = "connection_failed"
-	Error            HostStatus = "error"
-	HttpError        HostStatus = "http_error"
-	Online           HostStatus = "online"
-	SslError         HostStatus = "ssl_error"
-	Timeout          HostStatus = "timeout"
+	HostStatusConnectionFailed HostStatus = "connection_failed"
+	HostStatusError            HostStatus = "error"
+	HostStatusHTTPError        HostStatus = "http_error"
+	HostStatusOnline           HostStatus = "online"
+	HostStatusSslError         HostStatus = "ssl_error"
+	HostStatusTimeout          HostStatus = "timeout"
 )
 
 // Valid indicates whether the value is a known member of the HostStatus enum.
 func (e HostStatus) Valid() bool {
 	switch e {
-	case ConnectionFailed:
+	case HostStatusConnectionFailed:
 		return true
-	case Error:
+	case HostStatusError:
 		return true
-	case HttpError:
+	case HostStatusHTTPError:
 		return true
-	case Online:
+	case HostStatusOnline:
 		return true
-	case SslError:
+	case HostStatusSslError:
 		return true
-	case Timeout:
+	case HostStatusTimeout:
 		return true
 	default:
 		return false
@@ -113,7 +114,7 @@ func (e GetHostOwnerNamesParamsKind) Valid() bool {
 type Dependency struct {
 	Direct       *bool   `json:"direct,omitempty"`
 	Ecosystem    *string `json:"ecosystem,omitempty"`
-	Id           *int    `json:"id,omitempty"`
+	ID           *int    `json:"id,omitempty"`
 	Kind         *string `json:"kind,omitempty"`
 	Optional     *bool   `json:"optional,omitempty"`
 	PackageName  *string `json:"package_name,omitempty"`
@@ -124,7 +125,7 @@ type Dependency struct {
 type DependencyWithRepository struct {
 	Direct       *bool       `json:"direct,omitempty"`
 	Ecosystem    *string     `json:"ecosystem,omitempty"`
-	Id           *int        `json:"id,omitempty"`
+	ID           *int        `json:"id,omitempty"`
 	Kind         *string     `json:"kind,omitempty"`
 	Manifest     *Manifest   `json:"manifest,omitempty"`
 	Optional     *bool       `json:"optional,omitempty"`
@@ -135,43 +136,43 @@ type DependencyWithRepository struct {
 
 // Ecosystem defines model for Ecosystem.
 type Ecosystem struct {
-	EcosystemUrl  *string `json:"ecosystem_url,omitempty"`
+	EcosystemURL  *string `json:"ecosystem_url,omitempty"`
 	Name          *string `json:"name,omitempty"`
 	PackagesCount *int    `json:"packages_count,omitempty"`
 }
 
 // Host defines model for Host.
 type Host struct {
-	// CanCrawlApi Whether API crawling is allowed by robots.txt
-	CanCrawlApi *bool      `json:"can_crawl_api,omitempty"`
+	// CanCrawlAPI Whether API crawling is allowed by robots.txt
+	CanCrawlAPI *bool      `json:"can_crawl_api,omitempty"`
 	CreatedAt   *time.Time `json:"created_at,omitempty"`
-	HostUrl     *string    `json:"host_url,omitempty"`
-	IconUrl     *string    `json:"icon_url,omitempty"`
+	HostURL     *string    `json:"host_url,omitempty"`
+	IconURL     *string    `json:"icon_url,omitempty"`
 	Kind        *string    `json:"kind,omitempty"`
 
 	// LastError Last error message encountered
-	LastError *string `json:"last_error,omitempty"`
-	Name      *string `json:"name,omitempty"`
+	LastError nullable.Nullable[string] `json:"last_error,omitempty"`
+	Name      *string                   `json:"name,omitempty"`
 
 	// Online Whether the host is currently online
 	Online             *bool   `json:"online,omitempty"`
 	OwnersCount        *int    `json:"owners_count,omitempty"`
-	OwnersUrl          *string `json:"owners_url,omitempty"`
+	OwnersURL          *string `json:"owners_url,omitempty"`
 	RepositoriesCount  *int    `json:"repositories_count,omitempty"`
-	RepositorisUrl     *string `json:"repositoris_url,omitempty"`
-	RepositoryNamesUrl *string `json:"repository_names_url,omitempty"`
+	RepositorisURL     *string `json:"repositoris_url,omitempty"`
+	RepositoryNamesURL *string `json:"repository_names_url,omitempty"`
 
 	// ResponseTime Response time in milliseconds (null if host is offline)
-	ResponseTime *int `json:"response_time,omitempty"`
+	ResponseTime nullable.Nullable[int] `json:"response_time,omitempty"`
 
 	// RobotsTxtStatus Status of robots.txt fetch
 	RobotsTxtStatus *HostRobotsTxtStatus `json:"robots_txt_status,omitempty"`
 
 	// RobotsTxtUpdatedAt Timestamp when robots.txt was last fetched
-	RobotsTxtUpdatedAt *time.Time `json:"robots_txt_updated_at,omitempty"`
+	RobotsTxtUpdatedAt nullable.Nullable[time.Time] `json:"robots_txt_updated_at,omitempty"`
 
-	// RobotsTxtUrl URL to the host's robots.txt file
-	RobotsTxtUrl *string `json:"robots_txt_url,omitempty"`
+	// RobotsTxtURL URL to the host's robots.txt file
+	RobotsTxtURL *string `json:"robots_txt_url,omitempty"`
 
 	// Status Current status of the host
 	Status *HostStatus `json:"status,omitempty"`
@@ -179,7 +180,7 @@ type Host struct {
 	// StatusCheckedAt Timestamp when status was last checked
 	StatusCheckedAt *time.Time `json:"status_checked_at,omitempty"`
 	UpdatedAt       *time.Time `json:"updated_at,omitempty"`
-	Url             *string    `json:"url,omitempty"`
+	URL             *string    `json:"url,omitempty"`
 	Version         *string    `json:"version,omitempty"`
 }
 
@@ -191,124 +192,124 @@ type HostStatus string
 
 // Manifest defines model for Manifest.
 type Manifest struct {
-	CreatedAt      *time.Time    `json:"created_at,omitempty"`
-	Dependencies   *[]Dependency `json:"dependencies,omitempty"`
-	Ecosystem      *string       `json:"ecosystem,omitempty"`
-	Filepath       *string       `json:"filepath,omitempty"`
-	Kind           *string       `json:"kind,omitempty"`
-	RepositoryLink *string       `json:"repository_link,omitempty"`
-	Sha            *string       `json:"sha,omitempty"`
-	UpdatedAt      *time.Time    `json:"updated_at,omitempty"`
+	CreatedAt      *time.Time   `json:"created_at,omitempty"`
+	Dependencies   []Dependency `json:"dependencies,omitempty"`
+	Ecosystem      *string      `json:"ecosystem,omitempty"`
+	Filepath       *string      `json:"filepath,omitempty"`
+	Kind           *string      `json:"kind,omitempty"`
+	RepositoryLink *string      `json:"repository_link,omitempty"`
+	Sha            *string      `json:"sha,omitempty"`
+	UpdatedAt      *time.Time   `json:"updated_at,omitempty"`
 }
 
 // Owner defines model for Owner.
 type Owner struct {
-	Company           *string                 `json:"company,omitempty"`
-	CreatedAt         *time.Time              `json:"created_at,omitempty"`
-	Description       *string                 `json:"description,omitempty"`
-	Email             *string                 `json:"email,omitempty"`
-	Followers         *int                    `json:"followers,omitempty"`
-	Following         *int                    `json:"following,omitempty"`
-	FundingLinks      *[]string               `json:"funding_links,omitempty"`
-	HtmlUrl           *string                 `json:"html_url,omitempty"`
-	IconUrl           *string                 `json:"icon_url,omitempty"`
-	Kind              *string                 `json:"kind,omitempty"`
-	LastSyncedAt      *time.Time              `json:"last_synced_at,omitempty"`
-	Location          *string                 `json:"location,omitempty"`
-	Login             *string                 `json:"login,omitempty"`
-	Metadata          *map[string]interface{} `json:"metadata,omitempty"`
-	Name              *string                 `json:"name,omitempty"`
-	OwnerUrl          *string                 `json:"owner_url,omitempty"`
-	RepositoriesCount *int                    `json:"repositories_count,omitempty"`
-	RepositoriesUrl   *string                 `json:"repositories_url,omitempty"`
-	TotalStars        *int                    `json:"total_stars,omitempty"`
-	Twitter           *string                 `json:"twitter,omitempty"`
-	UpdatedAt         *time.Time              `json:"updated_at,omitempty"`
-	Uuid              *string                 `json:"uuid,omitempty"`
-	Website           *string                 `json:"website,omitempty"`
+	Company           *string                `json:"company,omitempty"`
+	CreatedAt         *time.Time             `json:"created_at,omitempty"`
+	Description       *string                `json:"description,omitempty"`
+	Email             *string                `json:"email,omitempty"`
+	Followers         *int                   `json:"followers,omitempty"`
+	Following         *int                   `json:"following,omitempty"`
+	FundingLinks      []string               `json:"funding_links,omitempty"`
+	HTMLURL           *string                `json:"html_url,omitempty"`
+	IconURL           *string                `json:"icon_url,omitempty"`
+	Kind              *string                `json:"kind,omitempty"`
+	LastSyncedAt      *time.Time             `json:"last_synced_at,omitempty"`
+	Location          *string                `json:"location,omitempty"`
+	Login             *string                `json:"login,omitempty"`
+	Metadata          map[string]interface{} `json:"metadata,omitempty"`
+	Name              *string                `json:"name,omitempty"`
+	OwnerURL          *string                `json:"owner_url,omitempty"`
+	RepositoriesCount *int                   `json:"repositories_count,omitempty"`
+	RepositoriesURL   *string                `json:"repositories_url,omitempty"`
+	TotalStars        *int                   `json:"total_stars,omitempty"`
+	Twitter           *string                `json:"twitter,omitempty"`
+	UpdatedAt         *time.Time             `json:"updated_at,omitempty"`
+	UUID              *string                `json:"uuid,omitempty"`
+	Website           *string                `json:"website,omitempty"`
 }
 
 // PackageUsage defines model for PackageUsage.
 type PackageUsage struct {
-	DependenciesUrl *string `json:"dependencies_url,omitempty"`
+	DependenciesURL *string `json:"dependencies_url,omitempty"`
 	DependentsCount *int    `json:"dependents_count,omitempty"`
 	Ecosystem       *string `json:"ecosystem,omitempty"`
 	Name            *string `json:"name,omitempty"`
-	PackageUsageUrl *string `json:"package_usage_url,omitempty"`
+	PackageUsageURL *string `json:"package_usage_url,omitempty"`
 }
 
 // Release defines model for Release.
 type Release struct {
-	Assets          *[]map[string]interface{} `json:"assets,omitempty"`
-	Author          *string                   `json:"author,omitempty"`
-	Body            *string                   `json:"body,omitempty"`
-	CreatedAt       *time.Time                `json:"created_at,omitempty"`
-	Draft           *bool                     `json:"draft,omitempty"`
-	HtmlUrl         *string                   `json:"html_url,omitempty"`
-	LastSyncedAt    *time.Time                `json:"last_synced_at,omitempty"`
-	Name            *string                   `json:"name,omitempty"`
-	Prerelease      *bool                     `json:"prerelease,omitempty"`
-	PublishedAt     *time.Time                `json:"published_at,omitempty"`
-	TagName         *string                   `json:"tag_name,omitempty"`
-	TagUrl          *string                   `json:"tag_url,omitempty"`
-	TargetCommitish *string                   `json:"target_commitish,omitempty"`
-	Uuid            *string                   `json:"uuid,omitempty"`
+	Assets          []map[string]interface{} `json:"assets,omitempty"`
+	Author          *string                  `json:"author,omitempty"`
+	Body            *string                  `json:"body,omitempty"`
+	CreatedAt       *time.Time               `json:"created_at,omitempty"`
+	Draft           *bool                    `json:"draft,omitempty"`
+	HTMLURL         *string                  `json:"html_url,omitempty"`
+	LastSyncedAt    *time.Time               `json:"last_synced_at,omitempty"`
+	Name            *string                  `json:"name,omitempty"`
+	Prerelease      *bool                    `json:"prerelease,omitempty"`
+	PublishedAt     *time.Time               `json:"published_at,omitempty"`
+	TagName         *string                  `json:"tag_name,omitempty"`
+	TagURL          *string                  `json:"tag_url,omitempty"`
+	TargetCommitish *string                  `json:"target_commitish,omitempty"`
+	UUID            *string                  `json:"uuid,omitempty"`
 }
 
 // Repository defines model for Repository.
 type Repository struct {
-	Archived             *bool                   `json:"archived,omitempty"`
-	CommitStats          *map[string]interface{} `json:"commit_stats,omitempty"`
-	CreatedAt            *time.Time              `json:"created_at,omitempty"`
-	DefaultBranch        *string                 `json:"default_branch,omitempty"`
-	DependenciesParsedAt *time.Time              `json:"dependencies_parsed_at,omitempty"`
-	DependencyJobId      *string                 `json:"dependency_job_id,omitempty"`
-	Description          *string                 `json:"description,omitempty"`
-	DownloadUrl          *string                 `json:"download_url,omitempty"`
-	Etag                 *string                 `json:"etag,omitempty"`
-	Fork                 *bool                   `json:"fork,omitempty"`
-	ForksCount           *int                    `json:"forks_count,omitempty"`
-	FullName             *string                 `json:"full_name,omitempty"`
-	HasIssues            *bool                   `json:"has_issues,omitempty"`
-	HasPages             *bool                   `json:"has_pages,omitempty"`
-	HasWiki              *bool                   `json:"has_wiki,omitempty"`
-	Homepage             *string                 `json:"homepage,omitempty"`
-	Host                 *Host                   `json:"host,omitempty"`
-	HtmlUrl              *string                 `json:"html_url,omitempty"`
-	IconUrl              *string                 `json:"icon_url,omitempty"`
-	Id                   *int                    `json:"id,omitempty"`
-	Language             *string                 `json:"language,omitempty"`
-	LastSyncedAt         *time.Time              `json:"last_synced_at,omitempty"`
-	LatestCommitSha      *string                 `json:"latest_commit_sha,omitempty"`
-	LatestTagName        *string                 `json:"latest_tag_name,omitempty"`
-	LatestTagPublishedAt *time.Time              `json:"latest_tag_published_at,omitempty"`
-	License              *string                 `json:"license,omitempty"`
-	ManifestsUrl         *string                 `json:"manifests_url,omitempty"`
-	Metadata             *map[string]interface{} `json:"metadata,omitempty"`
-	MirrorUrl            *string                 `json:"mirror_url,omitempty"`
-	OpenIssuesCount      *int                    `json:"open_issues_count,omitempty"`
-	Owner                *string                 `json:"owner,omitempty"`
-	OwnerUrl             *string                 `json:"owner_url,omitempty"`
-	PreviousNames        *[]string               `json:"previous_names,omitempty"`
-	PullRequestsEnabled  *bool                   `json:"pull_requests_enabled,omitempty"`
-	Purl                 *string                 `json:"purl,omitempty"`
-	PushedAt             *time.Time              `json:"pushed_at,omitempty"`
-	ReleasesUrl          *string                 `json:"releases_url,omitempty"`
-	RepositoryUrl        *string                 `json:"repository_url,omitempty"`
-	Scm                  *string                 `json:"scm,omitempty"`
-	Scorecard            *Scorecard              `json:"scorecard,omitempty"`
-	Size                 *int                    `json:"size,omitempty"`
-	SourceName           *string                 `json:"source_name,omitempty"`
-	StargazersCount      *int                    `json:"stargazers_count,omitempty"`
-	Status               *string                 `json:"status,omitempty"`
-	SubscribersCount     *int                    `json:"subscribers_count,omitempty"`
-	TagsCount            *int                    `json:"tags_count,omitempty"`
-	TagsUrl              *string                 `json:"tags_url,omitempty"`
-	Template             *bool                   `json:"template,omitempty"`
-	TemplateFullName     *string                 `json:"template_full_name,omitempty"`
-	Topics               *[]string               `json:"topics,omitempty"`
-	UpdatedAt            *time.Time              `json:"updated_at,omitempty"`
-	Uuid                 *string                 `json:"uuid,omitempty"`
+	Archived             *bool                  `json:"archived,omitempty"`
+	CommitStats          map[string]interface{} `json:"commit_stats,omitempty"`
+	CreatedAt            *time.Time             `json:"created_at,omitempty"`
+	DefaultBranch        *string                `json:"default_branch,omitempty"`
+	DependenciesParsedAt *time.Time             `json:"dependencies_parsed_at,omitempty"`
+	DependencyJobID      *string                `json:"dependency_job_id,omitempty"`
+	Description          *string                `json:"description,omitempty"`
+	DownloadURL          *string                `json:"download_url,omitempty"`
+	Etag                 *string                `json:"etag,omitempty"`
+	Fork                 *bool                  `json:"fork,omitempty"`
+	ForksCount           *int                   `json:"forks_count,omitempty"`
+	FullName             *string                `json:"full_name,omitempty"`
+	HasIssues            *bool                  `json:"has_issues,omitempty"`
+	HasPages             *bool                  `json:"has_pages,omitempty"`
+	HasWiki              *bool                  `json:"has_wiki,omitempty"`
+	Homepage             *string                `json:"homepage,omitempty"`
+	Host                 *Host                  `json:"host,omitempty"`
+	HTMLURL              *string                `json:"html_url,omitempty"`
+	IconURL              *string                `json:"icon_url,omitempty"`
+	ID                   *int                   `json:"id,omitempty"`
+	Language             *string                `json:"language,omitempty"`
+	LastSyncedAt         *time.Time             `json:"last_synced_at,omitempty"`
+	LatestCommitSha      *string                `json:"latest_commit_sha,omitempty"`
+	LatestTagName        *string                `json:"latest_tag_name,omitempty"`
+	LatestTagPublishedAt *time.Time             `json:"latest_tag_published_at,omitempty"`
+	License              *string                `json:"license,omitempty"`
+	ManifestsURL         *string                `json:"manifests_url,omitempty"`
+	Metadata             map[string]interface{} `json:"metadata,omitempty"`
+	MirrorURL            *string                `json:"mirror_url,omitempty"`
+	OpenIssuesCount      *int                   `json:"open_issues_count,omitempty"`
+	Owner                *string                `json:"owner,omitempty"`
+	OwnerURL             *string                `json:"owner_url,omitempty"`
+	PreviousNames        []string               `json:"previous_names,omitempty"`
+	PullRequestsEnabled  *bool                  `json:"pull_requests_enabled,omitempty"`
+	Purl                 *string                `json:"purl,omitempty"`
+	PushedAt             *time.Time             `json:"pushed_at,omitempty"`
+	ReleasesURL          *string                `json:"releases_url,omitempty"`
+	RepositoryURL        *string                `json:"repository_url,omitempty"`
+	Scm                  *string                `json:"scm,omitempty"`
+	Scorecard            *Scorecard             `json:"scorecard,omitempty"`
+	Size                 *int                   `json:"size,omitempty"`
+	SourceName           *string                `json:"source_name,omitempty"`
+	StargazersCount      *int                   `json:"stargazers_count,omitempty"`
+	Status               *string                `json:"status,omitempty"`
+	SubscribersCount     *int                   `json:"subscribers_count,omitempty"`
+	TagsCount            *int                   `json:"tags_count,omitempty"`
+	TagsURL              *string                `json:"tags_url,omitempty"`
+	Template             *bool                  `json:"template,omitempty"`
+	TemplateFullName     *string                `json:"template_full_name,omitempty"`
+	Topics               []string               `json:"topics,omitempty"`
+	UpdatedAt            *time.Time             `json:"updated_at,omitempty"`
+	UUID                 *string                `json:"uuid,omitempty"`
 }
 
 // Scorecard defines model for Scorecard.
@@ -316,42 +317,42 @@ type Scorecard struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 
 	// Data Raw scorecard data from the API
-	Data         *map[string]interface{} `json:"data,omitempty"`
-	Id           *int                    `json:"id,omitempty"`
-	LastSyncedAt *time.Time              `json:"last_synced_at,omitempty"`
-	RepositoryId *int                    `json:"repository_id,omitempty"`
-	UpdatedAt    *time.Time              `json:"updated_at,omitempty"`
+	Data         map[string]interface{}       `json:"data,omitempty"`
+	ID           *int                         `json:"id,omitempty"`
+	LastSyncedAt nullable.Nullable[time.Time] `json:"last_synced_at,omitempty"`
+	RepositoryID *int                         `json:"repository_id,omitempty"`
+	UpdatedAt    *time.Time                   `json:"updated_at,omitempty"`
 }
 
 // Tag defines model for Tag.
 type Tag struct {
 	DependenciesParsedAt *time.Time `json:"dependencies_parsed_at,omitempty"`
-	DependencyJobId      *string    `json:"dependency_job_id,omitempty"`
-	DownloadUrl          *string    `json:"download_url,omitempty"`
-	HtmlUrl              *string    `json:"html_url,omitempty"`
+	DependencyJobID      *string    `json:"dependency_job_id,omitempty"`
+	DownloadURL          *string    `json:"download_url,omitempty"`
+	HTMLURL              *string    `json:"html_url,omitempty"`
 	Kind                 *string    `json:"kind,omitempty"`
-	ManifestsUrl         *string    `json:"manifests_url,omitempty"`
+	ManifestsURL         *string    `json:"manifests_url,omitempty"`
 	Name                 *string    `json:"name,omitempty"`
 	PublishedAt          *time.Time `json:"published_at,omitempty"`
 	Purl                 *string    `json:"purl,omitempty"`
 	Sha                  *string    `json:"sha,omitempty"`
-	TagUrl               *string    `json:"tag_url,omitempty"`
+	TagURL               *string    `json:"tag_url,omitempty"`
 }
 
 // Topic defines model for Topic.
 type Topic struct {
 	Name              *string `json:"name,omitempty"`
 	RepositoriesCount *int    `json:"repositories_count,omitempty"`
-	TopicUrl          *string `json:"topic_url,omitempty"`
+	TopicURL          *string `json:"topic_url,omitempty"`
 }
 
 // TopicWithRepositories defines model for TopicWithRepositories.
 type TopicWithRepositories struct {
-	Name              *string       `json:"name,omitempty"`
-	RelatedTopics     *[]Topic      `json:"related_topics,omitempty"`
-	Repositories      *[]Repository `json:"repositories,omitempty"`
-	RepositoriesCount *int          `json:"repositories_count,omitempty"`
-	TopicUrl          *string       `json:"topic_url,omitempty"`
+	Name              *string      `json:"name,omitempty"`
+	RelatedTopics     []Topic      `json:"related_topics,omitempty"`
+	Repositories      []Repository `json:"repositories,omitempty"`
+	RepositoriesCount *int         `json:"repositories_count,omitempty"`
+	TopicURL          *string      `json:"topic_url,omitempty"`
 }
 
 // GetRegistriesParams defines parameters for GetRegistries.
@@ -548,8 +549,8 @@ type GetHostRepositoryNamesParams struct {
 
 // RepositoriesLookupParams defines parameters for RepositoriesLookup.
 type RepositoriesLookupParams struct {
-	// Url The URL of the repository to lookup
-	Url *string `form:"url,omitempty" json:"url,omitempty"`
+	// URL The URL of the repository to lookup
+	URL *string `form:"url,omitempty" json:"url,omitempty"`
 
 	// Purl Package URL (PURL) of the repository to lookup. Supported types: github, gitlab, gitea, bitbucket, forgejo, sourcehut
 	Purl *string `form:"purl,omitempty" json:"purl,omitempty"`
@@ -626,8 +627,8 @@ type UsagePackageDependentRepositoriesParams struct {
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 
-	// AfterId filter to repositories with id greater than given value (for keyset pagination)
-	AfterId *int `form:"after_id,omitempty" json:"after_id,omitempty"`
+	// AfterID filter to repositories with id greater than given value (for keyset pagination)
+	AfterID *int `form:"after_id,omitempty" json:"after_id,omitempty"`
 
 	// Fork filter by fork
 	Fork *bool `form:"fork,omitempty" json:"fork,omitempty"`
@@ -2738,9 +2739,9 @@ func NewRepositoriesLookupRequest(server string, params *RepositoriesLookupParam
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if params.Url != nil {
+		if params.URL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "url", *params.Url, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "url", *params.URL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -3310,9 +3311,9 @@ func NewUsagePackageDependentRepositoriesRequest(server string, ecosystem string
 
 		}
 
-		if params.AfterId != nil {
+		if params.AfterID != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "after_id", *params.AfterId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "after_id", *params.AfterID, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
