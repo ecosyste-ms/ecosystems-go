@@ -19,22 +19,22 @@ import (
 
 // Author defines model for Author.
 type Author struct {
-	ActiveMaintaining                  *[]RepoCount              `json:"active_maintaining,omitempty"`
-	AverageIssueCloseTime              *float32                  `json:"average_issue_close_time,omitempty"`
-	AverageIssueCommentsCount          *float32                  `json:"average_issue_comments_count,omitempty"`
-	AveragePullRequestCloseTime        *float32                  `json:"average_pull_request_close_time,omitempty"`
-	AveragePullRequestCommentsCount    *float32                  `json:"average_pull_request_comments_count,omitempty"`
-	IssueAuthorAssociationsCount       *[]AuthorAssociationCount `json:"issue_author_associations_count,omitempty"`
-	IssueLabelsCount                   *[]LabelCount             `json:"issue_labels_count,omitempty"`
-	IssueRepos                         *[]RepoCount              `json:"issue_repos,omitempty"`
-	IssuesCount                        *int                      `json:"issues_count,omitempty"`
-	Login                              *string                   `json:"login,omitempty"`
-	Maintaining                        *[]RepoCount              `json:"maintaining,omitempty"`
-	MergedPullRequestsCount            *int                      `json:"merged_pull_requests_count,omitempty"`
-	PullRequestAuthorAssociationsCount *[]AuthorAssociationCount `json:"pull_request_author_associations_count,omitempty"`
-	PullRequestLabelsCount             *[]LabelCount             `json:"pull_request_labels_count,omitempty"`
-	PullRequestRepos                   *[]RepoCount              `json:"pull_request_repos,omitempty"`
-	PullRequestsCount                  *int                      `json:"pull_requests_count,omitempty"`
+	ActiveMaintaining                  []RepoCount              `json:"active_maintaining,omitempty"`
+	AverageIssueCloseTime              *float32                 `json:"average_issue_close_time,omitempty"`
+	AverageIssueCommentsCount          *float32                 `json:"average_issue_comments_count,omitempty"`
+	AveragePullRequestCloseTime        *float32                 `json:"average_pull_request_close_time,omitempty"`
+	AveragePullRequestCommentsCount    *float32                 `json:"average_pull_request_comments_count,omitempty"`
+	IssueAuthorAssociationsCount       []AuthorAssociationCount `json:"issue_author_associations_count,omitempty"`
+	IssueLabelsCount                   []LabelCount             `json:"issue_labels_count,omitempty"`
+	IssueRepos                         []RepoCount              `json:"issue_repos,omitempty"`
+	IssuesCount                        *int                     `json:"issues_count,omitempty"`
+	Login                              *string                  `json:"login,omitempty"`
+	Maintaining                        []RepoCount              `json:"maintaining,omitempty"`
+	MergedPullRequestsCount            *int                     `json:"merged_pull_requests_count,omitempty"`
+	PullRequestAuthorAssociationsCount []AuthorAssociationCount `json:"pull_request_author_associations_count,omitempty"`
+	PullRequestLabelsCount             []LabelCount             `json:"pull_request_labels_count,omitempty"`
+	PullRequestRepos                   []RepoCount              `json:"pull_request_repos,omitempty"`
+	PullRequestsCount                  *int                     `json:"pull_requests_count,omitempty"`
 }
 
 // AuthorAssociationCount defines model for AuthorAssociationCount.
@@ -47,12 +47,12 @@ type AuthorAssociationCount struct {
 type AuthorCount struct {
 	Author *string `json:"author,omitempty"`
 	Count  *int    `json:"count,omitempty"`
-	Url    *string `json:"url,omitempty"`
+	URL    *string `json:"url,omitempty"`
 }
 
 // AuthorSummary defines model for AuthorSummary.
 type AuthorSummary struct {
-	AuthorUrl         *string `json:"author_url,omitempty"`
+	AuthorURL         *string `json:"author_url,omitempty"`
 	Login             *string `json:"login,omitempty"`
 	RepositoriesCount *int    `json:"repositories_count,omitempty"`
 }
@@ -60,29 +60,29 @@ type AuthorSummary struct {
 // Host defines model for Host.
 type Host struct {
 	AuthorsCount      *int       `json:"authors_count,omitempty"`
-	IconUrl           *string    `json:"icon_url,omitempty"`
+	IconURL           *string    `json:"icon_url,omitempty"`
 	IssuesCount       *int       `json:"issues_count,omitempty"`
 	Kind              *string    `json:"kind,omitempty"`
 	LastSyncedAt      *time.Time `json:"last_synced_at,omitempty"`
 	Name              *string    `json:"name,omitempty"`
 	PullRequestsCount *int       `json:"pull_requests_count,omitempty"`
 	RepositoriesCount *int       `json:"repositories_count,omitempty"`
-	Url               *string    `json:"url,omitempty"`
+	URL               *string    `json:"url,omitempty"`
 }
 
 // Issue defines model for Issue.
 type Issue struct {
-	Assignees         *[]string  `json:"assignees,omitempty"`
+	Assignees         []string   `json:"assignees,omitempty"`
 	AuthorAssociation *string    `json:"author_association,omitempty"`
 	ClosedAt          *time.Time `json:"closed_at,omitempty"`
 	Comments          *int       `json:"comments,omitempty"`
 	CommentsCount     *int       `json:"comments_count,omitempty"`
 	CreatedAt         *time.Time `json:"created_at,omitempty"`
-	HtmlUrl           *string    `json:"html_url,omitempty"`
-	Labels            *[]string  `json:"labels,omitempty"`
+	HTMLURL           *string    `json:"html_url,omitempty"`
+	Labels            []string   `json:"labels,omitempty"`
 	Locked            *bool      `json:"locked,omitempty"`
 	MergedAt          *time.Time `json:"merged_at,omitempty"`
-	NodeId            *string    `json:"node_id,omitempty"`
+	NodeID            *string    `json:"node_id,omitempty"`
 	Number            *int       `json:"number,omitempty"`
 	PullRequest       *bool      `json:"pull_request,omitempty"`
 	State             *string    `json:"state,omitempty"`
@@ -90,26 +90,26 @@ type Issue struct {
 	TimeToClose       *int       `json:"time_to_close,omitempty"`
 	Title             *string    `json:"title,omitempty"`
 	UpdatedAt         *time.Time `json:"updated_at,omitempty"`
-	Url               *string    `json:"url,omitempty"`
+	URL               *string    `json:"url,omitempty"`
 	User              *string    `json:"user,omitempty"`
-	Uuid              *int       `json:"uuid,omitempty"`
+	UUID              *int       `json:"uuid,omitempty"`
 }
 
 // Job defines model for Job.
 type Job struct {
-	CreatedAt *time.Time              `json:"created_at,omitempty"`
-	Id        *int                    `json:"id,omitempty"`
-	Results   *map[string]interface{} `json:"results,omitempty"`
-	SidekiqId *string                 `json:"sidekiq_id,omitempty"`
-	Status    *string                 `json:"status,omitempty"`
-	UpdatedAt *time.Time              `json:"updated_at,omitempty"`
-	Url       *string                 `json:"url,omitempty"`
+	CreatedAt *time.Time             `json:"created_at,omitempty"`
+	ID        *int                   `json:"id,omitempty"`
+	Results   map[string]interface{} `json:"results,omitempty"`
+	SidekiqID *string                `json:"sidekiq_id,omitempty"`
+	Status    *string                `json:"status,omitempty"`
+	UpdatedAt *time.Time             `json:"updated_at,omitempty"`
+	URL       *string                `json:"url,omitempty"`
 }
 
 // LabelCount defines model for LabelCount.
 type LabelCount struct {
 	Count     *int    `json:"count,omitempty"`
-	IssuesUrl *string `json:"issues_url,omitempty"`
+	IssuesURL *string `json:"issues_url,omitempty"`
 	Label     *string `json:"label,omitempty"`
 }
 
@@ -117,42 +117,42 @@ type LabelCount struct {
 type MaintainerCount struct {
 	Count      *int    `json:"count,omitempty"`
 	Maintainer *string `json:"maintainer,omitempty"`
-	Url        *string `json:"url,omitempty"`
+	URL        *string `json:"url,omitempty"`
 }
 
 // Maintainers defines model for Maintainers.
 type Maintainers struct {
-	ActiveMaintainers *[]MaintainerCount `json:"active_maintainers,omitempty"`
-	Login             *string            `json:"login,omitempty"`
-	Maintainers       *[]MaintainerCount `json:"maintainers,omitempty"`
+	ActiveMaintainers []MaintainerCount `json:"active_maintainers,omitempty"`
+	Login             *string           `json:"login,omitempty"`
+	Maintainers       []MaintainerCount `json:"maintainers,omitempty"`
 }
 
 // Owner defines model for Owner.
 type Owner struct {
-	ActiveMaintainers                  *[]MaintainerCount        `json:"active_maintainers,omitempty"`
-	AverageIssueCloseTime              *float32                  `json:"average_issue_close_time,omitempty"`
-	AverageIssueCommentsCount          *float32                  `json:"average_issue_comments_count,omitempty"`
-	AveragePullRequestCloseTime        *float32                  `json:"average_pull_request_close_time,omitempty"`
-	AveragePullRequestCommentsCount    *float32                  `json:"average_pull_request_comments_count,omitempty"`
-	IssueAuthorAssociationsCount       *[]AuthorAssociationCount `json:"issue_author_associations_count,omitempty"`
-	IssueAuthors                       *[]AuthorCount            `json:"issue_authors,omitempty"`
-	IssueLabelsCount                   *[]LabelCount             `json:"issue_labels_count,omitempty"`
-	IssueRepos                         *[]RepoCount              `json:"issue_repos,omitempty"`
-	IssuesCount                        *int                      `json:"issues_count,omitempty"`
-	Login                              *string                   `json:"login,omitempty"`
-	Maintainers                        *[]MaintainerCount        `json:"maintainers,omitempty"`
-	MergedPullRequestsCount            *int                      `json:"merged_pull_requests_count,omitempty"`
-	PullRequestAuthorAssociationsCount *[]AuthorAssociationCount `json:"pull_request_author_associations_count,omitempty"`
-	PullRequestAuthors                 *[]AuthorCount            `json:"pull_request_authors,omitempty"`
-	PullRequestLabelsCount             *[]LabelCount             `json:"pull_request_labels_count,omitempty"`
-	PullRequestRepos                   *[]RepoCount              `json:"pull_request_repos,omitempty"`
-	PullRequestsCount                  *int                      `json:"pull_requests_count,omitempty"`
+	ActiveMaintainers                  []MaintainerCount        `json:"active_maintainers,omitempty"`
+	AverageIssueCloseTime              *float32                 `json:"average_issue_close_time,omitempty"`
+	AverageIssueCommentsCount          *float32                 `json:"average_issue_comments_count,omitempty"`
+	AveragePullRequestCloseTime        *float32                 `json:"average_pull_request_close_time,omitempty"`
+	AveragePullRequestCommentsCount    *float32                 `json:"average_pull_request_comments_count,omitempty"`
+	IssueAuthorAssociationsCount       []AuthorAssociationCount `json:"issue_author_associations_count,omitempty"`
+	IssueAuthors                       []AuthorCount            `json:"issue_authors,omitempty"`
+	IssueLabelsCount                   []LabelCount             `json:"issue_labels_count,omitempty"`
+	IssueRepos                         []RepoCount              `json:"issue_repos,omitempty"`
+	IssuesCount                        *int                     `json:"issues_count,omitempty"`
+	Login                              *string                  `json:"login,omitempty"`
+	Maintainers                        []MaintainerCount        `json:"maintainers,omitempty"`
+	MergedPullRequestsCount            *int                     `json:"merged_pull_requests_count,omitempty"`
+	PullRequestAuthorAssociationsCount []AuthorAssociationCount `json:"pull_request_author_associations_count,omitempty"`
+	PullRequestAuthors                 []AuthorCount            `json:"pull_request_authors,omitempty"`
+	PullRequestLabelsCount             []LabelCount             `json:"pull_request_labels_count,omitempty"`
+	PullRequestRepos                   []RepoCount              `json:"pull_request_repos,omitempty"`
+	PullRequestsCount                  *int                     `json:"pull_requests_count,omitempty"`
 }
 
 // OwnerSummary defines model for OwnerSummary.
 type OwnerSummary struct {
 	Login             *string `json:"login,omitempty"`
-	OwnerUrl          *string `json:"owner_url,omitempty"`
+	OwnerURL          *string `json:"owner_url,omitempty"`
 	RepositoriesCount *int    `json:"repositories_count,omitempty"`
 }
 
@@ -160,7 +160,7 @@ type OwnerSummary struct {
 type RepoCount struct {
 	Count      *int    `json:"count,omitempty"`
 	Repository *string `json:"repository,omitempty"`
-	Url        *string `json:"url,omitempty"`
+	URL        *string `json:"url,omitempty"`
 }
 
 // Repository defines model for Repository.
@@ -173,11 +173,11 @@ type Repository struct {
 	BotPullRequestsCount              *int       `json:"bot_pull_requests_count,omitempty"`
 	CreatedAt                         *time.Time `json:"created_at,omitempty"`
 	FullName                          *string    `json:"full_name,omitempty"`
-	HtmlUrl                           *string    `json:"html_url,omitempty"`
+	HTMLURL                           *string    `json:"html_url,omitempty"`
 	IssueAuthorsCount                 *int       `json:"issue_authors_count,omitempty"`
 	IssuesClosedCount                 *int       `json:"issues_closed_count,omitempty"`
 	IssuesCount                       *int       `json:"issues_count,omitempty"`
-	IssuesUrl                         *string    `json:"issues_url,omitempty"`
+	IssuesURL                         *string    `json:"issues_url,omitempty"`
 	LastSyncedAt                      *time.Time `json:"last_synced_at,omitempty"`
 	MergedPullRequestsCount           *int       `json:"merged_pull_requests_count,omitempty"`
 	PastYearAvgCommentsPerIssue       *float32   `json:"past_year_avg_comments_per_issue,omitempty"`
@@ -280,20 +280,20 @@ type GetHostRepositoryIssuesParams struct {
 
 // CreateJobJSONBody defines parameters for CreateJob.
 type CreateJobJSONBody struct {
-	// Url URL of the repository to sync issues from
-	Url string `json:"url"`
+	// URL URL of the repository to sync issues from
+	URL string `json:"url"`
 }
 
 // CreateJob400JSONResponseBody defines parameters for CreateJob.
 type CreateJob400JSONResponseBody struct {
-	Details *[]string `json:"details,omitempty"`
-	Title   *string   `json:"title,omitempty"`
+	Details []string `json:"details,omitempty"`
+	Title   *string  `json:"title,omitempty"`
 }
 
 // RepositoriesLookupParams defines parameters for RepositoriesLookup.
 type RepositoriesLookupParams struct {
-	// Url The URL of the repository to lookup
-	Url string `form:"url" json:"url"`
+	// URL The URL of the repository to lookup
+	URL string `form:"url" json:"url"`
 }
 
 // CreateJobJSONRequestBody defines body for CreateJob for application/json ContentType.
@@ -450,7 +450,7 @@ type ClientInterface interface {
 	// GetJob get the status of a job
 	//
 	// Corresponds with GET /jobs/{jobId} (the `GetJob` operationId).
-	GetJob(ctx context.Context, jobId int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	GetJob(ctx context.Context, jobID int, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RepositoriesLookup Lookup repository metadata
 	//
@@ -675,8 +675,8 @@ func (c *Client) CreateJob(ctx context.Context, body CreateJobJSONRequestBody, r
 // GetJob get the status of a job
 //
 // Corresponds with GET /jobs/{jobId} (the `GetJob` operationId).
-func (c *Client) GetJob(ctx context.Context, jobId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetJobRequest(c.Server, jobId)
+func (c *Client) GetJob(ctx context.Context, jobID int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetJobRequest(c.Server, jobID)
 	if err != nil {
 		return nil, err
 	}
@@ -1527,12 +1527,12 @@ func NewCreateJobRequestWithBody(server string, contentType string, body io.Read
 }
 
 // NewGetJobRequest constructs an http.Request for the GetJob method
-func NewGetJobRequest(server string, jobId int) (*http.Request, error) {
+func NewGetJobRequest(server string, jobID int) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
 
-	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "jobId", jobId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "jobId", jobID, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "integer", Format: ""})
 	if err != nil {
 		return nil, err
 	}
@@ -1588,7 +1588,7 @@ func NewRepositoriesLookupRequest(server string, params *RepositoriesLookupParam
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "url", params.Url, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "url", params.URL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 			return nil, err
 		} else {
 			for _, qp := range strings.Split(queryFrag, "&") {
@@ -1757,7 +1757,7 @@ type ClientWithResponsesInterface interface {
 	// Returns a wrapper object for the known response body format(s).
 	//
 	// Corresponds with GET /jobs/{jobId} (the `GetJob` operationId).
-	GetJobWithResponse(ctx context.Context, jobId int, reqEditors ...RequestEditorFn) (*GetJobResponse, error)
+	GetJobWithResponse(ctx context.Context, jobID int, reqEditors ...RequestEditorFn) (*GetJobResponse, error)
 
 	// RepositoriesLookupWithResponse Lookup repository metadata
 	//
@@ -2419,8 +2419,8 @@ func (c *ClientWithResponses) CreateJobWithResponse(ctx context.Context, body Cr
 // Returns a wrapper object for the known response body format(s).
 //
 // Corresponds with GET /jobs/{jobId} (the `GetJob` operationId).
-func (c *ClientWithResponses) GetJobWithResponse(ctx context.Context, jobId int, reqEditors ...RequestEditorFn) (*GetJobResponse, error) {
-	rsp, err := c.GetJob(ctx, jobId, reqEditors...)
+func (c *ClientWithResponses) GetJobWithResponse(ctx context.Context, jobID int, reqEditors ...RequestEditorFn) (*GetJobResponse, error) {
+	rsp, err := c.GetJob(ctx, jobID, reqEditors...)
 	if err != nil {
 		return nil, err
 	}

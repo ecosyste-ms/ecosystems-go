@@ -14,28 +14,29 @@ import (
 	"strings"
 	"time"
 
+	"github.com/oapi-codegen/nullable"
 	"github.com/oapi-codegen/runtime"
 )
 
 // Advisory defines model for Advisory.
 type Advisory struct {
-	Classification *string                  `json:"classification"`
-	CreatedAt      string                   `json:"created_at"`
-	CvssScore      *float32                 `json:"cvss_score"`
-	CvssVector     *string                  `json:"cvss_vector"`
-	Description    *string                  `json:"description"`
-	Identifiers    []*string                `json:"identifiers"`
-	Origin         *string                  `json:"origin"`
-	Packages       []map[string]interface{} `json:"packages"`
-	PublishedAt    *string                  `json:"published_at"`
-	References     []*string                `json:"references"`
-	Severity       *string                  `json:"severity"`
-	SourceKind     *string                  `json:"source_kind"`
-	Title          *string                  `json:"title"`
-	UpdatedAt      string                   `json:"updated_at"`
-	Url            *string                  `json:"url"`
-	Uuid           string                   `json:"uuid"`
-	WithdrawnAt    *string                  `json:"withdrawn_at"`
+	Classification nullable.Nullable[string]   `json:"classification"`
+	CreatedAt      string                      `json:"created_at"`
+	CvssScore      nullable.Nullable[float32]  `json:"cvss_score"`
+	CvssVector     nullable.Nullable[string]   `json:"cvss_vector"`
+	Description    nullable.Nullable[string]   `json:"description"`
+	Identifiers    []nullable.Nullable[string] `json:"identifiers"`
+	Origin         nullable.Nullable[string]   `json:"origin"`
+	Packages       []map[string]interface{}    `json:"packages"`
+	PublishedAt    nullable.Nullable[string]   `json:"published_at"`
+	References     []nullable.Nullable[string] `json:"references"`
+	Severity       nullable.Nullable[string]   `json:"severity"`
+	SourceKind     nullable.Nullable[string]   `json:"source_kind"`
+	Title          nullable.Nullable[string]   `json:"title"`
+	UpdatedAt      string                      `json:"updated_at"`
+	URL            nullable.Nullable[string]   `json:"url"`
+	UUID           string                      `json:"uuid"`
+	WithdrawnAt    nullable.Nullable[string]   `json:"withdrawn_at"`
 }
 
 // CodeMeta CodeMeta JSON-LD metadata format for software packages, compatible with Software Heritage
@@ -51,46 +52,46 @@ type CodeMeta struct {
 	Type string `json:"@type"`
 
 	// ApplicationCategory Package ecosystem/category
-	ApplicationCategory *string `json:"applicationCategory,omitempty"`
+	ApplicationCategory nullable.Nullable[string] `json:"applicationCategory,omitempty"`
 
 	// Author Package authors
-	Author *[]CodeMeta_Author `json:"author,omitempty"`
+	Author nullable.Nullable[[]CodeMeta_Author] `json:"author,omitempty"`
 
 	// CodeRepository Source code repository URL
-	CodeRepository *string `json:"codeRepository,omitempty"`
+	CodeRepository nullable.Nullable[string] `json:"codeRepository,omitempty"`
 
 	// CopyrightHolder Copyright holders
-	CopyrightHolder *[]CodeMeta_CopyrightHolder `json:"copyrightHolder,omitempty"`
+	CopyrightHolder nullable.Nullable[[]CodeMeta_CopyrightHolder] `json:"copyrightHolder,omitempty"`
 
 	// CopyrightYear Copyright year
-	CopyrightYear *int `json:"copyrightYear,omitempty"`
+	CopyrightYear nullable.Nullable[int] `json:"copyrightYear,omitempty"`
 
 	// DateCreated Creation date (ISO 8601)
-	DateCreated *time.Time `json:"dateCreated,omitempty"`
+	DateCreated nullable.Nullable[time.Time] `json:"dateCreated,omitempty"`
 
 	// DateModified Last modification date (ISO 8601)
-	DateModified *time.Time `json:"dateModified,omitempty"`
+	DateModified nullable.Nullable[time.Time] `json:"dateModified,omitempty"`
 
 	// DatePublished Publication date (ISO 8601)
-	DatePublished *time.Time `json:"datePublished,omitempty"`
+	DatePublished nullable.Nullable[time.Time] `json:"datePublished,omitempty"`
 
 	// Description Package description
-	Description *string `json:"description,omitempty"`
+	Description nullable.Nullable[string] `json:"description,omitempty"`
 
 	// DevelopmentStatus Development status
-	DevelopmentStatus *string `json:"developmentStatus,omitempty"`
+	DevelopmentStatus nullable.Nullable[string] `json:"developmentStatus,omitempty"`
 
-	// DownloadUrl Package download URL
-	DownloadUrl *string `json:"downloadUrl,omitempty"`
+	// DownloadURL Package download URL
+	DownloadURL nullable.Nullable[string] `json:"downloadUrl,omitempty"`
 
 	// Funder Funding sources
-	Funder *[]CodeMeta_Funder `json:"funder,omitempty"`
+	Funder nullable.Nullable[[]CodeMeta_Funder] `json:"funder,omitempty"`
 
-	// HttpsforgefedOrgnsForks Fork count (ForgeFed)
-	HttpsforgefedOrgnsForks *int `json:"https://forgefed.org/ns#forks,omitempty"`
+	// HTTPSForgefedOrgNsForks Fork count (ForgeFed)
+	HTTPSForgefedOrgNsForks nullable.Nullable[int] `json:"https://forgefed.org/ns#forks,omitempty"`
 
-	// HttpswwwW3OrgnsactivitystreamsLikes Star/like count (ActivityStreams)
-	HttpswwwW3OrgnsactivitystreamsLikes *int `json:"https://www.w3.org/ns/activitystreams#likes,omitempty"`
+	// HTTPSWwwW3OrgNsActivitystreamsLikes Star/like count (ActivityStreams)
+	HTTPSWwwW3OrgNsActivitystreamsLikes nullable.Nullable[int] `json:"https://www.w3.org/ns/activitystreams#likes,omitempty"`
 
 	// Identifier Package URL (purl) identifier
 	//
@@ -98,63 +99,63 @@ type CodeMeta struct {
 	Identifier string `json:"identifier"`
 
 	// IssueTracker Issue tracker URL
-	IssueTracker *string `json:"issueTracker,omitempty"`
+	IssueTracker nullable.Nullable[string] `json:"issueTracker,omitempty"`
 
 	// Keywords Keywords and tags
-	Keywords *[]string `json:"keywords,omitempty"`
+	Keywords nullable.Nullable[[]string] `json:"keywords,omitempty"`
 
 	// License SPDX license URL(s)
-	License *CodeMeta_License `json:"license,omitempty"`
+	License nullable.Nullable[CodeMeta_License] `json:"license,omitempty"`
 
 	// Maintainer Package maintainers
-	Maintainer *[]CodeMeta_Maintainer `json:"maintainer,omitempty"`
+	Maintainer nullable.Nullable[[]CodeMeta_Maintainer] `json:"maintainer,omitempty"`
 
 	// Name Package name
 	Name string `json:"name"`
 
 	// ProgrammingLanguage Programming language information
-	ProgrammingLanguage *CodeMeta_ProgrammingLanguage `json:"programmingLanguage,omitempty"`
+	ProgrammingLanguage nullable.Nullable[CodeMeta_ProgrammingLanguage] `json:"programmingLanguage,omitempty"`
 
 	// RuntimePlatform Runtime platform/ecosystem
-	RuntimePlatform *string `json:"runtimePlatform,omitempty"`
+	RuntimePlatform nullable.Nullable[string] `json:"runtimePlatform,omitempty"`
 
 	// SameAs Alternative identifiers/URLs
-	SameAs *[]string `json:"sameAs,omitempty"`
+	SameAs nullable.Nullable[[]string] `json:"sameAs,omitempty"`
 
 	// SoftwareHelp Documentation/help resources
-	SoftwareHelp *CodeMeta_SoftwareHelp `json:"softwareHelp,omitempty"`
+	SoftwareHelp nullable.Nullable[CodeMeta_SoftwareHelp] `json:"softwareHelp,omitempty"`
 
 	// SoftwareVersion Software version
-	SoftwareVersion *string `json:"softwareVersion,omitempty"`
+	SoftwareVersion nullable.Nullable[string] `json:"softwareVersion,omitempty"`
 
-	// Url Homepage URL
-	Url *string `json:"url,omitempty"`
+	// URL Homepage URL
+	URL nullable.Nullable[string] `json:"url,omitempty"`
 
 	// Version Version number
-	Version *string `json:"version,omitempty"`
+	Version nullable.Nullable[string] `json:"version,omitempty"`
 }
 
 // CodeMeta_Author defines model for CodeMeta.Author.
 type CodeMeta_Author struct {
 	// Type Example: Person
-	Type *string `json:"@type,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	Type *string                   `json:"@type,omitempty"`
+	Name *string                   `json:"name,omitempty"`
+	URL  nullable.Nullable[string] `json:"url,omitempty"`
 }
 
 // CodeMeta_CopyrightHolder defines model for CodeMeta.CopyrightHolder.
 type CodeMeta_CopyrightHolder struct {
 	// Type Example: Person
-	Type *string `json:"@type,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	Type *string                   `json:"@type,omitempty"`
+	Name *string                   `json:"name,omitempty"`
+	URL  nullable.Nullable[string] `json:"url,omitempty"`
 }
 
 // CodeMeta_Funder defines model for CodeMeta.Funder.
 type CodeMeta_Funder struct {
 	// Type Example: Organization
 	Type *string `json:"@type,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	URL  *string `json:"url,omitempty"`
 }
 
 // CodeMetaLicense0 defines model for CodeMeta.License.0.
@@ -171,9 +172,9 @@ type CodeMeta_License struct {
 // CodeMeta_Maintainer defines model for CodeMeta.Maintainer.
 type CodeMeta_Maintainer struct {
 	// Type Example: Person
-	Type *string `json:"@type,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	Type *string                   `json:"@type,omitempty"`
+	Name *string                   `json:"name,omitempty"`
+	URL  nullable.Nullable[string] `json:"url,omitempty"`
 }
 
 // CodeMeta_ProgrammingLanguage Programming language information
@@ -189,24 +190,24 @@ type CodeMeta_ProgrammingLanguage struct {
 type CodeMeta_SoftwareHelp struct {
 	// Type Example: WebSite
 	Type *string `json:"@type,omitempty"`
-	Url  *string `json:"url,omitempty"`
+	URL  *string `json:"url,omitempty"`
 }
 
 // Dependency defines model for Dependency.
 type Dependency struct {
-	Ecosystem    string  `json:"ecosystem"`
-	Id           int     `json:"id"`
-	Kind         *string `json:"kind"`
-	Optional     *bool   `json:"optional"`
-	PackageName  string  `json:"package_name"`
-	Requirements *string `json:"requirements"`
+	Ecosystem    string                    `json:"ecosystem"`
+	ID           int                       `json:"id"`
+	Kind         nullable.Nullable[string] `json:"kind"`
+	Optional     nullable.Nullable[bool]   `json:"optional"`
+	PackageName  string                    `json:"package_name"`
+	Requirements nullable.Nullable[string] `json:"requirements"`
 }
 
 // Keyword defines model for Keyword.
 type Keyword struct {
 	Name          string `json:"name"`
 	PackagesCount int    `json:"packages_count"`
-	PackagesUrl   string `json:"packages_url"`
+	PackagesURL   string `json:"packages_url"`
 }
 
 // KeywordWithPackages defines model for KeywordWithPackages.
@@ -214,218 +215,218 @@ type KeywordWithPackages struct {
 	Name            string    `json:"name"`
 	Packages        []Package `json:"packages"`
 	PackagesCount   int       `json:"packages_count"`
-	PackagesUrl     string    `json:"packages_url"`
+	PackagesURL     string    `json:"packages_url"`
 	RelatedKeywords []Keyword `json:"related_keywords"`
 }
 
 // Maintainer defines model for Maintainer.
 type Maintainer struct {
-	CreatedAt      time.Time `json:"created_at"`
-	Email          *string   `json:"email"`
-	HtmlUrl        *string   `json:"html_url"`
-	Login          *string   `json:"login"`
-	Name           *string   `json:"name"`
-	PackagesCount  int       `json:"packages_count"`
-	PackagesUrl    string    `json:"packages_url"`
-	Role           *string   `json:"role"`
-	TotalDownloads int       `json:"total_downloads"`
-	UpdatedAt      time.Time `json:"updated_at"`
-	Url            *string   `json:"url"`
-	Uuid           string    `json:"uuid"`
+	CreatedAt      time.Time                 `json:"created_at"`
+	Email          nullable.Nullable[string] `json:"email"`
+	HTMLURL        nullable.Nullable[string] `json:"html_url"`
+	Login          nullable.Nullable[string] `json:"login"`
+	Name           nullable.Nullable[string] `json:"name"`
+	PackagesCount  int                       `json:"packages_count"`
+	PackagesURL    string                    `json:"packages_url"`
+	Role           nullable.Nullable[string] `json:"role"`
+	TotalDownloads int                       `json:"total_downloads"`
+	UpdatedAt      time.Time                 `json:"updated_at"`
+	URL            nullable.Nullable[string] `json:"url"`
+	UUID           string                    `json:"uuid"`
 }
 
 // Namespace defines model for Namespace.
 type Namespace struct {
 	Name          string `json:"name"`
 	PackagesCount int    `json:"packages_count"`
-	PackagesUrl   string `json:"packages_url"`
+	PackagesURL   string `json:"packages_url"`
 }
 
 // Package defines model for Package.
 type Package struct {
-	Advisories               []Advisory              `json:"advisories"`
-	CodemetaUrl              string                  `json:"codemeta_url"`
-	CreatedAt                time.Time               `json:"created_at"`
-	Critical                 bool                    `json:"critical"`
-	DependentPackagesCount   int                     `json:"dependent_packages_count"`
-	DependentPackagesUrl     string                  `json:"dependent_packages_url"`
-	DependentReposCount      int                     `json:"dependent_repos_count"`
-	DependentRepositoriesUrl string                  `json:"dependent_repositories_url"`
-	Description              *string                 `json:"description"`
-	DockerDependentsCount    int                     `json:"docker_dependents_count"`
-	DockerDownloadsCount     int                     `json:"docker_downloads_count"`
-	DockerUsageUrl           string                  `json:"docker_usage_url"`
-	DocumentationUrl         *string                 `json:"documentation_url"`
-	Downloads                int                     `json:"downloads"`
-	DownloadsPeriod          *string                 `json:"downloads_period"`
-	Ecosystem                string                  `json:"ecosystem"`
-	FirstReleasePublishedAt  *time.Time              `json:"first_release_published_at"`
-	FundingLinks             []string                `json:"funding_links"`
-	Homepage                 *string                 `json:"homepage"`
-	Id                       int                     `json:"id"`
-	InstallCommand           *string                 `json:"install_command"`
-	IssueMetadata            map[string]interface{}  `json:"issue_metadata"`
-	KeywordsArray            []string                `json:"keywords_array"`
-	LastSyncedAt             *time.Time              `json:"last_synced_at"`
-	LatestReleaseNumber      *string                 `json:"latest_release_number"`
-	LatestReleasePublishedAt *time.Time              `json:"latest_release_published_at"`
-	Licenses                 *string                 `json:"licenses"`
-	Maintainers              []Maintainer            `json:"maintainers"`
-	Metadata                 *map[string]interface{} `json:"metadata"`
-	Name                     string                  `json:"name"`
-	Namespace                *string                 `json:"namespace"`
-	NormalizedLicenses       []string                `json:"normalized_licenses"`
-	Purl                     string                  `json:"purl"`
-	Rankings                 map[string]interface{}  `json:"rankings"`
-	RegistryUrl              *string                 `json:"registry_url"`
-	RelatedPackagesUrl       string                  `json:"related_packages_url"`
-	RepoMetadata             *map[string]interface{} `json:"repo_metadata"`
-	RepoMetadataUpdatedAt    *time.Time              `json:"repo_metadata_updated_at"`
-	RepositoryUrl            *string                 `json:"repository_url"`
-	Status                   *string                 `json:"status"`
-	UpdatedAt                time.Time               `json:"updated_at"`
-	UsageUrl                 string                  `json:"usage_url"`
-	VersionNumbersUrl        *string                 `json:"version_numbers_url,omitempty"`
-	VersionsCount            int                     `json:"versions_count"`
-	VersionsUrl              string                  `json:"versions_url"`
+	Advisories               []Advisory                                `json:"advisories"`
+	CodemetaURL              string                                    `json:"codemeta_url"`
+	CreatedAt                time.Time                                 `json:"created_at"`
+	Critical                 bool                                      `json:"critical"`
+	DependentPackagesCount   int                                       `json:"dependent_packages_count"`
+	DependentPackagesURL     string                                    `json:"dependent_packages_url"`
+	DependentReposCount      int                                       `json:"dependent_repos_count"`
+	DependentRepositoriesURL string                                    `json:"dependent_repositories_url"`
+	Description              nullable.Nullable[string]                 `json:"description"`
+	DockerDependentsCount    int                                       `json:"docker_dependents_count"`
+	DockerDownloadsCount     int                                       `json:"docker_downloads_count"`
+	DockerUsageURL           string                                    `json:"docker_usage_url"`
+	DocumentationURL         nullable.Nullable[string]                 `json:"documentation_url"`
+	Downloads                int                                       `json:"downloads"`
+	DownloadsPeriod          nullable.Nullable[string]                 `json:"downloads_period"`
+	Ecosystem                string                                    `json:"ecosystem"`
+	FirstReleasePublishedAt  nullable.Nullable[time.Time]              `json:"first_release_published_at"`
+	FundingLinks             []string                                  `json:"funding_links"`
+	Homepage                 nullable.Nullable[string]                 `json:"homepage"`
+	ID                       int                                       `json:"id"`
+	InstallCommand           nullable.Nullable[string]                 `json:"install_command"`
+	IssueMetadata            map[string]interface{}                    `json:"issue_metadata"`
+	KeywordsArray            []string                                  `json:"keywords_array"`
+	LastSyncedAt             nullable.Nullable[time.Time]              `json:"last_synced_at"`
+	LatestReleaseNumber      nullable.Nullable[string]                 `json:"latest_release_number"`
+	LatestReleasePublishedAt nullable.Nullable[time.Time]              `json:"latest_release_published_at"`
+	Licenses                 nullable.Nullable[string]                 `json:"licenses"`
+	Maintainers              []Maintainer                              `json:"maintainers"`
+	Metadata                 nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Name                     string                                    `json:"name"`
+	Namespace                nullable.Nullable[string]                 `json:"namespace"`
+	NormalizedLicenses       []string                                  `json:"normalized_licenses"`
+	Purl                     string                                    `json:"purl"`
+	Rankings                 map[string]interface{}                    `json:"rankings"`
+	RegistryURL              nullable.Nullable[string]                 `json:"registry_url"`
+	RelatedPackagesURL       string                                    `json:"related_packages_url"`
+	RepoMetadata             nullable.Nullable[map[string]interface{}] `json:"repo_metadata"`
+	RepoMetadataUpdatedAt    nullable.Nullable[time.Time]              `json:"repo_metadata_updated_at"`
+	RepositoryURL            nullable.Nullable[string]                 `json:"repository_url"`
+	Status                   nullable.Nullable[string]                 `json:"status"`
+	UpdatedAt                time.Time                                 `json:"updated_at"`
+	UsageURL                 string                                    `json:"usage_url"`
+	VersionNumbersURL        *string                                   `json:"version_numbers_url,omitempty"`
+	VersionsCount            int                                       `json:"versions_count"`
+	VersionsURL              string                                    `json:"versions_url"`
 }
 
 // PackageWithRegistry defines model for PackageWithRegistry.
 type PackageWithRegistry struct {
-	Advisories               []Advisory              `json:"advisories"`
-	CodemetaUrl              string                  `json:"codemeta_url"`
-	CreatedAt                time.Time               `json:"created_at"`
-	Critical                 bool                    `json:"critical"`
-	DependentPackagesCount   int                     `json:"dependent_packages_count"`
-	DependentPackagesUrl     string                  `json:"dependent_packages_url"`
-	DependentReposCount      int                     `json:"dependent_repos_count"`
-	DependentRepositoriesUrl string                  `json:"dependent_repositories_url"`
-	Description              *string                 `json:"description"`
-	DockerDependentsCount    int                     `json:"docker_dependents_count"`
-	DockerDownloadsCount     int                     `json:"docker_downloads_count"`
-	DockerUsageUrl           string                  `json:"docker_usage_url"`
-	DocumentationUrl         *string                 `json:"documentation_url"`
-	Downloads                int                     `json:"downloads"`
-	DownloadsPeriod          *string                 `json:"downloads_period"`
-	Ecosystem                string                  `json:"ecosystem"`
-	FirstReleasePublishedAt  *time.Time              `json:"first_release_published_at"`
-	FundingLinks             []string                `json:"funding_links"`
-	Homepage                 *string                 `json:"homepage"`
-	Id                       int                     `json:"id"`
-	InstallCommand           *string                 `json:"install_command"`
-	IssueMetadata            map[string]interface{}  `json:"issue_metadata"`
-	KeywordsArray            []string                `json:"keywords_array"`
-	LastSyncedAt             *time.Time              `json:"last_synced_at"`
-	LatestReleaseNumber      *string                 `json:"latest_release_number"`
-	LatestReleasePublishedAt *time.Time              `json:"latest_release_published_at"`
-	Licenses                 *string                 `json:"licenses"`
-	Maintainers              []Maintainer            `json:"maintainers"`
-	Metadata                 *map[string]interface{} `json:"metadata"`
-	Name                     string                  `json:"name"`
-	Namespace                *string                 `json:"namespace"`
-	NormalizedLicenses       []string                `json:"normalized_licenses"`
-	Purl                     string                  `json:"purl"`
-	Rankings                 map[string]interface{}  `json:"rankings"`
-	Registry                 Registry                `json:"registry"`
-	RegistryUrl              *string                 `json:"registry_url"`
-	RelatedPackagesUrl       string                  `json:"related_packages_url"`
-	RepoMetadata             *map[string]interface{} `json:"repo_metadata"`
-	RepoMetadataUpdatedAt    *time.Time              `json:"repo_metadata_updated_at"`
-	RepositoryUrl            *string                 `json:"repository_url"`
-	Status                   *string                 `json:"status"`
-	UpdatedAt                time.Time               `json:"updated_at"`
-	UsageUrl                 string                  `json:"usage_url"`
-	VersionNumbersUrl        *string                 `json:"version_numbers_url,omitempty"`
-	VersionsCount            int                     `json:"versions_count"`
-	VersionsUrl              string                  `json:"versions_url"`
+	Advisories               []Advisory                                `json:"advisories"`
+	CodemetaURL              string                                    `json:"codemeta_url"`
+	CreatedAt                time.Time                                 `json:"created_at"`
+	Critical                 bool                                      `json:"critical"`
+	DependentPackagesCount   int                                       `json:"dependent_packages_count"`
+	DependentPackagesURL     string                                    `json:"dependent_packages_url"`
+	DependentReposCount      int                                       `json:"dependent_repos_count"`
+	DependentRepositoriesURL string                                    `json:"dependent_repositories_url"`
+	Description              nullable.Nullable[string]                 `json:"description"`
+	DockerDependentsCount    int                                       `json:"docker_dependents_count"`
+	DockerDownloadsCount     int                                       `json:"docker_downloads_count"`
+	DockerUsageURL           string                                    `json:"docker_usage_url"`
+	DocumentationURL         nullable.Nullable[string]                 `json:"documentation_url"`
+	Downloads                int                                       `json:"downloads"`
+	DownloadsPeriod          nullable.Nullable[string]                 `json:"downloads_period"`
+	Ecosystem                string                                    `json:"ecosystem"`
+	FirstReleasePublishedAt  nullable.Nullable[time.Time]              `json:"first_release_published_at"`
+	FundingLinks             []string                                  `json:"funding_links"`
+	Homepage                 nullable.Nullable[string]                 `json:"homepage"`
+	ID                       int                                       `json:"id"`
+	InstallCommand           nullable.Nullable[string]                 `json:"install_command"`
+	IssueMetadata            map[string]interface{}                    `json:"issue_metadata"`
+	KeywordsArray            []string                                  `json:"keywords_array"`
+	LastSyncedAt             nullable.Nullable[time.Time]              `json:"last_synced_at"`
+	LatestReleaseNumber      nullable.Nullable[string]                 `json:"latest_release_number"`
+	LatestReleasePublishedAt nullable.Nullable[time.Time]              `json:"latest_release_published_at"`
+	Licenses                 nullable.Nullable[string]                 `json:"licenses"`
+	Maintainers              []Maintainer                              `json:"maintainers"`
+	Metadata                 nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Name                     string                                    `json:"name"`
+	Namespace                nullable.Nullable[string]                 `json:"namespace"`
+	NormalizedLicenses       []string                                  `json:"normalized_licenses"`
+	Purl                     string                                    `json:"purl"`
+	Rankings                 map[string]interface{}                    `json:"rankings"`
+	Registry                 Registry                                  `json:"registry"`
+	RegistryURL              nullable.Nullable[string]                 `json:"registry_url"`
+	RelatedPackagesURL       string                                    `json:"related_packages_url"`
+	RepoMetadata             nullable.Nullable[map[string]interface{}] `json:"repo_metadata"`
+	RepoMetadataUpdatedAt    nullable.Nullable[time.Time]              `json:"repo_metadata_updated_at"`
+	RepositoryURL            nullable.Nullable[string]                 `json:"repository_url"`
+	Status                   nullable.Nullable[string]                 `json:"status"`
+	UpdatedAt                time.Time                                 `json:"updated_at"`
+	UsageURL                 string                                    `json:"usage_url"`
+	VersionNumbersURL        *string                                   `json:"version_numbers_url,omitempty"`
+	VersionsCount            int                                       `json:"versions_count"`
+	VersionsURL              string                                    `json:"versions_url"`
 }
 
 // Registry defines model for Registry.
 type Registry struct {
-	CreatedAt        time.Time               `json:"created_at"`
-	Default          bool                    `json:"default"`
-	Downloads        int64                   `json:"downloads"`
-	Ecosystem        string                  `json:"ecosystem"`
-	Github           *string                 `json:"github"`
-	IconUrl          string                  `json:"icon_url"`
-	KeywordsCount    int64                   `json:"keywords_count"`
-	MaintainersCount int64                   `json:"maintainers_count"`
-	MaintainersUrl   string                  `json:"maintainers_url"`
-	Metadata         *map[string]interface{} `json:"metadata"`
-	Name             string                  `json:"name"`
-	NamespacesCount  int64                   `json:"namespaces_count"`
-	PackagesCount    int64                   `json:"packages_count"`
-	PackagesUrl      string                  `json:"packages_url"`
-	PurlType         string                  `json:"purl_type"`
-	UpdatedAt        time.Time               `json:"updated_at"`
-	Url              string                  `json:"url"`
-	VersionsCount    *int64                  `json:"versions_count,omitempty"`
+	CreatedAt        time.Time                                 `json:"created_at"`
+	Default          bool                                      `json:"default"`
+	Downloads        int64                                     `json:"downloads"`
+	Ecosystem        string                                    `json:"ecosystem"`
+	Github           nullable.Nullable[string]                 `json:"github"`
+	IconURL          string                                    `json:"icon_url"`
+	KeywordsCount    int64                                     `json:"keywords_count"`
+	MaintainersCount int64                                     `json:"maintainers_count"`
+	MaintainersURL   string                                    `json:"maintainers_url"`
+	Metadata         nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Name             string                                    `json:"name"`
+	NamespacesCount  int64                                     `json:"namespaces_count"`
+	PackagesCount    int64                                     `json:"packages_count"`
+	PackagesURL      string                                    `json:"packages_url"`
+	PurlType         string                                    `json:"purl_type"`
+	UpdatedAt        time.Time                                 `json:"updated_at"`
+	URL              string                                    `json:"url"`
+	VersionsCount    *int64                                    `json:"versions_count,omitempty"`
 }
 
 // Version defines model for Version.
 type Version struct {
-	CodemetaUrl      string                  `json:"codemeta_url"`
-	CreatedAt        time.Time               `json:"created_at"`
-	DocumentationUrl *string                 `json:"documentation_url"`
-	DownloadUrl      *string                 `json:"download_url"`
-	Id               int                     `json:"id"`
-	InstallCommand   *string                 `json:"install_command"`
-	Integrity        *string                 `json:"integrity"`
-	Licenses         *string                 `json:"licenses"`
-	Metadata         *map[string]interface{} `json:"metadata"`
-	Number           string                  `json:"number"`
-	PublishedAt      *string                 `json:"published_at"`
-	Purl             string                  `json:"purl"`
-	RegistryUrl      *string                 `json:"registry_url"`
-	RelatedTag       map[string]interface{}  `json:"related_tag"`
-	Status           *string                 `json:"status"`
-	UpdatedAt        time.Time               `json:"updated_at"`
-	VersionUrl       string                  `json:"version_url"`
+	CodemetaURL      string                                    `json:"codemeta_url"`
+	CreatedAt        time.Time                                 `json:"created_at"`
+	DocumentationURL nullable.Nullable[string]                 `json:"documentation_url"`
+	DownloadURL      nullable.Nullable[string]                 `json:"download_url"`
+	ID               int                                       `json:"id"`
+	InstallCommand   nullable.Nullable[string]                 `json:"install_command"`
+	Integrity        nullable.Nullable[string]                 `json:"integrity"`
+	Licenses         nullable.Nullable[string]                 `json:"licenses"`
+	Metadata         nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Number           string                                    `json:"number"`
+	PublishedAt      nullable.Nullable[string]                 `json:"published_at"`
+	Purl             string                                    `json:"purl"`
+	RegistryURL      nullable.Nullable[string]                 `json:"registry_url"`
+	RelatedTag       map[string]interface{}                    `json:"related_tag"`
+	Status           nullable.Nullable[string]                 `json:"status"`
+	UpdatedAt        time.Time                                 `json:"updated_at"`
+	VersionURL       string                                    `json:"version_url"`
 }
 
 // VersionWithDependencies defines model for VersionWithDependencies.
 type VersionWithDependencies struct {
-	CodemetaUrl      string                  `json:"codemeta_url"`
-	CreatedAt        time.Time               `json:"created_at"`
-	Dependencies     []Dependency            `json:"dependencies"`
-	DocumentationUrl *string                 `json:"documentation_url"`
-	DownloadUrl      *string                 `json:"download_url"`
-	Id               *int                    `json:"id,omitempty"`
-	InstallCommand   *string                 `json:"install_command"`
-	Integrity        *string                 `json:"integrity"`
-	Latest           bool                    `json:"latest"`
-	Licenses         *string                 `json:"licenses"`
-	Metadata         *map[string]interface{} `json:"metadata"`
-	Number           string                  `json:"number"`
-	PublishedAt      *string                 `json:"published_at"`
-	Purl             string                  `json:"purl"`
-	RegistryUrl      *string                 `json:"registry_url"`
-	RelatedTag       map[string]interface{}  `json:"related_tag"`
-	Status           *string                 `json:"status"`
-	UpdatedAt        time.Time               `json:"updated_at"`
-	VersionUrl       string                  `json:"version_url"`
+	CodemetaURL      string                                    `json:"codemeta_url"`
+	CreatedAt        time.Time                                 `json:"created_at"`
+	Dependencies     []Dependency                              `json:"dependencies"`
+	DocumentationURL nullable.Nullable[string]                 `json:"documentation_url"`
+	DownloadURL      nullable.Nullable[string]                 `json:"download_url"`
+	ID               *int                                      `json:"id,omitempty"`
+	InstallCommand   nullable.Nullable[string]                 `json:"install_command"`
+	Integrity        nullable.Nullable[string]                 `json:"integrity"`
+	Latest           bool                                      `json:"latest"`
+	Licenses         nullable.Nullable[string]                 `json:"licenses"`
+	Metadata         nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Number           string                                    `json:"number"`
+	PublishedAt      nullable.Nullable[string]                 `json:"published_at"`
+	Purl             string                                    `json:"purl"`
+	RegistryURL      nullable.Nullable[string]                 `json:"registry_url"`
+	RelatedTag       map[string]interface{}                    `json:"related_tag"`
+	Status           nullable.Nullable[string]                 `json:"status"`
+	UpdatedAt        time.Time                                 `json:"updated_at"`
+	VersionURL       string                                    `json:"version_url"`
 }
 
 // VersionWithPackage defines model for VersionWithPackage.
 type VersionWithPackage struct {
-	CodemetaUrl      string                  `json:"codemeta_url"`
-	CreatedAt        time.Time               `json:"created_at"`
-	DocumentationUrl *string                 `json:"documentation_url"`
-	DownloadUrl      *string                 `json:"download_url"`
-	Id               int                     `json:"id"`
-	InstallCommand   *string                 `json:"install_command"`
-	Integrity        *string                 `json:"integrity"`
-	Latest           bool                    `json:"latest"`
-	Licenses         *string                 `json:"licenses"`
-	Metadata         *map[string]interface{} `json:"metadata"`
-	Number           string                  `json:"number"`
-	PackageUrl       string                  `json:"package_url"`
-	PublishedAt      *string                 `json:"published_at"`
-	Purl             string                  `json:"purl"`
-	RegistryUrl      *string                 `json:"registry_url"`
-	Status           *string                 `json:"status"`
-	UpdatedAt        time.Time               `json:"updated_at"`
-	VersionUrl       string                  `json:"version_url"`
+	CodemetaURL      string                                    `json:"codemeta_url"`
+	CreatedAt        time.Time                                 `json:"created_at"`
+	DocumentationURL nullable.Nullable[string]                 `json:"documentation_url"`
+	DownloadURL      nullable.Nullable[string]                 `json:"download_url"`
+	ID               int                                       `json:"id"`
+	InstallCommand   nullable.Nullable[string]                 `json:"install_command"`
+	Integrity        nullable.Nullable[string]                 `json:"integrity"`
+	Latest           bool                                      `json:"latest"`
+	Licenses         nullable.Nullable[string]                 `json:"licenses"`
+	Metadata         nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Number           string                                    `json:"number"`
+	PackageURL       string                                    `json:"package_url"`
+	PublishedAt      nullable.Nullable[string]                 `json:"published_at"`
+	Purl             string                                    `json:"purl"`
+	RegistryURL      nullable.Nullable[string]                 `json:"registry_url"`
+	Status           nullable.Nullable[string]                 `json:"status"`
+	UpdatedAt        time.Time                                 `json:"updated_at"`
+	VersionURL       string                                    `json:"version_url"`
 }
 
 // GetCriticalPackagesParams defines parameters for GetCriticalPackages.
@@ -466,11 +467,11 @@ type GetCriticalMaintainersParams struct {
 
 // GetCriticalMaintainers200JSONResponseBody_Item defines parameters for GetCriticalMaintainers.
 type GetCriticalMaintainers200JSONResponseBody_Item struct {
-	Login         *string                `json:"login,omitempty"`
-	Name          *string                `json:"name,omitempty"`
-	Packages      *[]PackageWithRegistry `json:"packages,omitempty"`
-	PackagesCount *int                   `json:"packages_count,omitempty"`
-	RegistryName  *string                `json:"registry_name,omitempty"`
+	Login         *string                   `json:"login,omitempty"`
+	Name          nullable.Nullable[string] `json:"name,omitempty"`
+	Packages      []PackageWithRegistry     `json:"packages,omitempty"`
+	PackagesCount *int                      `json:"packages_count,omitempty"`
+	RegistryName  *string                   `json:"registry_name,omitempty"`
 }
 
 // GetCriticalMaintainers200JSONResponseBody defines parameters for GetCriticalMaintainers.
@@ -508,8 +509,8 @@ type GetDependenciesParams struct {
 	// PackageName package name
 	PackageName *string `form:"package_name,omitempty" json:"package_name,omitempty"`
 
-	// PackageId package id
-	PackageId *string `form:"package_id,omitempty" json:"package_id,omitempty"`
+	// PackageID package id
+	PackageID *string `form:"package_id,omitempty" json:"package_id,omitempty"`
 
 	// Requirements requirements
 	Requirements *string `form:"requirements,omitempty" json:"requirements,omitempty"`
@@ -554,13 +555,13 @@ type BulkLookupPackagesJSONBody struct {
 	Ecosystem *string `json:"ecosystem,omitempty"`
 
 	// Names array of package names to lookup
-	Names *[]string `json:"names,omitempty"`
+	Names []string `json:"names,omitempty"`
 
 	// Purls array of package URLs to lookup (maximum 100)
-	Purls *[]string `json:"purls,omitempty"`
+	Purls []string `json:"purls,omitempty"`
 
 	// RepositoryUrls array of repository URLs to lookup
-	RepositoryUrls *[]string `json:"repository_urls,omitempty"`
+	RepositoryUrls []string `json:"repository_urls,omitempty"`
 }
 
 // BulkLookupPackages400JSONResponseBody defines parameters for BulkLookupPackages.
@@ -601,8 +602,8 @@ type GetCriticalPackagesListParams struct {
 
 // LookupPackageParams defines parameters for LookupPackage.
 type LookupPackageParams struct {
-	// RepositoryUrl repository URL
-	RepositoryUrl *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
+	// RepositoryURL repository URL
+	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 
 	// Purl package URL
 	Purl *string `form:"purl,omitempty" json:"purl,omitempty"`
@@ -643,8 +644,8 @@ type GetRegistryParams struct {
 
 // LookupRegistryPackageParams defines parameters for LookupRegistryPackage.
 type LookupRegistryPackageParams struct {
-	// RepositoryUrl repository URL
-	RepositoryUrl *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
+	// RepositoryURL repository URL
+	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 
 	// Purl package URL
 	Purl *string `form:"purl,omitempty" json:"purl,omitempty"`
@@ -2049,9 +2050,9 @@ func NewGetDependenciesRequest(server string, params *GetDependenciesParams) (*h
 
 		}
 
-		if params.PackageId != nil {
+		if params.PackageID != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "package_id", *params.PackageId, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "package_id", *params.PackageID, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -2504,9 +2505,9 @@ func NewLookupPackageRequest(server string, params *LookupPackageParams) (*http.
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if params.RepositoryUrl != nil {
+		if params.RepositoryURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "repository_url", *params.RepositoryUrl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "repository_url", *params.RepositoryURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -2776,9 +2777,9 @@ func NewLookupRegistryPackageRequest(server string, registryName string, params 
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if params.RepositoryUrl != nil {
+		if params.RepositoryURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "repository_url", *params.RepositoryUrl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "repository_url", *params.RepositoryURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

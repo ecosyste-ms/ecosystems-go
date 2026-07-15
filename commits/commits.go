@@ -20,7 +20,7 @@ import (
 type Commit struct {
 	Author    *string    `json:"author,omitempty"`
 	Committer *string    `json:"committer,omitempty"`
-	HtmlUrl   *string    `json:"html_url,omitempty"`
+	HTMLURL   *string    `json:"html_url,omitempty"`
 	Merge     *bool      `json:"merge,omitempty"`
 	Message   *string    `json:"message,omitempty"`
 	Sha       *string    `json:"sha,omitempty"`
@@ -29,60 +29,60 @@ type Commit struct {
 
 // Committer defines model for Committer.
 type Committer struct {
-	CommitsCount      *int                      `json:"commits_count,omitempty"`
-	CreatedAt         *time.Time                `json:"created_at,omitempty"`
-	Emails            *[]string                 `json:"emails,omitempty"`
-	Id                *int                      `json:"id,omitempty"`
-	Login             *string                   `json:"login,omitempty"`
-	Repositories      *[]Committer_Repositories `json:"repositories,omitempty"`
-	RepositoriesCount *int                      `json:"repositories_count,omitempty"`
-	UpdatedAt         *time.Time                `json:"updated_at,omitempty"`
+	CommitsCount      *int                     `json:"commits_count,omitempty"`
+	CreatedAt         *time.Time               `json:"created_at,omitempty"`
+	Emails            []string                 `json:"emails,omitempty"`
+	ID                *int                     `json:"id,omitempty"`
+	Login             *string                  `json:"login,omitempty"`
+	Repositories      []Committer_Repositories `json:"repositories,omitempty"`
+	RepositoriesCount *int                     `json:"repositories_count,omitempty"`
+	UpdatedAt         *time.Time               `json:"updated_at,omitempty"`
 }
 
 // Committer_Repositories defines model for Committer.Repositories.
 type Committer_Repositories struct {
 	CommitCount *int    `json:"commit_count,omitempty"`
 	FullName    *string `json:"full_name,omitempty"`
-	Id          *int    `json:"id,omitempty"`
+	ID          *int    `json:"id,omitempty"`
 }
 
 // Host defines model for Host.
 type Host struct {
 	CommitsCount      *int       `json:"commits_count,omitempty"`
 	ContributorsCount *int       `json:"contributors_count,omitempty"`
-	IconUrl           *string    `json:"icon_url,omitempty"`
+	IconURL           *string    `json:"icon_url,omitempty"`
 	Kind              *string    `json:"kind,omitempty"`
 	LastSyncedAt      *time.Time `json:"last_synced_at,omitempty"`
 	Name              *string    `json:"name,omitempty"`
 	OwnersCount       *int       `json:"owners_count,omitempty"`
 	RepositoriesCount *int       `json:"repositories_count,omitempty"`
-	Url               *string    `json:"url,omitempty"`
+	URL               *string    `json:"url,omitempty"`
 }
 
 // Repository defines model for Repository.
 type Repository struct {
-	CommitsUrl                 *string                   `json:"commits_url,omitempty"`
-	Committers                 *[]map[string]interface{} `json:"committers,omitempty"`
-	CreatedAt                  *time.Time                `json:"created_at,omitempty"`
-	Dds                        *float32                  `json:"dds,omitempty"`
-	DefaultBranch              *string                   `json:"default_branch,omitempty"`
-	FullName                   *string                   `json:"full_name,omitempty"`
-	Id                         *int                      `json:"id,omitempty"`
-	LastSyncedAt               *time.Time                `json:"last_synced_at,omitempty"`
-	LastSyncedCommit           *string                   `json:"last_synced_commit,omitempty"`
-	MeanCommits                *float32                  `json:"mean_commits,omitempty"`
-	PastYearCommitters         *[]map[string]interface{} `json:"past_year_committers,omitempty"`
-	PastYearDds                *float32                  `json:"past_year_dds,omitempty"`
-	PastYearMeanCommits        *float32                  `json:"past_year_mean_commits,omitempty"`
-	PastYearTotalBotCommits    *int                      `json:"past_year_total_bot_commits,omitempty"`
-	PastYearTotalBotCommitters *int                      `json:"past_year_total_bot_committers,omitempty"`
-	PastYearTotalCommits       *int                      `json:"past_year_total_commits,omitempty"`
-	PastYearTotalCommitters    *int                      `json:"past_year_total_committers,omitempty"`
-	TotalBotCommits            *int                      `json:"total_bot_commits,omitempty"`
-	TotalBotCommitters         *int                      `json:"total_bot_committers,omitempty"`
-	TotalCommits               *int                      `json:"total_commits,omitempty"`
-	TotalCommitters            *int                      `json:"total_committers,omitempty"`
-	UpdatedAt                  *time.Time                `json:"updated_at,omitempty"`
+	CommitsURL                 *string                  `json:"commits_url,omitempty"`
+	Committers                 []map[string]interface{} `json:"committers,omitempty"`
+	CreatedAt                  *time.Time               `json:"created_at,omitempty"`
+	Dds                        *float32                 `json:"dds,omitempty"`
+	DefaultBranch              *string                  `json:"default_branch,omitempty"`
+	FullName                   *string                  `json:"full_name,omitempty"`
+	ID                         *int                     `json:"id,omitempty"`
+	LastSyncedAt               *time.Time               `json:"last_synced_at,omitempty"`
+	LastSyncedCommit           *string                  `json:"last_synced_commit,omitempty"`
+	MeanCommits                *float32                 `json:"mean_commits,omitempty"`
+	PastYearCommitters         []map[string]interface{} `json:"past_year_committers,omitempty"`
+	PastYearDds                *float32                 `json:"past_year_dds,omitempty"`
+	PastYearMeanCommits        *float32                 `json:"past_year_mean_commits,omitempty"`
+	PastYearTotalBotCommits    *int                     `json:"past_year_total_bot_commits,omitempty"`
+	PastYearTotalBotCommitters *int                     `json:"past_year_total_bot_committers,omitempty"`
+	PastYearTotalCommits       *int                     `json:"past_year_total_commits,omitempty"`
+	PastYearTotalCommitters    *int                     `json:"past_year_total_committers,omitempty"`
+	TotalBotCommits            *int                     `json:"total_bot_commits,omitempty"`
+	TotalBotCommitters         *int                     `json:"total_bot_committers,omitempty"`
+	TotalCommits               *int                     `json:"total_commits,omitempty"`
+	TotalCommitters            *int                     `json:"total_committers,omitempty"`
+	UpdatedAt                  *time.Time               `json:"updated_at,omitempty"`
 }
 
 // GetRegistriesParams defines parameters for GetRegistries.
@@ -147,8 +147,8 @@ type GetRepositoryCommitsParams struct {
 
 // RepositoriesLookupParams defines parameters for RepositoriesLookup.
 type RepositoriesLookupParams struct {
-	// Url The URL of the repository to lookup
-	Url string `form:"url" json:"url"`
+	// URL The URL of the repository to lookup
+	URL string `form:"url" json:"url"`
 }
 
 // RequestEditorFn is the function signature for the RequestEditor callback function
@@ -864,7 +864,7 @@ func NewRepositoriesLookupRequest(server string, params *RepositoriesLookupParam
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "url", params.Url, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "url", params.URL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 			return nil, err
 		} else {
 			for _, qp := range strings.Split(queryFrag, "&") {

@@ -4,6 +4,7 @@ go 1.25.0
 
 require (
 	github.com/git-pkgs/packageurl-go v0.3.1
+	github.com/oapi-codegen/nullable v1.1.0
 	github.com/oapi-codegen/runtime v1.6.0
 )
 

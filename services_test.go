@@ -85,7 +85,7 @@ func TestLookupPackagesByPURL(t *testing.T) {
 	if err != nil {
 		t.Fatalf("LookupPackagesByPURL() error = %v", err)
 	}
-	if len(got) != 1 || got[0].RepositoryUrl == nil || *got[0].RepositoryUrl != "https://github.com/ruby/rake" {
+	if len(got) != 1 || !got[0].RepositoryURL.IsSpecified() || got[0].RepositoryURL.MustGet() != "https://github.com/ruby/rake" {
 		t.Fatalf("packages = %+v", got)
 	}
 }
@@ -134,7 +134,7 @@ func TestGetAdvisoriesByRepoURL(t *testing.T) {
 	if err != nil {
 		t.Fatalf("GetAdvisoriesByRepoURL() error = %v", err)
 	}
-	if len(got) != 1 || got[0].Uuid == nil || *got[0].Uuid != "GHSA-1" {
+	if len(got) != 1 || got[0].UUID == nil || *got[0].UUID != "GHSA-1" {
 		t.Fatalf("advisories = %+v", got)
 	}
 }
