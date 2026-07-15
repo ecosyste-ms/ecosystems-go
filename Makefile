@@ -3,11 +3,7 @@
 OAPI_CODEGEN := go run github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@v2.5.1
 
 generate:
-	$(OAPI_CODEGEN) -generate types,client -package packages -o packages/packages.go specs/packages.yaml
-	$(OAPI_CODEGEN) -generate types,client -package repos -o repos/repos.go specs/repos.yaml
-	$(OAPI_CODEGEN) -generate types,client -package advisories -o advisories/advisories.go specs/advisories.yaml
-	$(OAPI_CODEGEN) -generate types,client -package commits -o commits/commits.go specs/commits.yaml
-	$(OAPI_CODEGEN) -generate types,client -package issues -o issues/issues.go specs/issues.yaml
+	go generate ./...
 
 update-specs:
 	curl -s "https://packages.ecosyste.ms/docs/api/v1/openapi.yaml" > specs/packages.yaml
