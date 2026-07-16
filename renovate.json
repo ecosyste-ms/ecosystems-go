@@ -1,6 +1,21 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices"
+    "config:best-practices",
+    "schedule:weekly"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "gomod"
+      ],
+      "prConcurrentLimit": 10
+    },
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "prConcurrentLimit": 5
+    }
   ]
 }
