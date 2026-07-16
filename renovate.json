@@ -16,6 +16,24 @@
         "github-actions"
       ],
       "prConcurrentLimit": 5
+    },
+    {
+      "description": "Run `go generate` after updates to `oapi-codegen`",
+      "matchDepNames": [
+        "github.com/oapi-codegen/oapi-codegen/v2"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "go generate ./..."
+        ],
+        "fileFilters": [
+          "**/*.go"
+        ],
+        "executionMode": "update",
+        "installTools": {
+          "golang": {}
+        }
+      }
     }
   ]
 }
