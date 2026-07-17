@@ -292,7 +292,7 @@ type Repository struct {
 	OwnerURL             *string                `json:"owner_url,omitempty"`
 	PreviousNames        []string               `json:"previous_names,omitempty"`
 	PullRequestsEnabled  *bool                  `json:"pull_requests_enabled,omitempty"`
-	Purl                 *string                `json:"purl,omitempty"`
+	PURL                 *string                `json:"purl,omitempty"`
 	PushedAt             *time.Time             `json:"pushed_at,omitempty"`
 	ReleasesURL          *string                `json:"releases_url,omitempty"`
 	RepositoryURL        *string                `json:"repository_url,omitempty"`
@@ -334,7 +334,7 @@ type Tag struct {
 	ManifestsURL         *string    `json:"manifests_url,omitempty"`
 	Name                 *string    `json:"name,omitempty"`
 	PublishedAt          *time.Time `json:"published_at,omitempty"`
-	Purl                 *string    `json:"purl,omitempty"`
+	PURL                 *string    `json:"purl,omitempty"`
 	Sha                  *string    `json:"sha,omitempty"`
 	TagURL               *string    `json:"tag_url,omitempty"`
 }
@@ -552,8 +552,8 @@ type RepositoriesLookupParams struct {
 	// URL The URL of the repository to lookup
 	URL *string `form:"url,omitempty" json:"url,omitempty"`
 
-	// Purl Package URL (PURL) of the repository to lookup. Supported types: github, gitlab, gitea, bitbucket, forgejo, sourcehut
-	Purl *string `form:"purl,omitempty" json:"purl,omitempty"`
+	// PURL Package URL (PURL) of the repository to lookup. Supported types: github, gitlab, gitea, bitbucket, forgejo, sourcehut
+	PURL *string `form:"purl,omitempty" json:"purl,omitempty"`
 }
 
 // TopicsParams defines parameters for Topics.
@@ -2751,9 +2751,9 @@ func NewRepositoriesLookupRequest(server string, params *RepositoriesLookupParam
 
 		}
 
-		if params.Purl != nil {
+		if params.PURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.Purl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.PURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

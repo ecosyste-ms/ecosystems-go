@@ -22,8 +22,8 @@ import (
 type Advisory struct {
 	Classification nullable.Nullable[string]   `json:"classification"`
 	CreatedAt      string                      `json:"created_at"`
-	CvssScore      nullable.Nullable[float32]  `json:"cvss_score"`
-	CvssVector     nullable.Nullable[string]   `json:"cvss_vector"`
+	CVSSScore      nullable.Nullable[float32]  `json:"cvss_score"`
+	CVSSVector     nullable.Nullable[string]   `json:"cvss_vector"`
 	Description    nullable.Nullable[string]   `json:"description"`
 	Identifiers    []nullable.Nullable[string] `json:"identifiers"`
 	Origin         nullable.Nullable[string]   `json:"origin"`
@@ -276,7 +276,7 @@ type Package struct {
 	Name                     string                                    `json:"name"`
 	Namespace                nullable.Nullable[string]                 `json:"namespace"`
 	NormalizedLicenses       []string                                  `json:"normalized_licenses"`
-	Purl                     string                                    `json:"purl"`
+	PURL                     string                                    `json:"purl"`
 	Rankings                 map[string]interface{}                    `json:"rankings"`
 	RegistryURL              nullable.Nullable[string]                 `json:"registry_url"`
 	RelatedPackagesURL       string                                    `json:"related_packages_url"`
@@ -325,7 +325,7 @@ type PackageWithRegistry struct {
 	Name                     string                                    `json:"name"`
 	Namespace                nullable.Nullable[string]                 `json:"namespace"`
 	NormalizedLicenses       []string                                  `json:"normalized_licenses"`
-	Purl                     string                                    `json:"purl"`
+	PURL                     string                                    `json:"purl"`
 	Rankings                 map[string]interface{}                    `json:"rankings"`
 	Registry                 Registry                                  `json:"registry"`
 	RegistryURL              nullable.Nullable[string]                 `json:"registry_url"`
@@ -357,7 +357,7 @@ type Registry struct {
 	NamespacesCount  int64                                     `json:"namespaces_count"`
 	PackagesCount    int64                                     `json:"packages_count"`
 	PackagesURL      string                                    `json:"packages_url"`
-	PurlType         string                                    `json:"purl_type"`
+	PURLType         string                                    `json:"purl_type"`
 	UpdatedAt        time.Time                                 `json:"updated_at"`
 	URL              string                                    `json:"url"`
 	VersionsCount    *int64                                    `json:"versions_count,omitempty"`
@@ -376,7 +376,7 @@ type Version struct {
 	Metadata         nullable.Nullable[map[string]interface{}] `json:"metadata"`
 	Number           string                                    `json:"number"`
 	PublishedAt      nullable.Nullable[string]                 `json:"published_at"`
-	Purl             string                                    `json:"purl"`
+	PURL             string                                    `json:"purl"`
 	RegistryURL      nullable.Nullable[string]                 `json:"registry_url"`
 	RelatedTag       map[string]interface{}                    `json:"related_tag"`
 	Status           nullable.Nullable[string]                 `json:"status"`
@@ -399,7 +399,7 @@ type VersionWithDependencies struct {
 	Metadata         nullable.Nullable[map[string]interface{}] `json:"metadata"`
 	Number           string                                    `json:"number"`
 	PublishedAt      nullable.Nullable[string]                 `json:"published_at"`
-	Purl             string                                    `json:"purl"`
+	PURL             string                                    `json:"purl"`
 	RegistryURL      nullable.Nullable[string]                 `json:"registry_url"`
 	RelatedTag       map[string]interface{}                    `json:"related_tag"`
 	Status           nullable.Nullable[string]                 `json:"status"`
@@ -422,7 +422,7 @@ type VersionWithPackage struct {
 	Number           string                                    `json:"number"`
 	PackageURL       string                                    `json:"package_url"`
 	PublishedAt      nullable.Nullable[string]                 `json:"published_at"`
-	Purl             string                                    `json:"purl"`
+	PURL             string                                    `json:"purl"`
 	RegistryURL      nullable.Nullable[string]                 `json:"registry_url"`
 	Status           nullable.Nullable[string]                 `json:"status"`
 	UpdatedAt        time.Time                                 `json:"updated_at"`
@@ -557,8 +557,8 @@ type BulkLookupPackagesJSONBody struct {
 	// Names array of package names to lookup
 	Names []string `json:"names,omitempty"`
 
-	// Purls array of package URLs to lookup (maximum 100)
-	Purls []string `json:"purls,omitempty"`
+	// PURLs array of package URLs to lookup (maximum 100)
+	PURLs []string `json:"purls,omitempty"`
 
 	// RepositoryUrls array of repository URLs to lookup
 	RepositoryUrls []string `json:"repository_urls,omitempty"`
@@ -605,8 +605,8 @@ type LookupPackageParams struct {
 	// RepositoryURL repository URL
 	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 
-	// Purl package URL
-	Purl *string `form:"purl,omitempty" json:"purl,omitempty"`
+	// PURL package URL
+	PURL *string `form:"purl,omitempty" json:"purl,omitempty"`
 
 	// Ecosystem ecosystem name
 	Ecosystem *string `form:"ecosystem,omitempty" json:"ecosystem,omitempty"`
@@ -647,8 +647,8 @@ type LookupRegistryPackageParams struct {
 	// RepositoryURL repository URL
 	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 
-	// Purl package URL
-	Purl *string `form:"purl,omitempty" json:"purl,omitempty"`
+	// PURL package URL
+	PURL *string `form:"purl,omitempty" json:"purl,omitempty"`
 
 	// Ecosystem ecosystem name
 	Ecosystem *string `form:"ecosystem,omitempty" json:"ecosystem,omitempty"`
@@ -2517,9 +2517,9 @@ func NewLookupPackageRequest(server string, params *LookupPackageParams) (*http.
 
 		}
 
-		if params.Purl != nil {
+		if params.PURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.Purl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.PURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -2789,9 +2789,9 @@ func NewLookupRegistryPackageRequest(server string, registryName string, params 
 
 		}
 
-		if params.Purl != nil {
+		if params.PURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.Purl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.PURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

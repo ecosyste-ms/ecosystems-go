@@ -14,5 +14,8 @@ output-options:
   name-normalizer: ToCamelCaseWithInitialisms
   additional-initialisms:
     - IDs
+    - PURL
+    - PURLs
+    - CVSS
 compatibility:
   always-prefix-enum-values: true

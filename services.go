@@ -22,7 +22,7 @@ const (
 // LookupPackagesByPURL looks up package records matching a PURL.
 func (c *Client) LookupPackagesByPURL(ctx context.Context, purl string) ([]packages.PackageWithRegistry, error) {
 	resp, err := c.packagesClient.LookupPackageWithResponse(ctx, &packages.LookupPackageParams{
-		Purl: &purl,
+		PURL: &purl,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("lookup packages by purl: %w", err)
