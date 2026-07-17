@@ -15,5 +15,8 @@ output-options:
   additional-initialisms:
     - IDs
     - URLs
+    - PURL
+    - PURLs
+    - CVSS
 compatibility:
   always-prefix-enum-values: true

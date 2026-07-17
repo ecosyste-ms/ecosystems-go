@@ -475,7 +475,7 @@ func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*pa
 		batch := purls[i:end]
 
 		resp, err := c.packagesClient.BulkLookupPackagesWithResponse(ctx, packages.BulkLookupPackagesJSONRequestBody{
-			Purls: batch,
+			PURLs: batch,
 		})
 		if err != nil {
 			if looksLikeStreamErr(err) {
@@ -495,7 +495,7 @@ func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*pa
 		if resp.JSON200 != nil {
 			for _, pkg := range *resp.JSON200 {
 				p := pkg
-				results[pkg.Purl] = &p
+				results[pkg.PURL] = &p
 			}
 		}
 	}

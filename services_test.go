@@ -39,7 +39,7 @@ func TestLookupPackagesByRepositoryURLFollowsLinkAndCaps(t *testing.T) {
 	if err != nil {
 		t.Fatalf("LookupPackagesByRepositoryURL() error = %v", err)
 	}
-	if len(got) != 2 || got[0].Purl != "pkg:npm/a" || got[1].Purl != "pkg:npm/b" {
+	if len(got) != 2 || got[0].PURL != "pkg:npm/a" || got[1].PURL != "pkg:npm/b" {
 		t.Fatalf("packages = %+v, want first two linked rows", got)
 	}
 	if !sawNextUserAgent {
@@ -112,7 +112,7 @@ func TestGetDependentPackagesFollowsLink(t *testing.T) {
 	if err != nil {
 		t.Fatalf("GetDependentPackages() error = %v", err)
 	}
-	if len(got) != 2 || got[1].Purl != "pkg:npm/downstream-b" {
+	if len(got) != 2 || got[1].PURL != "pkg:npm/downstream-b" {
 		t.Fatalf("dependents = %+v", got)
 	}
 }

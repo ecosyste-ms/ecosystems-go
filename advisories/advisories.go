@@ -23,8 +23,8 @@ type Advisory struct {
 	BlastRadius    *float32 `json:"blast_radius,omitempty"`
 	Classification *string  `json:"classification,omitempty"`
 	CreatedAt      *string  `json:"created_at,omitempty"`
-	CvssScore      *float32 `json:"cvss_score,omitempty"`
-	CvssVector     *string  `json:"cvss_vector,omitempty"`
+	CVSSScore      *float32 `json:"cvss_score,omitempty"`
+	CVSSVector     *string  `json:"cvss_vector,omitempty"`
 	Description    *string  `json:"description,omitempty"`
 	EpssPercentage *float32 `json:"epss_percentage,omitempty"`
 	EpssPercentile *float32 `json:"epss_percentile,omitempty"`
@@ -61,10 +61,10 @@ type PackageWithDetails struct {
 	Ecosystem        *string  `json:"ecosystem,omitempty"`
 	PackageName      *string  `json:"package_name,omitempty"`
 
-	// Purl Package URL (PURL) for this package
+	// PURL Package URL (PURL) for this package
 	//
 	// Example: pkg:npm/lodash
-	Purl               *string                        `json:"purl,omitempty"`
+	PURL               *string                        `json:"purl,omitempty"`
 	Statistics         *PackageWithDetails_Statistics `json:"statistics,omitempty"`
 	UnaffectedVersions []string                       `json:"unaffected_versions,omitempty"`
 	Versions           []PackageWithDetails_Versions  `json:"versions,omitempty"`
@@ -140,8 +140,8 @@ type GetAdvisoriesParams struct {
 
 // LookupAdvisoriesParams defines parameters for LookupAdvisories.
 type LookupAdvisoriesParams struct {
-	// Purl Package URL (PURL) to lookup advisories for. Format: pkg:type/namespace/name@version
-	Purl *string `form:"purl,omitempty" json:"purl,omitempty"`
+	// PURL Package URL (PURL) to lookup advisories for. Format: pkg:type/namespace/name@version
+	PURL *string `form:"purl,omitempty" json:"purl,omitempty"`
 
 	// RepositoryURL Source repository URL to lookup advisories for
 	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
@@ -554,9 +554,9 @@ func NewLookupAdvisoriesRequest(server string, params *LookupAdvisoriesParams) (
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if params.Purl != nil {
+		if params.PURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.Purl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.PURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
