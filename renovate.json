@@ -36,6 +36,16 @@
           "golang": {}
         }
       }
+    },
+    {
+      "description": "Use `feat` for `oapi-codegen` minor bumps",
+      "matchDepNames": [
+        "github.com/oapi-codegen/oapi-codegen/v2"
+      ],
+      "matchUpdateTypes": [
+        "minor"
+      ],
+      "semanticCommitType": "feat"
     }
   ],
   "postUpdateOptions": [
