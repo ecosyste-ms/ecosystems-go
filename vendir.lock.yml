@@ -1,0 +1,15 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - http: {}
+    path: packages.yaml
+  - http: {}
+    path: repos.yaml
+  - http: {}
+    path: advisories.yaml
+  - http: {}
+    path: commits.yaml
+  - http: {}
+    path: issues.yaml
+  path: specs
+kind: LockConfig

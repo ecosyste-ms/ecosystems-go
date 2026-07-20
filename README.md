@@ -130,6 +130,7 @@ client, err := ecosystems.NewClient("my-app/1.0",
 The `packages/` and `repos/` directories contain generated OpenAPI clients. To regenerate after spec updates:
 
 ```bash
+# NOTE that update-specs requires the `vendir` tool (https://github.com/carvel-dev/vendir) to run
 make update-specs  # Download latest OpenAPI specs
 make generate      # Regenerate Go clients
 ```
