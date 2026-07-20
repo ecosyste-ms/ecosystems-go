@@ -4,3 +4,6 @@ output: advisories.go
 generate:
   models: true
   client: true
+output-options:
+  skip-response-body-getters: true
+  generate-types-for-anonymous-schemas: true

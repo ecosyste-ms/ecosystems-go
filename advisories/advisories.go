@@ -64,18 +64,24 @@ type PackageWithDetails struct {
 	// Purl Package URL (PURL) for this package
 	//
 	// Example: pkg:npm/lodash
-	Purl       *string `json:"purl,omitempty"`
-	Statistics *struct {
-		DependentPackagesCount *int    `json:"dependent_packages_count,omitempty"`
-		DependentReposCount    *int    `json:"dependent_repos_count,omitempty"`
-		Downloads              *int    `json:"downloads,omitempty"`
-		DownloadsPeriod        *string `json:"downloads_period,omitempty"`
-	} `json:"statistics,omitempty"`
-	UnaffectedVersions *[]string `json:"unaffected_versions,omitempty"`
-	Versions           *[]struct {
-		FirstPatchedVersion    *string `json:"first_patched_version,omitempty"`
-		VulnerableVersionRange *string `json:"vulnerable_version_range,omitempty"`
-	} `json:"versions,omitempty"`
+	Purl               *string                        `json:"purl,omitempty"`
+	Statistics         *PackageWithDetails_Statistics `json:"statistics,omitempty"`
+	UnaffectedVersions *[]string                      `json:"unaffected_versions,omitempty"`
+	Versions           *[]PackageWithDetails_Versions `json:"versions,omitempty"`
+}
+
+// PackageWithDetails_Statistics defines model for PackageWithDetails.Statistics.
+type PackageWithDetails_Statistics struct {
+	DependentPackagesCount *int    `json:"dependent_packages_count,omitempty"`
+	DependentReposCount    *int    `json:"dependent_repos_count,omitempty"`
+	Downloads              *int    `json:"downloads,omitempty"`
+	DownloadsPeriod        *string `json:"downloads_period,omitempty"`
+}
+
+// PackageWithDetails_Versions defines model for PackageWithDetails.Versions.
+type PackageWithDetails_Versions struct {
+	FirstPatchedVersion    *string `json:"first_patched_version,omitempty"`
+	VulnerableVersionRange *string `json:"vulnerable_version_range,omitempty"`
 }
 
 // RelatedAdvisory defines model for RelatedAdvisory.
@@ -139,6 +145,12 @@ type LookupAdvisoriesParams struct {
 
 	// RepositoryUrl Source repository URL to lookup advisories for
 	RepositoryUrl *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
+}
+
+// LookupAdvisories400JSONResponseBody defines parameters for LookupAdvisories.
+type LookupAdvisories400JSONResponseBody struct {
+	// Error Example: purl or repository_url parameter is required
+	Error *string `json:"error,omitempty"`
 }
 
 // RequestEditorFn is the function signature for the RequestEditor callback function
@@ -798,16 +810,6 @@ type GetAdvisoriesResponse struct {
 	JSON200 *[]Advisory
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetAdvisoriesResponse) GetJSON200() *[]Advisory {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetAdvisoriesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetAdvisoriesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -838,28 +840,7 @@ type LookupAdvisoriesResponse struct {
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Advisory
 	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *struct {
-		// Error Example: purl or repository_url parameter is required
-		Error *string `json:"error,omitempty"`
-	}
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r LookupAdvisoriesResponse) GetJSON200() *[]Advisory {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r LookupAdvisoriesResponse) GetJSON400() *struct {
-	// Error Example: purl or repository_url parameter is required
-	Error *string `json:"error,omitempty"`
-} {
-	return r.JSON400
-}
-
-// GetBody returns the raw response body bytes
-func (r LookupAdvisoriesResponse) GetBody() []byte {
-	return r.Body
+	JSON400 *LookupAdvisories400JSONResponseBody
 }
 
 // Status returns HTTPResponse.Status
@@ -893,16 +874,6 @@ type GetAdvisoriesPackagesResponse struct {
 	JSON200 *[]Package
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetAdvisoriesPackagesResponse) GetJSON200() *[]Package {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetAdvisoriesPackagesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetAdvisoriesPackagesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -932,16 +903,6 @@ type GetAdvisoryResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Advisory
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetAdvisoryResponse) GetJSON200() *Advisory {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetAdvisoryResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -975,16 +936,6 @@ type GetSourcesResponse struct {
 	JSON200 *[]Source
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetSourcesResponse) GetJSON200() *[]Source {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetSourcesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetSourcesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1014,16 +965,6 @@ type GetSourceResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Source
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetSourceResponse) GetJSON200() *Source {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetSourceResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -1178,10 +1119,7 @@ func ParseLookupAdvisoriesResponse(rsp *http.Response) (*LookupAdvisoriesRespons
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest struct {
-			// Error Example: purl or repository_url parameter is required
-			Error *string `json:"error,omitempty"`
-		}
+		var dest LookupAdvisories400JSONResponseBody
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

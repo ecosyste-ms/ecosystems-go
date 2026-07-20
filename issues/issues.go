@@ -284,6 +284,12 @@ type CreateJobJSONBody struct {
 	Url string `json:"url"`
 }
 
+// CreateJob400JSONResponseBody defines parameters for CreateJob.
+type CreateJob400JSONResponseBody struct {
+	Details *[]string `json:"details,omitempty"`
+	Title   *string   `json:"title,omitempty"`
+}
+
 // RepositoriesLookupParams defines parameters for RepositoriesLookup.
 type RepositoriesLookupParams struct {
 	// Url The URL of the repository to lookup
@@ -1768,16 +1774,6 @@ type GetRegistriesResponse struct {
 	JSON200 *[]Host
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistriesResponse) GetJSON200() *[]Host {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistriesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistriesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1807,16 +1803,6 @@ type GetHostResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Host
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostResponse) GetJSON200() *Host {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -1850,16 +1836,6 @@ type GetHostAuthorsResponse struct {
 	JSON200 *[]AuthorSummary
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostAuthorsResponse) GetJSON200() *[]AuthorSummary {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostAuthorsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostAuthorsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1889,16 +1865,6 @@ type GetHostAuthorResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Author
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostAuthorResponse) GetJSON200() *Author {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostAuthorResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -1932,16 +1898,6 @@ type GetHostOwnersResponse struct {
 	JSON200 *[]OwnerSummary
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostOwnersResponse) GetJSON200() *[]OwnerSummary {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostOwnersResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostOwnersResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1971,16 +1927,6 @@ type GetHostOwnerResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Owner
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostOwnerResponse) GetJSON200() *Owner {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostOwnerResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -2014,16 +1960,6 @@ type GetHostOwnerMaintainersResponse struct {
 	JSON200 *Maintainers
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostOwnerMaintainersResponse) GetJSON200() *Maintainers {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostOwnerMaintainersResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostOwnerMaintainersResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -2053,16 +1989,6 @@ type GetHostRepositoriesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Repository
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoriesResponse) GetJSON200() *[]Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoriesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -2096,16 +2022,6 @@ type GetHostRepositoryResponse struct {
 	JSON200 *Repository
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryResponse) GetJSON200() *Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoryResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -2135,16 +2051,6 @@ type GetHostRepositoryIssuesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Issue
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryIssuesResponse) GetJSON200() *[]Issue {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryIssuesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -2178,16 +2084,6 @@ type GetHostRepositoryIssueResponse struct {
 	JSON200 *Issue
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryIssueResponse) GetJSON200() *Issue {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryIssueResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoryIssueResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -2219,16 +2115,6 @@ type GetHostRepositoryLabelsResponse struct {
 	JSON200 *[]LabelCount
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryLabelsResponse) GetJSON200() *[]LabelCount {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryLabelsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoryLabelsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -2257,23 +2143,7 @@ type CreateJobResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *struct {
-		Details *[]string `json:"details,omitempty"`
-		Title   *string   `json:"title,omitempty"`
-	}
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r CreateJobResponse) GetJSON400() *struct {
-	Details *[]string `json:"details,omitempty"`
-	Title   *string   `json:"title,omitempty"`
-} {
-	return r.JSON400
-}
-
-// GetBody returns the raw response body bytes
-func (r CreateJobResponse) GetBody() []byte {
-	return r.Body
+	JSON400 *CreateJob400JSONResponseBody
 }
 
 // Status returns HTTPResponse.Status
@@ -2307,16 +2177,6 @@ type GetJobResponse struct {
 	JSON200 *Job
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetJobResponse) GetJSON200() *Job {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetJobResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetJobResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -2346,16 +2206,6 @@ type RepositoriesLookupResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Repository
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r RepositoriesLookupResponse) GetJSON200() *Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r RepositoriesLookupResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -2920,10 +2770,7 @@ func ParseCreateJobResponse(rsp *http.Response) (*CreateJobResponse, error) {
 		break // No content-type
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest struct {
-			Details *[]string `json:"details,omitempty"`
-			Title   *string   `json:"title,omitempty"`
-		}
+		var dest CreateJob400JSONResponseBody
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

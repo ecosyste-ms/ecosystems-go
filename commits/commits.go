@@ -29,18 +29,21 @@ type Commit struct {
 
 // Committer defines model for Committer.
 type Committer struct {
-	CommitsCount *int       `json:"commits_count,omitempty"`
-	CreatedAt    *time.Time `json:"created_at,omitempty"`
-	Emails       *[]string  `json:"emails,omitempty"`
-	Id           *int       `json:"id,omitempty"`
-	Login        *string    `json:"login,omitempty"`
-	Repositories *[]struct {
-		CommitCount *int    `json:"commit_count,omitempty"`
-		FullName    *string `json:"full_name,omitempty"`
-		Id          *int    `json:"id,omitempty"`
-	} `json:"repositories,omitempty"`
-	RepositoriesCount *int       `json:"repositories_count,omitempty"`
-	UpdatedAt         *time.Time `json:"updated_at,omitempty"`
+	CommitsCount      *int                      `json:"commits_count,omitempty"`
+	CreatedAt         *time.Time                `json:"created_at,omitempty"`
+	Emails            *[]string                 `json:"emails,omitempty"`
+	Id                *int                      `json:"id,omitempty"`
+	Login             *string                   `json:"login,omitempty"`
+	Repositories      *[]Committer_Repositories `json:"repositories,omitempty"`
+	RepositoriesCount *int                      `json:"repositories_count,omitempty"`
+	UpdatedAt         *time.Time                `json:"updated_at,omitempty"`
+}
+
+// Committer_Repositories defines model for Committer.Repositories.
+type Committer_Repositories struct {
+	CommitCount *int    `json:"commit_count,omitempty"`
+	FullName    *string `json:"full_name,omitempty"`
+	Id          *int    `json:"id,omitempty"`
 }
 
 // Host defines model for Host.
@@ -984,16 +987,6 @@ type GetRegistriesResponse struct {
 	JSON200 *[]Host
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistriesResponse) GetJSON200() *[]Host {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistriesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistriesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1023,16 +1016,6 @@ type GetHostResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Host
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostResponse) GetJSON200() *Host {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -1066,16 +1049,6 @@ type GetHostCommitterResponse struct {
 	JSON200 *Committer
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostCommitterResponse) GetJSON200() *Committer {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostCommitterResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostCommitterResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1105,16 +1078,6 @@ type GetHostRepositoriesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Repository
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoriesResponse) GetJSON200() *[]Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoriesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -1148,16 +1111,6 @@ type GetHostRepositoryResponse struct {
 	JSON200 *Repository
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryResponse) GetJSON200() *Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoryResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1189,16 +1142,6 @@ type GetRepositoryCommitsResponse struct {
 	JSON200 *[]Commit
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRepositoryCommitsResponse) GetJSON200() *[]Commit {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRepositoryCommitsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRepositoryCommitsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1228,16 +1171,6 @@ type RepositoriesLookupResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Repository
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r RepositoriesLookupResponse) GetJSON200() *Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r RepositoriesLookupResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
