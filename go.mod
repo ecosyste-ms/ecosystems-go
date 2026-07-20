@@ -1,6 +1,6 @@
 module github.com/ecosyste-ms/ecosystems-go
 
-go 1.24.2
+go 1.25.0
 
 require (
 	github.com/git-pkgs/packageurl-go v0.3.1
