@@ -798,16 +798,6 @@ type GetAdvisoriesResponse struct {
 	JSON200 *[]Advisory
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetAdvisoriesResponse) GetJSON200() *[]Advisory {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetAdvisoriesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetAdvisoriesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -844,24 +834,6 @@ type LookupAdvisoriesResponse struct {
 	}
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r LookupAdvisoriesResponse) GetJSON200() *[]Advisory {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r LookupAdvisoriesResponse) GetJSON400() *struct {
-	// Error Example: purl or repository_url parameter is required
-	Error *string `json:"error,omitempty"`
-} {
-	return r.JSON400
-}
-
-// GetBody returns the raw response body bytes
-func (r LookupAdvisoriesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r LookupAdvisoriesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -891,16 +863,6 @@ type GetAdvisoriesPackagesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Package
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetAdvisoriesPackagesResponse) GetJSON200() *[]Package {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetAdvisoriesPackagesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -934,16 +896,6 @@ type GetAdvisoryResponse struct {
 	JSON200 *Advisory
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetAdvisoryResponse) GetJSON200() *Advisory {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetAdvisoryResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetAdvisoryResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -975,16 +927,6 @@ type GetSourcesResponse struct {
 	JSON200 *[]Source
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetSourcesResponse) GetJSON200() *[]Source {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetSourcesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetSourcesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -1014,16 +956,6 @@ type GetSourceResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Source
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetSourceResponse) GetJSON200() *Source {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetSourceResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status

@@ -4793,16 +4793,6 @@ type GetCriticalPackagesResponse struct {
 	JSON200 *[]PackageWithRegistry
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetCriticalPackagesResponse) GetJSON200() *[]PackageWithRegistry {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetCriticalPackagesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetCriticalPackagesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4840,22 +4830,6 @@ type GetCriticalMaintainersResponse struct {
 	}
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetCriticalMaintainersResponse) GetJSON200() *[]struct {
-	Login         *string                `json:"login,omitempty"`
-	Name          *string                `json:"name,omitempty"`
-	Packages      *[]PackageWithRegistry `json:"packages,omitempty"`
-	PackagesCount *int                   `json:"packages_count,omitempty"`
-	RegistryName  *string                `json:"registry_name,omitempty"`
-} {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetCriticalMaintainersResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetCriticalMaintainersResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4885,16 +4859,6 @@ type GetCriticalSoleMaintainersResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]PackageWithRegistry
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetCriticalSoleMaintainersResponse) GetJSON200() *[]PackageWithRegistry {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetCriticalSoleMaintainersResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4928,16 +4892,6 @@ type GetDependenciesResponse struct {
 	JSON200 *[]Dependency
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetDependenciesResponse) GetJSON200() *[]Dependency {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetDependenciesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetDependenciesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4969,16 +4923,6 @@ type GetKeywordsResponse struct {
 	JSON200 *[]Keyword
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetKeywordsResponse) GetJSON200() *[]Keyword {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetKeywordsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetKeywordsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5008,16 +4952,6 @@ type GetKeywordResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *KeywordWithPackages
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetKeywordResponse) GetJSON200() *KeywordWithPackages {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetKeywordResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5056,24 +4990,6 @@ type BulkLookupPackagesResponse struct {
 	}
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r BulkLookupPackagesResponse) GetJSON200() *[]PackageWithRegistry {
-	return r.JSON200
-}
-
-// GetJSON400 returns the response for an HTTP 400 `application/json` response
-func (r BulkLookupPackagesResponse) GetJSON400() *struct {
-	// Error Example: Maximum 100 PURLs allowed per request
-	Error *string `json:"error,omitempty"`
-} {
-	return r.JSON400
-}
-
-// GetBody returns the raw response body bytes
-func (r BulkLookupPackagesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r BulkLookupPackagesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5103,16 +5019,6 @@ type GetCriticalPackagesListResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]PackageWithRegistry
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetCriticalPackagesListResponse) GetJSON200() *[]PackageWithRegistry {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetCriticalPackagesListResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5146,16 +5052,6 @@ type LookupPackageResponse struct {
 	JSON200 *[]PackageWithRegistry
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r LookupPackageResponse) GetJSON200() *[]PackageWithRegistry {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r LookupPackageResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r LookupPackageResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5185,16 +5081,6 @@ type GetRegistriesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Registry
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistriesResponse) GetJSON200() *[]Registry {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistriesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5228,16 +5114,6 @@ type GetRegistryResponse struct {
 	JSON200 *Registry
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryResponse) GetJSON200() *Registry {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5267,16 +5143,6 @@ type LookupRegistryPackageResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]PackageWithRegistry
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r LookupRegistryPackageResponse) GetJSON200() *[]PackageWithRegistry {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r LookupRegistryPackageResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5310,16 +5176,6 @@ type GetRegistryMaintainersResponse struct {
 	JSON200 *[]Maintainer
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryMaintainersResponse) GetJSON200() *[]Maintainer {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryMaintainersResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryMaintainersResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5349,16 +5205,6 @@ type GetRegistryMaintainerResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Maintainer
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryMaintainerResponse) GetJSON200() *Maintainer {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryMaintainerResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5392,16 +5238,6 @@ type GetRegistryMaintainerPackagesResponse struct {
 	JSON200 *[]Package
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryMaintainerPackagesResponse) GetJSON200() *[]Package {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryMaintainerPackagesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryMaintainerPackagesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5431,16 +5267,6 @@ type GetRegistryNamespacesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Namespace
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryNamespacesResponse) GetJSON200() *[]Namespace {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryNamespacesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5474,16 +5300,6 @@ type GetRegistryNamespaceResponse struct {
 	JSON200 *Namespace
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryNamespaceResponse) GetJSON200() *Namespace {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryNamespaceResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryNamespaceResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5513,16 +5329,6 @@ type GetRegistryNamespacePackagesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Package
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryNamespacePackagesResponse) GetJSON200() *[]Package {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryNamespacePackagesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5556,16 +5362,6 @@ type GetRegistryPackageNamesResponse struct {
 	JSON200 *[]string
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageNamesResponse) GetJSON200() *[]string {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageNamesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryPackageNamesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5595,16 +5391,6 @@ type GetRegistryPackagesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Package
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackagesResponse) GetJSON200() *[]Package {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackagesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5638,16 +5424,6 @@ type GetRegistryPackageResponse struct {
 	JSON200 *Package
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageResponse) GetJSON200() *Package {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryPackageResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5677,16 +5453,6 @@ type GetRegistryPackageCodeMetaResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *CodeMeta
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageCodeMetaResponse) GetJSON200() *CodeMeta {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageCodeMetaResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5720,16 +5486,6 @@ type GetRegistryPackageDependentPackageKindsResponse struct {
 	JSON200 *[]string
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageDependentPackageKindsResponse) GetJSON200() *[]string {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageDependentPackageKindsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryPackageDependentPackageKindsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5759,16 +5515,6 @@ type GetRegistryPackageDependentPackagesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Package
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageDependentPackagesResponse) GetJSON200() *[]Package {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageDependentPackagesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5802,16 +5548,6 @@ type GetRegistryPackageRelatedPackagesResponse struct {
 	JSON200 *[]Package
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageRelatedPackagesResponse) GetJSON200() *[]Package {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageRelatedPackagesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryPackageRelatedPackagesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5841,16 +5577,6 @@ type GetRegistryPackageVersionNumbersResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]string
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageVersionNumbersResponse) GetJSON200() *[]string {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageVersionNumbersResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5884,16 +5610,6 @@ type GetRegistryPackageVersionsResponse struct {
 	JSON200 *[]Version
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageVersionsResponse) GetJSON200() *[]Version {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageVersionsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryPackageVersionsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -5923,16 +5639,6 @@ type GetRegistryPackageVersionResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *VersionWithDependencies
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageVersionResponse) GetJSON200() *VersionWithDependencies {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageVersionResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -5966,16 +5672,6 @@ type GetRegistryPackageVersionCodeMetaResponse struct {
 	JSON200 *CodeMeta
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryPackageVersionCodeMetaResponse) GetJSON200() *CodeMeta {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryPackageVersionCodeMetaResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistryPackageVersionCodeMetaResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -6005,16 +5701,6 @@ type GetRegistryRecentVersionsResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]VersionWithPackage
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistryRecentVersionsResponse) GetJSON200() *[]VersionWithPackage {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistryRecentVersionsResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status

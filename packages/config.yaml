@@ -4,3 +4,5 @@ output: packages.go
 generate:
   models: true
   client: true
+output-options:
+  skip-response-body-getters: true

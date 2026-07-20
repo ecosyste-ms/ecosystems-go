@@ -3618,16 +3618,6 @@ type GetRegistriesResponse struct {
 	JSON200 *[]Host
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetRegistriesResponse) GetJSON200() *[]Host {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetRegistriesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetRegistriesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -3657,16 +3647,6 @@ type LookupHostOwnerResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Owner
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r LookupHostOwnerResponse) GetJSON200() *[]Owner {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r LookupHostOwnerResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -3700,16 +3680,6 @@ type GetHostResponse struct {
 	JSON200 *Host
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostResponse) GetJSON200() *Host {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -3739,16 +3709,6 @@ type GetHostOwnersResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Owner
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostOwnersResponse) GetJSON200() *[]Owner {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostOwnersResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -3782,16 +3742,6 @@ type GetHostOwnerNamesResponse struct {
 	JSON200 *[]string
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostOwnerNamesResponse) GetJSON200() *[]string {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostOwnerNamesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostOwnerNamesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -3821,16 +3771,6 @@ type GetHostOwnerSponsorsLoginsResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]string
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostOwnerSponsorsLoginsResponse) GetJSON200() *[]string {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostOwnerSponsorsLoginsResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -3864,16 +3804,6 @@ type GetHostOwnerResponse struct {
 	JSON200 *Owner
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostOwnerResponse) GetJSON200() *Owner {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostOwnerResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostOwnerResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -3903,16 +3833,6 @@ type GetHostOwnerRepositoriesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Repository
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostOwnerRepositoriesResponse) GetJSON200() *[]Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostOwnerRepositoriesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -3946,16 +3866,6 @@ type GetHostRepositoriesResponse struct {
 	JSON200 *[]Repository
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoriesResponse) GetJSON200() *[]Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoriesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoriesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -3985,16 +3895,6 @@ type GetHostRepositoryResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Repository
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryResponse) GetJSON200() *Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4028,16 +3928,6 @@ type GetHostRepositoryManifestsResponse struct {
 	JSON200 *[]Manifest
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryManifestsResponse) GetJSON200() *[]Manifest {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryManifestsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoryManifestsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4067,16 +3957,6 @@ type GetHostRepositoryReleasesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Tag
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryReleasesResponse) GetJSON200() *[]Tag {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryReleasesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4110,16 +3990,6 @@ type GetHostRepositoryReleaseResponse struct {
 	JSON200 *Release
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryReleaseResponse) GetJSON200() *Release {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryReleaseResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoryReleaseResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4149,16 +4019,6 @@ type GetHostRepositorySbomResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *map[string]interface{}
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositorySbomResponse) GetJSON200() *map[string]interface{} {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositorySbomResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4192,16 +4052,6 @@ type GetHostRepositoryTagsResponse struct {
 	JSON200 *[]Tag
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryTagsResponse) GetJSON200() *[]Tag {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryTagsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoryTagsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4231,16 +4081,6 @@ type GetHostRepositoryTagResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *Tag
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryTagResponse) GetJSON200() *Tag {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryTagResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4274,16 +4114,6 @@ type GetHostRepositoryTagManifestsResponse struct {
 	JSON200 *[]Manifest
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryTagManifestsResponse) GetJSON200() *[]Manifest {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryTagManifestsResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r GetHostRepositoryTagManifestsResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4313,16 +4143,6 @@ type GetHostRepositoryNamesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]string
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r GetHostRepositoryNamesResponse) GetJSON200() *[]string {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r GetHostRepositoryNamesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4356,16 +4176,6 @@ type RepositoriesLookupResponse struct {
 	JSON200 *Repository
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r RepositoriesLookupResponse) GetJSON200() *Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r RepositoriesLookupResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r RepositoriesLookupResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4395,16 +4205,6 @@ type TopicsResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Topic
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r TopicsResponse) GetJSON200() *[]Topic {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r TopicsResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4438,16 +4238,6 @@ type TopicResponse struct {
 	JSON200 *TopicWithRepositories
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r TopicResponse) GetJSON200() *TopicWithRepositories {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r TopicResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r TopicResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4477,16 +4267,6 @@ type UsageResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Ecosystem
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UsageResponse) GetJSON200() *[]Ecosystem {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r UsageResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4520,16 +4300,6 @@ type UsageEcosystemResponse struct {
 	JSON200 *[]PackageUsage
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UsageEcosystemResponse) GetJSON200() *[]PackageUsage {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r UsageEcosystemResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r UsageEcosystemResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4559,16 +4329,6 @@ type UsagePackageResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *PackageUsage
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UsagePackageResponse) GetJSON200() *PackageUsage {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r UsagePackageResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
@@ -4602,16 +4362,6 @@ type UsagePackageDependenciesResponse struct {
 	JSON200 *[]DependencyWithRepository
 }
 
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UsagePackageDependenciesResponse) GetJSON200() *[]DependencyWithRepository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r UsagePackageDependenciesResponse) GetBody() []byte {
-	return r.Body
-}
-
 // Status returns HTTPResponse.Status
 func (r UsagePackageDependenciesResponse) Status() string {
 	if r.HTTPResponse != nil {
@@ -4641,16 +4391,6 @@ type UsagePackageDependentRepositoriesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Repository
-}
-
-// GetJSON200 returns the response for an HTTP 200 `application/json` response
-func (r UsagePackageDependentRepositoriesResponse) GetJSON200() *[]Repository {
-	return r.JSON200
-}
-
-// GetBody returns the raw response body bytes
-func (r UsagePackageDependentRepositoriesResponse) GetBody() []byte {
-	return r.Body
 }
 
 // Status returns HTTPResponse.Status
