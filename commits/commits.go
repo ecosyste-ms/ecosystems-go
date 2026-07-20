@@ -29,18 +29,21 @@ type Commit struct {
 
 // Committer defines model for Committer.
 type Committer struct {
-	CommitsCount *int       `json:"commits_count,omitempty"`
-	CreatedAt    *time.Time `json:"created_at,omitempty"`
-	Emails       *[]string  `json:"emails,omitempty"`
-	Id           *int       `json:"id,omitempty"`
-	Login        *string    `json:"login,omitempty"`
-	Repositories *[]struct {
-		CommitCount *int    `json:"commit_count,omitempty"`
-		FullName    *string `json:"full_name,omitempty"`
-		Id          *int    `json:"id,omitempty"`
-	} `json:"repositories,omitempty"`
-	RepositoriesCount *int       `json:"repositories_count,omitempty"`
-	UpdatedAt         *time.Time `json:"updated_at,omitempty"`
+	CommitsCount      *int                      `json:"commits_count,omitempty"`
+	CreatedAt         *time.Time                `json:"created_at,omitempty"`
+	Emails            *[]string                 `json:"emails,omitempty"`
+	Id                *int                      `json:"id,omitempty"`
+	Login             *string                   `json:"login,omitempty"`
+	Repositories      *[]Committer_Repositories `json:"repositories,omitempty"`
+	RepositoriesCount *int                      `json:"repositories_count,omitempty"`
+	UpdatedAt         *time.Time                `json:"updated_at,omitempty"`
+}
+
+// Committer_Repositories defines model for Committer.Repositories.
+type Committer_Repositories struct {
+	CommitCount *int    `json:"commit_count,omitempty"`
+	FullName    *string `json:"full_name,omitempty"`
+	Id          *int    `json:"id,omitempty"`
 }
 
 // Host defines model for Host.

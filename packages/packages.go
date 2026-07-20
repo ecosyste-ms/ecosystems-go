@@ -54,23 +54,13 @@ type CodeMeta struct {
 	ApplicationCategory *string `json:"applicationCategory,omitempty"`
 
 	// Author Package authors
-	Author *[]struct {
-		// Type Example: Person
-		Type *string `json:"@type,omitempty"`
-		Name *string `json:"name,omitempty"`
-		Url  *string `json:"url,omitempty"`
-	} `json:"author,omitempty"`
+	Author *[]CodeMeta_Author `json:"author,omitempty"`
 
 	// CodeRepository Source code repository URL
 	CodeRepository *string `json:"codeRepository,omitempty"`
 
 	// CopyrightHolder Copyright holders
-	CopyrightHolder *[]struct {
-		// Type Example: Person
-		Type *string `json:"@type,omitempty"`
-		Name *string `json:"name,omitempty"`
-		Url  *string `json:"url,omitempty"`
-	} `json:"copyrightHolder,omitempty"`
+	CopyrightHolder *[]CodeMeta_CopyrightHolder `json:"copyrightHolder,omitempty"`
 
 	// CopyrightYear Copyright year
 	CopyrightYear *int `json:"copyrightYear,omitempty"`
@@ -94,11 +84,7 @@ type CodeMeta struct {
 	DownloadUrl *string `json:"downloadUrl,omitempty"`
 
 	// Funder Funding sources
-	Funder *[]struct {
-		// Type Example: Organization
-		Type *string `json:"@type,omitempty"`
-		Url  *string `json:"url,omitempty"`
-	} `json:"funder,omitempty"`
+	Funder *[]CodeMeta_Funder `json:"funder,omitempty"`
 
 	// HttpsforgefedOrgnsForks Fork count (ForgeFed)
 	HttpsforgefedOrgnsForks *int `json:"https://forgefed.org/ns#forks,omitempty"`
@@ -121,24 +107,13 @@ type CodeMeta struct {
 	License *CodeMeta_License `json:"license,omitempty"`
 
 	// Maintainer Package maintainers
-	Maintainer *[]struct {
-		// Type Example: Person
-		Type *string `json:"@type,omitempty"`
-		Name *string `json:"name,omitempty"`
-		Url  *string `json:"url,omitempty"`
-	} `json:"maintainer,omitempty"`
+	Maintainer *[]CodeMeta_Maintainer `json:"maintainer,omitempty"`
 
 	// Name Package name
 	Name string `json:"name"`
 
 	// ProgrammingLanguage Programming language information
-	ProgrammingLanguage *struct {
-		// Type Example: ComputerLanguage
-		Type *string `json:"@type,omitempty"`
-
-		// Name Example: Rust
-		Name *string `json:"name,omitempty"`
-	} `json:"programmingLanguage,omitempty"`
+	ProgrammingLanguage *CodeMeta_ProgrammingLanguage `json:"programmingLanguage,omitempty"`
 
 	// RuntimePlatform Runtime platform/ecosystem
 	RuntimePlatform *string `json:"runtimePlatform,omitempty"`
@@ -147,11 +122,7 @@ type CodeMeta struct {
 	SameAs *[]string `json:"sameAs,omitempty"`
 
 	// SoftwareHelp Documentation/help resources
-	SoftwareHelp *struct {
-		// Type Example: WebSite
-		Type *string `json:"@type,omitempty"`
-		Url  *string `json:"url,omitempty"`
-	} `json:"softwareHelp,omitempty"`
+	SoftwareHelp *CodeMeta_SoftwareHelp `json:"softwareHelp,omitempty"`
 
 	// SoftwareVersion Software version
 	SoftwareVersion *string `json:"softwareVersion,omitempty"`
@@ -163,6 +134,29 @@ type CodeMeta struct {
 	Version *string `json:"version,omitempty"`
 }
 
+// CodeMeta_Author defines model for CodeMeta.Author.
+type CodeMeta_Author struct {
+	// Type Example: Person
+	Type *string `json:"@type,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Url  *string `json:"url,omitempty"`
+}
+
+// CodeMeta_CopyrightHolder defines model for CodeMeta.CopyrightHolder.
+type CodeMeta_CopyrightHolder struct {
+	// Type Example: Person
+	Type *string `json:"@type,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Url  *string `json:"url,omitempty"`
+}
+
+// CodeMeta_Funder defines model for CodeMeta.Funder.
+type CodeMeta_Funder struct {
+	// Type Example: Organization
+	Type *string `json:"@type,omitempty"`
+	Url  *string `json:"url,omitempty"`
+}
+
 // CodeMetaLicense0 defines model for CodeMeta.License.0.
 type CodeMetaLicense0 = string
 
@@ -172,6 +166,30 @@ type CodeMetaLicense1 = []string
 // CodeMeta_License SPDX license URL(s)
 type CodeMeta_License struct {
 	union json.RawMessage
+}
+
+// CodeMeta_Maintainer defines model for CodeMeta.Maintainer.
+type CodeMeta_Maintainer struct {
+	// Type Example: Person
+	Type *string `json:"@type,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Url  *string `json:"url,omitempty"`
+}
+
+// CodeMeta_ProgrammingLanguage Programming language information
+type CodeMeta_ProgrammingLanguage struct {
+	// Type Example: ComputerLanguage
+	Type *string `json:"@type,omitempty"`
+
+	// Name Example: Rust
+	Name *string `json:"name,omitempty"`
+}
+
+// CodeMeta_SoftwareHelp Documentation/help resources
+type CodeMeta_SoftwareHelp struct {
+	// Type Example: WebSite
+	Type *string `json:"@type,omitempty"`
+	Url  *string `json:"url,omitempty"`
 }
 
 // Dependency defines model for Dependency.
@@ -446,6 +464,18 @@ type GetCriticalMaintainersParams struct {
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
 
+// GetCriticalMaintainers200JSONResponseBody_Item defines parameters for GetCriticalMaintainers.
+type GetCriticalMaintainers200JSONResponseBody_Item struct {
+	Login         *string                `json:"login,omitempty"`
+	Name          *string                `json:"name,omitempty"`
+	Packages      *[]PackageWithRegistry `json:"packages,omitempty"`
+	PackagesCount *int                   `json:"packages_count,omitempty"`
+	RegistryName  *string                `json:"registry_name,omitempty"`
+}
+
+// GetCriticalMaintainers200JSONResponseBody defines parameters for GetCriticalMaintainers.
+type GetCriticalMaintainers200JSONResponseBody = []GetCriticalMaintainers200JSONResponseBody_Item
+
 // GetCriticalSoleMaintainersParams defines parameters for GetCriticalSoleMaintainers.
 type GetCriticalSoleMaintainersParams struct {
 	// Registry filter by registry name
@@ -531,6 +561,12 @@ type BulkLookupPackagesJSONBody struct {
 
 	// RepositoryUrls array of repository URLs to lookup
 	RepositoryUrls *[]string `json:"repository_urls,omitempty"`
+}
+
+// BulkLookupPackages400JSONResponseBody defines parameters for BulkLookupPackages.
+type BulkLookupPackages400JSONResponseBody struct {
+	// Error Example: Maximum 100 PURLs allowed per request
+	Error *string `json:"error,omitempty"`
 }
 
 // GetCriticalPackagesListParams defines parameters for GetCriticalPackagesList.
@@ -4821,13 +4857,7 @@ type GetCriticalMaintainersResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
-	JSON200 *[]struct {
-		Login         *string                `json:"login,omitempty"`
-		Name          *string                `json:"name,omitempty"`
-		Packages      *[]PackageWithRegistry `json:"packages,omitempty"`
-		PackagesCount *int                   `json:"packages_count,omitempty"`
-		RegistryName  *string                `json:"registry_name,omitempty"`
-	}
+	JSON200 *GetCriticalMaintainers200JSONResponseBody
 }
 
 // Status returns HTTPResponse.Status
@@ -4984,10 +5014,7 @@ type BulkLookupPackagesResponse struct {
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]PackageWithRegistry
 	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *struct {
-		// Error Example: Maximum 100 PURLs allowed per request
-		Error *string `json:"error,omitempty"`
-	}
+	JSON400 *BulkLookupPackages400JSONResponseBody
 }
 
 // Status returns HTTPResponse.Status
@@ -6171,13 +6198,7 @@ func ParseGetCriticalMaintainersResponse(rsp *http.Response) (*GetCriticalMainta
 
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
-		var dest []struct {
-			Login         *string                `json:"login,omitempty"`
-			Name          *string                `json:"name,omitempty"`
-			Packages      *[]PackageWithRegistry `json:"packages,omitempty"`
-			PackagesCount *int                   `json:"packages_count,omitempty"`
-			RegistryName  *string                `json:"registry_name,omitempty"`
-		}
+		var dest GetCriticalMaintainers200JSONResponseBody
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
@@ -6314,10 +6335,7 @@ func ParseBulkLookupPackagesResponse(rsp *http.Response) (*BulkLookupPackagesRes
 		response.JSON200 = &dest
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest struct {
-			// Error Example: Maximum 100 PURLs allowed per request
-			Error *string `json:"error,omitempty"`
-		}
+		var dest BulkLookupPackages400JSONResponseBody
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}

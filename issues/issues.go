@@ -284,6 +284,12 @@ type CreateJobJSONBody struct {
 	Url string `json:"url"`
 }
 
+// CreateJob400JSONResponseBody defines parameters for CreateJob.
+type CreateJob400JSONResponseBody struct {
+	Details *[]string `json:"details,omitempty"`
+	Title   *string   `json:"title,omitempty"`
+}
+
 // RepositoriesLookupParams defines parameters for RepositoriesLookup.
 type RepositoriesLookupParams struct {
 	// Url The URL of the repository to lookup
@@ -2137,10 +2143,7 @@ type CreateJobResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	// JSON400 the response for an HTTP 400 `application/json` response
-	JSON400 *struct {
-		Details *[]string `json:"details,omitempty"`
-		Title   *string   `json:"title,omitempty"`
-	}
+	JSON400 *CreateJob400JSONResponseBody
 }
 
 // Status returns HTTPResponse.Status
@@ -2767,10 +2770,7 @@ func ParseCreateJobResponse(rsp *http.Response) (*CreateJobResponse, error) {
 		break // No content-type
 
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
-		var dest struct {
-			Details *[]string `json:"details,omitempty"`
-			Title   *string   `json:"title,omitempty"`
-		}
+		var dest CreateJob400JSONResponseBody
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
