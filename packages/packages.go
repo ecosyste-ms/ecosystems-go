@@ -560,8 +560,8 @@ type BulkLookupPackagesJSONBody struct {
 	// Purls array of package URLs to lookup (maximum 100)
 	Purls []string `json:"purls,omitempty"`
 
-	// RepositoryUrls array of repository URLs to lookup
-	RepositoryUrls []string `json:"repository_urls,omitempty"`
+	// RepositoryURLs array of repository URLs to lookup
+	RepositoryURLs []string `json:"repository_urls,omitempty"`
 }
 
 // BulkLookupPackages400JSONResponseBody defines parameters for BulkLookupPackages.

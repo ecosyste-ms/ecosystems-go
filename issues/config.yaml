@@ -12,5 +12,8 @@ output-options:
   nullable-type: true
   prefer-skip-optional-pointer-on-container-types: true
   name-normalizer: ToCamelCaseWithInitialisms
+  additional-initialisms:
+    - IDs
+    - URLs
 compatibility:
   always-prefix-enum-values: true
