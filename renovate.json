@@ -3,7 +3,8 @@
   "extends": [
     "config:best-practices",
     "schedule:weekly",
-    "helpers:pinGitHubActionDigestsToSemver"
+    "helpers:pinGitHubActionDigestsToSemver",
+    "github>oapi-codegen/renovate-config:user"
   ],
   "packageRules": [
     {
