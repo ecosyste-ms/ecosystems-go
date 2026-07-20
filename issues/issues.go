@@ -17,6 +17,9 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// ServerURLHTTPSIssuesEcosysteMsAPIV1 defines the Server URL for https://issues.ecosyste.ms/api/v1
+const ServerURLHTTPSIssuesEcosysteMsAPIV1 = "https://issues.ecosyste.ms/api/v1"
+
 // Author defines model for Author.
 type Author struct {
 	ActiveMaintaining                  []RepoCount              `json:"active_maintaining,omitempty"`

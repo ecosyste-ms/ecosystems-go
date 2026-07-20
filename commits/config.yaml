@@ -4,6 +4,7 @@ output: commits.go
 generate:
   models: true
   client: true
+  server-urls: true
 output-options:
   skip-response-body-getters: true
   generate-types-for-anonymous-schemas: true

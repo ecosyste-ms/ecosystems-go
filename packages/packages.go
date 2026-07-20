@@ -18,6 +18,9 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// ServerURLHTTPSPackagesEcosysteMsAPIV1 defines the Server URL for https://packages.ecosyste.ms/api/v1
+const ServerURLHTTPSPackagesEcosysteMsAPIV1 = "https://packages.ecosyste.ms/api/v1"
+
 // Advisory defines model for Advisory.
 type Advisory struct {
 	Classification nullable.Nullable[string]   `json:"classification"`

@@ -75,11 +75,11 @@ func errBulkLookupStatus(code int, detail string) error {
 }
 
 const (
-	DefaultPackagesServer   = "https://packages.ecosyste.ms/api/v1"
-	DefaultReposServer      = "https://repos.ecosyste.ms/api/v1"
-	DefaultAdvisoriesServer = "https://advisories.ecosyste.ms/api/v1"
-	DefaultCommitsServer    = "https://commits.ecosyste.ms/api/v1"
-	DefaultIssuesServer     = "https://issues.ecosyste.ms/api/v1"
+	DefaultPackagesServer   = packages.ServerURLHTTPSPackagesEcosysteMsAPIV1
+	DefaultReposServer      = repos.ServerURLHTTPSReposEcosysteMsAPIV1
+	DefaultAdvisoriesServer = advisories.ServerURLHTTPSAdvisoriesEcosysteMsAPIV1
+	DefaultCommitsServer    = commits.ServerURLHTTPSCommitsEcosysteMsAPIV1
+	DefaultIssuesServer     = issues.ServerURLHTTPSIssuesEcosysteMsAPIV1
 	DefaultTimeout          = 30 * time.Second
 	MaxBulkLookupSize       = 100
 
