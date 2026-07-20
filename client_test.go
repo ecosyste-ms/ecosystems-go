@@ -197,14 +197,14 @@ func TestBulkLookupBatching(t *testing.T) {
 
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var body struct {
-			Purls []string `json:"purls"`
+			PURLs []string `json:"purls"`
 		}
 		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
 		mu.Lock()
-		batches = append(batches, body.Purls)
+		batches = append(batches, body.PURLs)
 		mu.Unlock()
 		w.Header().Set("Content-Type", "application/json")
 		_, _ = w.Write([]byte("[]"))

@@ -75,11 +75,11 @@ func errBulkLookupStatus(code int, detail string) error {
 }
 
 const (
-	DefaultPackagesServer   = "https://packages.ecosyste.ms/api/v1"
-	DefaultReposServer      = "https://repos.ecosyste.ms/api/v1"
-	DefaultAdvisoriesServer = "https://advisories.ecosyste.ms/api/v1"
-	DefaultCommitsServer    = "https://commits.ecosyste.ms/api/v1"
-	DefaultIssuesServer     = "https://issues.ecosyste.ms/api/v1"
+	DefaultPackagesServer   = packages.ServerURLHTTPSPackagesEcosysteMsAPIV1
+	DefaultReposServer      = repos.ServerURLHTTPSReposEcosysteMsAPIV1
+	DefaultAdvisoriesServer = advisories.ServerURLHTTPSAdvisoriesEcosysteMsAPIV1
+	DefaultCommitsServer    = commits.ServerURLHTTPSCommitsEcosysteMsAPIV1
+	DefaultIssuesServer     = issues.ServerURLHTTPSIssuesEcosysteMsAPIV1
 	DefaultTimeout          = 30 * time.Second
 	MaxBulkLookupSize       = 100
 
@@ -475,7 +475,7 @@ func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*pa
 		batch := purls[i:end]
 
 		resp, err := c.packagesClient.BulkLookupPackagesWithResponse(ctx, packages.BulkLookupPackagesJSONRequestBody{
-			Purls: &batch,
+			PURLs: batch,
 		})
 		if err != nil {
 			if looksLikeStreamErr(err) {
@@ -495,7 +495,7 @@ func (c *Client) BulkLookup(ctx context.Context, purls []string) (map[string]*pa
 		if resp.JSON200 != nil {
 			for _, pkg := range *resp.JSON200 {
 				p := pkg
-				results[pkg.Purl] = &p
+				results[pkg.PURL] = &p
 			}
 		}
 	}
@@ -589,7 +589,7 @@ func (c *Client) GetAllVersions(ctx context.Context, registry, name string) ([]p
 // GetRepository looks up a repository by URL.
 func (c *Client) GetRepository(ctx context.Context, url string) (*repos.Repository, error) {
 	resp, err := c.reposClient.RepositoriesLookupWithResponse(ctx, &repos.RepositoriesLookupParams{
-		Url: &url,
+		URL: &url,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("lookup repository: %w", err)

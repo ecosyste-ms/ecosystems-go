@@ -4,6 +4,20 @@ output: commits.go
 generate:
   models: true
   client: true
+  server-urls: true
 output-options:
   skip-response-body-getters: true
   generate-types-for-anonymous-schemas: true
+  # make sure that we generate /all/ types, regardless of whether they're used by our API Client or not
+  skip-prune: true
+  nullable-type: true
+  prefer-skip-optional-pointer-on-container-types: true
+  name-normalizer: ToCamelCaseWithInitialisms
+  additional-initialisms:
+    - IDs
+    - URLs
+    - PURL
+    - PURLs
+    - CVSS
+compatibility:
+  always-prefix-enum-values: true

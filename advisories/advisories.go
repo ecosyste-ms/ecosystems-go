@@ -16,37 +16,40 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// ServerURLHTTPSAdvisoriesEcosysteMsAPIV1 defines the Server URL for https://advisories.ecosyste.ms/api/v1
+const ServerURLHTTPSAdvisoriesEcosysteMsAPIV1 = "https://advisories.ecosyste.ms/api/v1"
+
 // Advisory defines model for Advisory.
 type Advisory struct {
-	// ApiUrl API URL for this advisory
-	ApiUrl         *string  `json:"api_url,omitempty"`
+	// APIURL API URL for this advisory
+	APIURL         *string  `json:"api_url,omitempty"`
 	BlastRadius    *float32 `json:"blast_radius,omitempty"`
 	Classification *string  `json:"classification,omitempty"`
 	CreatedAt      *string  `json:"created_at,omitempty"`
-	CvssScore      *float32 `json:"cvss_score,omitempty"`
-	CvssVector     *string  `json:"cvss_vector,omitempty"`
+	CVSSScore      *float32 `json:"cvss_score,omitempty"`
+	CVSSVector     *string  `json:"cvss_vector,omitempty"`
 	Description    *string  `json:"description,omitempty"`
 	EpssPercentage *float32 `json:"epss_percentage,omitempty"`
 	EpssPercentile *float32 `json:"epss_percentile,omitempty"`
 
-	// HtmlUrl HTML URL for this advisory
-	HtmlUrl     *string               `json:"html_url,omitempty"`
-	Identifiers *[]string             `json:"identifiers,omitempty"`
-	Origin      *string               `json:"origin,omitempty"`
-	Packages    *[]PackageWithDetails `json:"packages,omitempty"`
-	PublishedAt *string               `json:"published_at,omitempty"`
-	References  *[]string             `json:"references,omitempty"`
+	// HTMLURL HTML URL for this advisory
+	HTMLURL     *string              `json:"html_url,omitempty"`
+	Identifiers []string             `json:"identifiers,omitempty"`
+	Origin      *string              `json:"origin,omitempty"`
+	Packages    []PackageWithDetails `json:"packages,omitempty"`
+	PublishedAt *string              `json:"published_at,omitempty"`
+	References  []string             `json:"references,omitempty"`
 
 	// RelatedAdvisories Advisories from other sources for the same vulnerability (matched by CVE)
-	RelatedAdvisories *[]RelatedAdvisory `json:"related_advisories,omitempty"`
-	RepositoryUrl     *string            `json:"repository_url,omitempty"`
-	Severity          *string            `json:"severity,omitempty"`
-	SourceKind        *string            `json:"source_kind,omitempty"`
-	Title             *string            `json:"title,omitempty"`
-	UpdatedAt         *string            `json:"updated_at,omitempty"`
-	Url               *string            `json:"url,omitempty"`
-	Uuid              *string            `json:"uuid,omitempty"`
-	WithdrawnAt       *string            `json:"withdrawn_at,omitempty"`
+	RelatedAdvisories []RelatedAdvisory `json:"related_advisories,omitempty"`
+	RepositoryURL     *string           `json:"repository_url,omitempty"`
+	Severity          *string           `json:"severity,omitempty"`
+	SourceKind        *string           `json:"source_kind,omitempty"`
+	Title             *string           `json:"title,omitempty"`
+	UpdatedAt         *string           `json:"updated_at,omitempty"`
+	URL               *string           `json:"url,omitempty"`
+	UUID              *string           `json:"uuid,omitempty"`
+	WithdrawnAt       *string           `json:"withdrawn_at,omitempty"`
 }
 
 // Package defines model for Package.
@@ -57,17 +60,17 @@ type Package struct {
 
 // PackageWithDetails defines model for PackageWithDetails.
 type PackageWithDetails struct {
-	AffectedVersions *[]string `json:"affected_versions,omitempty"`
-	Ecosystem        *string   `json:"ecosystem,omitempty"`
-	PackageName      *string   `json:"package_name,omitempty"`
+	AffectedVersions []string `json:"affected_versions,omitempty"`
+	Ecosystem        *string  `json:"ecosystem,omitempty"`
+	PackageName      *string  `json:"package_name,omitempty"`
 
-	// Purl Package URL (PURL) for this package
+	// PURL Package URL (PURL) for this package
 	//
 	// Example: pkg:npm/lodash
-	Purl               *string                        `json:"purl,omitempty"`
+	PURL               *string                        `json:"purl,omitempty"`
 	Statistics         *PackageWithDetails_Statistics `json:"statistics,omitempty"`
-	UnaffectedVersions *[]string                      `json:"unaffected_versions,omitempty"`
-	Versions           *[]PackageWithDetails_Versions `json:"versions,omitempty"`
+	UnaffectedVersions []string                       `json:"unaffected_versions,omitempty"`
+	Versions           []PackageWithDetails_Versions  `json:"versions,omitempty"`
 }
 
 // PackageWithDetails_Statistics defines model for PackageWithDetails.Statistics.
@@ -87,19 +90,19 @@ type PackageWithDetails_Versions struct {
 // RelatedAdvisory defines model for RelatedAdvisory.
 type RelatedAdvisory struct {
 	SourceKind *string `json:"source_kind,omitempty"`
-	Url        *string `json:"url,omitempty"`
-	Uuid       *string `json:"uuid,omitempty"`
+	URL        *string `json:"url,omitempty"`
+	UUID       *string `json:"uuid,omitempty"`
 }
 
 // Source defines model for Source.
 type Source struct {
 	AdvisoriesCount *int    `json:"advisories_count,omitempty"`
 	CreatedAt       *string `json:"created_at,omitempty"`
-	Id              *int    `json:"id,omitempty"`
+	ID              *int    `json:"id,omitempty"`
 	Kind            *string `json:"kind,omitempty"`
 	Name            *string `json:"name,omitempty"`
 	UpdatedAt       *string `json:"updated_at,omitempty"`
-	Url             *string `json:"url,omitempty"`
+	URL             *string `json:"url,omitempty"`
 }
 
 // GetAdvisoriesParams defines parameters for GetAdvisories.
@@ -113,8 +116,8 @@ type GetAdvisoriesParams struct {
 	// Severity Severity to filter by
 	Severity *string `form:"severity,omitempty" json:"severity,omitempty"`
 
-	// RepositoryUrl Repository URL to filter by
-	RepositoryUrl *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
+	// RepositoryURL Repository URL to filter by
+	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 
 	// Source Source to filter by (e.g. github, erlef, cpansa)
 	Source *string `form:"source,omitempty" json:"source,omitempty"`
@@ -140,11 +143,11 @@ type GetAdvisoriesParams struct {
 
 // LookupAdvisoriesParams defines parameters for LookupAdvisories.
 type LookupAdvisoriesParams struct {
-	// Purl Package URL (PURL) to lookup advisories for. Format: pkg:type/namespace/name@version
-	Purl *string `form:"purl,omitempty" json:"purl,omitempty"`
+	// PURL Package URL (PURL) to lookup advisories for. Format: pkg:type/namespace/name@version
+	PURL *string `form:"purl,omitempty" json:"purl,omitempty"`
 
-	// RepositoryUrl Source repository URL to lookup advisories for
-	RepositoryUrl *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
+	// RepositoryURL Source repository URL to lookup advisories for
+	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 }
 
 // LookupAdvisories400JSONResponseBody defines parameters for LookupAdvisories.
@@ -416,9 +419,9 @@ func NewGetAdvisoriesRequest(server string, params *GetAdvisoriesParams) (*http.
 
 		}
 
-		if params.RepositoryUrl != nil {
+		if params.RepositoryURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "repository_url", *params.RepositoryUrl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "repository_url", *params.RepositoryURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -554,9 +557,9 @@ func NewLookupAdvisoriesRequest(server string, params *LookupAdvisoriesParams) (
 		// per the OpenAPI spec (e.g. "color=blue,black,brown").
 		var rawQueryFragments []string
 
-		if params.Purl != nil {
+		if params.PURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.Purl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", *params.PURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
@@ -566,9 +569,9 @@ func NewLookupAdvisoriesRequest(server string, params *LookupAdvisoriesParams) (
 
 		}
 
-		if params.RepositoryUrl != nil {
+		if params.RepositoryURL != nil {
 
-			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "repository_url", *params.RepositoryUrl, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "repository_url", *params.RepositoryURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

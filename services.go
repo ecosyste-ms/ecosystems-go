@@ -22,7 +22,7 @@ const (
 // LookupPackagesByPURL looks up package records matching a PURL.
 func (c *Client) LookupPackagesByPURL(ctx context.Context, purl string) ([]packages.PackageWithRegistry, error) {
 	resp, err := c.packagesClient.LookupPackageWithResponse(ctx, &packages.LookupPackageParams{
-		Purl: &purl,
+		PURL: &purl,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("lookup packages by purl: %w", err)
@@ -42,7 +42,7 @@ func (c *Client) LookupPackagesByPURL(ctx context.Context, purl string) ([]packa
 // LookupPackagesByRepositoryURL looks up package records published from a source repository.
 func (c *Client) LookupPackagesByRepositoryURL(ctx context.Context, repositoryURL string, maxItems int) ([]packages.PackageWithRegistry, error) {
 	resp, err := c.packagesClient.LookupPackageWithResponse(ctx, &packages.LookupPackageParams{
-		RepositoryUrl: &repositoryURL,
+		RepositoryURL: &repositoryURL,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("lookup packages by repository url: %w", err)
@@ -63,7 +63,7 @@ func (c *Client) LookupPackagesByRepositoryURL(ctx context.Context, repositoryUR
 func (c *Client) GetAdvisoriesByRepoURL(ctx context.Context, repositoryURL string, maxItems int) ([]advisories.Advisory, error) {
 	perPage := perPageForCap(maxItems)
 	resp, err := c.advisoriesClient.GetAdvisoriesWithResponse(ctx, &advisories.GetAdvisoriesParams{
-		RepositoryUrl: &repositoryURL,
+		RepositoryURL: &repositoryURL,
 		PerPage:       &perPage,
 	})
 	if err != nil {
@@ -108,7 +108,7 @@ func (c *Client) GetDependentPackages(ctx context.Context, registry, name string
 // GetCommitsSummary looks up commit summary metadata for a source repository.
 func (c *Client) GetCommitsSummary(ctx context.Context, repositoryURL string) (*commits.Repository, error) {
 	resp, err := c.commitsClient.RepositoriesLookupWithResponse(ctx, &commits.RepositoriesLookupParams{
-		Url: repositoryURL,
+		URL: repositoryURL,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("get commits summary: %w", err)
@@ -125,7 +125,7 @@ func (c *Client) GetCommitsSummary(ctx context.Context, repositoryURL string) (*
 // GetIssuesSummary looks up issue and pull-request summary metadata for a source repository.
 func (c *Client) GetIssuesSummary(ctx context.Context, repositoryURL string) (*issues.Repository, error) {
 	resp, err := c.issuesClient.RepositoriesLookupWithResponse(ctx, &issues.RepositoriesLookupParams{
-		Url: repositoryURL,
+		URL: repositoryURL,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("get issues summary: %w", err)
