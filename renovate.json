@@ -46,10 +46,45 @@
         "minor"
       ],
       "semanticCommitType": "feat"
+    },
+    {
+      "description": "Run `go generate` after updating the OpenAPI spec",
+      "matchManagers": [
+        "vendir"
+      ],
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "go generate ./..."
+        ],
+        "fileFilters": [
+          "**/*.go"
+        ],
+        "executionMode": "update",
+        "installTools": {
+          "golang": {}
+        }
+      }
     }
   ],
   "postUpdateOptions": [
     "gomodTidy",
     "gomodUpdateImportPaths"
-  ]
+  ],
+  "vendir": {
+    "lockFileMaintenance": {
+      "enabled": true,
+      "branchTopic": "vendir-openapi-sync",
+      "commitMessageAction": "update vendored OpenAPI specs",
+      "schedule": [
+        "at any time"
+      ],
+      "prBodyDefinitions": {
+        "Update": "",
+        "Change": "Updated OpenAPI specs"
+      }
+    }
+  }
 }

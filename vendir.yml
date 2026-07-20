@@ -1,0 +1,28 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+
+directories:
+  # NOTE that we use the raw GitHub URLs instead of the live, served, OpenAPI docs to avoid rate limits
+  # See also: https://github.com/ecosyste-ms/packages/issues/1735
+  - path: specs
+    contents:
+      - path: packages.yaml
+        newRootPath: openapi.yaml
+        http:
+          url: https://raw.githubusercontent.com/ecosyste-ms/packages/main/openapi/api/v1/openapi.yaml
+      - path: repos.yaml
+        newRootPath: openapi.yaml
+        http:
+          url: https://raw.githubusercontent.com/ecosyste-ms/repos/main/openapi/api/v1/openapi.yaml
+      - path: advisories.yaml
+        newRootPath: openapi.yaml
+        http:
+          url: https://raw.githubusercontent.com/ecosyste-ms/advisories/main/openapi/api/v1/openapi.yaml
+      - path: commits.yaml
+        newRootPath: openapi.yaml
+        http:
+          url: https://raw.githubusercontent.com/ecosyste-ms/commits/main/openapi/api/v1/openapi.yaml
+      - path: issues.yaml
+        newRootPath: openapi.yaml
+        http:
+          url: https://raw.githubusercontent.com/ecosyste-ms/issues/main/openapi/api/v1/openapi.yaml

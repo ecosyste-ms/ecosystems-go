@@ -4,11 +4,7 @@ generate:
 	go generate ./...
 
 update-specs:
-	curl -s "https://packages.ecosyste.ms/docs/api/v1/openapi.yaml" > specs/packages.yaml
-	curl -s "https://repos.ecosyste.ms/docs/api/v1/openapi.yaml" > specs/repos.yaml
-	curl -s "https://advisories.ecosyste.ms/docs/api/v1/openapi.yaml" > specs/advisories.yaml
-	curl -s "https://commits.ecosyste.ms/docs/api/v1/openapi.yaml" > specs/commits.yaml
-	curl -s "https://issues.ecosyste.ms/docs/api/v1/openapi.yaml" > specs/issues.yaml
+	vendir sync
 
 test:
 	go test -v ./...
