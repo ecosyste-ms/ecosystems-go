@@ -1,13 +1,11 @@
----
 openapi: 3.0.1
 info:
-  title: 'Ecosyste.ms: Advisories'
-  description: An open API service providing security vulnerability metadata for many
-    open source software ecosystems.
+  title: "Ecosyste.ms: Advisories"
+  description: "An open API service providing security vulnerability metadata for many open source software ecosystems."
   contact:
     name: Ecosyste.ms
     email: support@ecosyste.ms
-    url: https://ecosyste.ms
+    url: https://ecosyste.ms 
   version: 1.0.0
   license:
     name: CC-BY-SA-4.0
@@ -18,81 +16,81 @@ externalDocs:
 servers:
 - url: https://advisories.ecosyste.ms/api/v1
 paths:
-  "/advisories":
-    get:
-      summary: list advisories
-      operationId: getAdvisories
+  /advisories:
+    get: 
+      summary: "list advisories"
+      operationId: "getAdvisories"
       tags:
-      - advisories
+        - advisories
       parameters:
-      - name: ecosystem
-        in: query
-        description: Ecosystem to filter by
-        required: false
-        schema:
-          type: string
-      - name: package_name
-        in: query
-        description: Package to filter by
-        required: false
-        schema:
-          type: string
-      - name: severity
-        in: query
-        description: Severity to filter by
-        required: false
-        schema:
-          type: string
-      - name: repository_url
-        in: query
-        description: Repository URL to filter by
-        required: false
-        schema:
-          type: string
-      - name: source
-        in: query
-        description: Source to filter by (e.g. github, erlef, cpansa)
-        required: false
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - name: ecosystem
+          in: query
+          description: "Ecosystem to filter by"
+          required: false
+          schema:
+            type: string
+        - name: package_name
+          in: query
+          description: "Package to filter by"
+          required: false
+          schema:
+            type: string
+        - name: severity
+          in: query
+          description: "Severity to filter by"
+          required: false
+          schema:
+            type: string
+        - name: repository_url
+          in: query
+          description: "Repository URL to filter by"
+          required: false
+          schema:
+            type: string
+        - name: source
+          in: query
+          description: "Source to filter by (e.g. github, erlef, cpansa)"
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -101,13 +99,13 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Advisory"
-  "/advisories/packages":
+                  $ref: '#/components/schemas/Advisory'
+  /advisories/packages:
     get:
-      summary: list packages that have advisories
-      operationId: getAdvisoriesPackages
+      summary: "list packages that have advisories"
+      operationId: "getAdvisoriesPackages"
       tags:
-      - advisories
+        - advisories
       responses:
         200:
           description: OK
@@ -116,42 +114,40 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Package"
-  "/advisories/lookup":
+                  $ref: '#/components/schemas/Package'
+  /advisories/lookup:
     get:
-      summary: lookup advisories by Package URL (PURL) or repository URL
-      operationId: lookupAdvisories
-      description: Lookup security advisories for a package using Package URL (PURL)
-        specification or by source repository URL. One of purl or repository_url must
-        be provided. Results are deduplicated by CVE identifier.
+      summary: "lookup advisories by Package URL (PURL) or repository URL"
+      operationId: "lookupAdvisories"
+      description: "Lookup security advisories for a package using Package URL (PURL) specification or by source repository URL. One of purl or repository_url must be provided. Results are deduplicated by CVE identifier."
       tags:
-      - advisories
+        - advisories
       parameters:
-      - name: purl
-        in: query
-        description: 'Package URL (PURL) to lookup advisories for. Format: pkg:type/namespace/name@version'
-        required: false
-        schema:
-          type: string
-        example: pkg:npm/lodash@4.17.20
-      - name: repository_url
-        in: query
-        description: Source repository URL to lookup advisories for
-        required: false
-        schema:
-          type: string
-        example: https://github.com/rails/rails
+        - name: purl
+          in: query
+          description: "Package URL (PURL) to lookup advisories for. Format: pkg:type/namespace/name@version"
+          required: false
+          schema:
+            type: string
+          example: "pkg:npm/lodash@4.17.20"
+        - name: repository_url
+          in: query
+          description: "Source repository URL to lookup advisories for"
+          required: false
+          schema:
+            type: string
+          example: "https://github.com/rails/rails"
       responses:
         200:
-          description: List of advisories for the specified package or repository
+          description: "List of advisories for the specified package or repository"
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Advisory"
+                  $ref: '#/components/schemas/Advisory'
         400:
-          description: Bad Request - Invalid or missing parameter
+          description: "Bad Request - Invalid or missing parameter"
           content:
             application/json:
               schema:
@@ -159,33 +155,33 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: purl or repository_url parameter is required
-  "/advisories/{advisoryUUID}":
+                    example: "purl or repository_url parameter is required"
+  /advisories/{advisoryUUID}:
     get:
       summary: get an advisory by uuid
       operationId: getAdvisory
       tags:
-      - advisories
+        - advisories
       parameters:
-      - in: path
-        name: advisoryUUID
-        schema:
-          type: string
-        required: true
-        description: uuid of the advisory
+        - in: path
+          name: advisoryUUID
+          schema:
+            type: string
+          required: true
+          description: uuid of the advisory
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Advisory"
-  "/sources":
+                $ref: '#/components/schemas/Advisory'
+  /sources:
     get:
-      summary: list advisory sources
-      operationId: getSources
+      summary: "list advisory sources"
+      operationId: "getSources"
       tags:
-      - sources
+        - sources
       responses:
         200:
           description: OK
@@ -194,27 +190,27 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Source"
-  "/sources/{sourceKind}":
+                  $ref: '#/components/schemas/Source'
+  /sources/{sourceKind}:
     get:
       summary: get a source by kind
       operationId: getSource
       tags:
-      - sources
+        - sources
       parameters:
-      - in: path
-        name: sourceKind
-        schema:
-          type: string
-        required: true
-        description: kind of the source (e.g. github, erlef, cpansa)
+        - in: path
+          name: sourceKind
+          schema:
+            type: string
+          required: true
+          description: kind of the source (e.g. github, erlef, cpansa)
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Source"
+                $ref: '#/components/schemas/Source'
 components:
   schemas:
     Advisory:
@@ -259,7 +255,7 @@ components:
         packages:
           type: array
           items:
-            "$ref": "#/components/schemas/PackageWithDetails"
+            $ref: '#/components/schemas/PackageWithDetails'
         created_at:
           type: string
         updated_at:
@@ -270,16 +266,15 @@ components:
           type: number
         api_url:
           type: string
-          description: API URL for this advisory
+          description: "API URL for this advisory"
         html_url:
           type: string
-          description: HTML URL for this advisory
+          description: "HTML URL for this advisory"
         related_advisories:
           type: array
-          description: Advisories from other sources for the same vulnerability (matched
-            by CVE)
+          description: "Advisories from other sources for the same vulnerability (matched by CVE)"
           items:
-            "$ref": "#/components/schemas/RelatedAdvisory"
+            $ref: '#/components/schemas/RelatedAdvisory'
     RelatedAdvisory:
       type: object
       properties:
@@ -322,8 +317,8 @@ components:
           type: string
         purl:
           type: string
-          description: Package URL (PURL) for this package
-          example: pkg:npm/lodash
+          description: "Package URL (PURL) for this package"
+          example: "pkg:npm/lodash"
         versions:
           type: array
           items:

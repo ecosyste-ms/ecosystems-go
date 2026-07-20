@@ -21,6 +21,591 @@ import (
 // ServerURLHTTPSPackagesEcosysteMsAPIV1 defines the Server URL for https://packages.ecosyste.ms/api/v1
 const ServerURLHTTPSPackagesEcosysteMsAPIV1 = "https://packages.ecosyste.ms/api/v1"
 
+// Defines values for GetCriticalPackagesParamsSort.
+const (
+	GetCriticalPackagesParamsSortCreatedAt                GetCriticalPackagesParamsSort = "created_at"
+	GetCriticalPackagesParamsSortDependentPackagesCount   GetCriticalPackagesParamsSort = "dependent_packages_count"
+	GetCriticalPackagesParamsSortDependentReposCount      GetCriticalPackagesParamsSort = "dependent_repos_count"
+	GetCriticalPackagesParamsSortDockerDependentsCount    GetCriticalPackagesParamsSort = "docker_dependents_count"
+	GetCriticalPackagesParamsSortDockerDownloadsCount     GetCriticalPackagesParamsSort = "docker_downloads_count"
+	GetCriticalPackagesParamsSortDownloads                GetCriticalPackagesParamsSort = "downloads"
+	GetCriticalPackagesParamsSortForksCount               GetCriticalPackagesParamsSort = "forks_count"
+	GetCriticalPackagesParamsSortLatestReleasePublishedAt GetCriticalPackagesParamsSort = "latest_release_published_at"
+	GetCriticalPackagesParamsSortMaintainersCount         GetCriticalPackagesParamsSort = "maintainers_count"
+	GetCriticalPackagesParamsSortName                     GetCriticalPackagesParamsSort = "name"
+	GetCriticalPackagesParamsSortStargazersCount          GetCriticalPackagesParamsSort = "stargazers_count"
+	GetCriticalPackagesParamsSortUpdatedAt                GetCriticalPackagesParamsSort = "updated_at"
+	GetCriticalPackagesParamsSortVersionsCount            GetCriticalPackagesParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the GetCriticalPackagesParamsSort enum.
+func (e GetCriticalPackagesParamsSort) Valid() bool {
+	switch e {
+	case GetCriticalPackagesParamsSortCreatedAt:
+		return true
+	case GetCriticalPackagesParamsSortDependentPackagesCount:
+		return true
+	case GetCriticalPackagesParamsSortDependentReposCount:
+		return true
+	case GetCriticalPackagesParamsSortDockerDependentsCount:
+		return true
+	case GetCriticalPackagesParamsSortDockerDownloadsCount:
+		return true
+	case GetCriticalPackagesParamsSortDownloads:
+		return true
+	case GetCriticalPackagesParamsSortForksCount:
+		return true
+	case GetCriticalPackagesParamsSortLatestReleasePublishedAt:
+		return true
+	case GetCriticalPackagesParamsSortMaintainersCount:
+		return true
+	case GetCriticalPackagesParamsSortName:
+		return true
+	case GetCriticalPackagesParamsSortStargazersCount:
+		return true
+	case GetCriticalPackagesParamsSortUpdatedAt:
+		return true
+	case GetCriticalPackagesParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetCriticalMaintainersParamsSort.
+const (
+	GetCriticalMaintainersParamsSortLogin         GetCriticalMaintainersParamsSort = "login"
+	GetCriticalMaintainersParamsSortPackagesCount GetCriticalMaintainersParamsSort = "packages_count"
+)
+
+// Valid indicates whether the value is a known member of the GetCriticalMaintainersParamsSort enum.
+func (e GetCriticalMaintainersParamsSort) Valid() bool {
+	switch e {
+	case GetCriticalMaintainersParamsSortLogin:
+		return true
+	case GetCriticalMaintainersParamsSortPackagesCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetCriticalSoleMaintainersParamsSort.
+const (
+	GetCriticalSoleMaintainersParamsSortCreatedAt                GetCriticalSoleMaintainersParamsSort = "created_at"
+	GetCriticalSoleMaintainersParamsSortDependentPackagesCount   GetCriticalSoleMaintainersParamsSort = "dependent_packages_count"
+	GetCriticalSoleMaintainersParamsSortDependentReposCount      GetCriticalSoleMaintainersParamsSort = "dependent_repos_count"
+	GetCriticalSoleMaintainersParamsSortDockerDependentsCount    GetCriticalSoleMaintainersParamsSort = "docker_dependents_count"
+	GetCriticalSoleMaintainersParamsSortDockerDownloadsCount     GetCriticalSoleMaintainersParamsSort = "docker_downloads_count"
+	GetCriticalSoleMaintainersParamsSortDownloads                GetCriticalSoleMaintainersParamsSort = "downloads"
+	GetCriticalSoleMaintainersParamsSortForksCount               GetCriticalSoleMaintainersParamsSort = "forks_count"
+	GetCriticalSoleMaintainersParamsSortLatestReleasePublishedAt GetCriticalSoleMaintainersParamsSort = "latest_release_published_at"
+	GetCriticalSoleMaintainersParamsSortMaintainersCount         GetCriticalSoleMaintainersParamsSort = "maintainers_count"
+	GetCriticalSoleMaintainersParamsSortName                     GetCriticalSoleMaintainersParamsSort = "name"
+	GetCriticalSoleMaintainersParamsSortStargazersCount          GetCriticalSoleMaintainersParamsSort = "stargazers_count"
+	GetCriticalSoleMaintainersParamsSortUpdatedAt                GetCriticalSoleMaintainersParamsSort = "updated_at"
+	GetCriticalSoleMaintainersParamsSortVersionsCount            GetCriticalSoleMaintainersParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the GetCriticalSoleMaintainersParamsSort enum.
+func (e GetCriticalSoleMaintainersParamsSort) Valid() bool {
+	switch e {
+	case GetCriticalSoleMaintainersParamsSortCreatedAt:
+		return true
+	case GetCriticalSoleMaintainersParamsSortDependentPackagesCount:
+		return true
+	case GetCriticalSoleMaintainersParamsSortDependentReposCount:
+		return true
+	case GetCriticalSoleMaintainersParamsSortDockerDependentsCount:
+		return true
+	case GetCriticalSoleMaintainersParamsSortDockerDownloadsCount:
+		return true
+	case GetCriticalSoleMaintainersParamsSortDownloads:
+		return true
+	case GetCriticalSoleMaintainersParamsSortForksCount:
+		return true
+	case GetCriticalSoleMaintainersParamsSortLatestReleasePublishedAt:
+		return true
+	case GetCriticalSoleMaintainersParamsSortMaintainersCount:
+		return true
+	case GetCriticalSoleMaintainersParamsSortName:
+		return true
+	case GetCriticalSoleMaintainersParamsSortStargazersCount:
+		return true
+	case GetCriticalSoleMaintainersParamsSortUpdatedAt:
+		return true
+	case GetCriticalSoleMaintainersParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetDependenciesParamsSort.
+const (
+	GetDependenciesParamsSortCreatedAt   GetDependenciesParamsSort = "created_at"
+	GetDependenciesParamsSortEcosystem   GetDependenciesParamsSort = "ecosystem"
+	GetDependenciesParamsSortID          GetDependenciesParamsSort = "id"
+	GetDependenciesParamsSortKind        GetDependenciesParamsSort = "kind"
+	GetDependenciesParamsSortPackageName GetDependenciesParamsSort = "package_name"
+	GetDependenciesParamsSortUpdatedAt   GetDependenciesParamsSort = "updated_at"
+)
+
+// Valid indicates whether the value is a known member of the GetDependenciesParamsSort enum.
+func (e GetDependenciesParamsSort) Valid() bool {
+	switch e {
+	case GetDependenciesParamsSortCreatedAt:
+		return true
+	case GetDependenciesParamsSortEcosystem:
+		return true
+	case GetDependenciesParamsSortID:
+		return true
+	case GetDependenciesParamsSortKind:
+		return true
+	case GetDependenciesParamsSortPackageName:
+		return true
+	case GetDependenciesParamsSortUpdatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetCriticalPackagesListParamsSort.
+const (
+	GetCriticalPackagesListParamsSortCreatedAt                GetCriticalPackagesListParamsSort = "created_at"
+	GetCriticalPackagesListParamsSortDependentPackagesCount   GetCriticalPackagesListParamsSort = "dependent_packages_count"
+	GetCriticalPackagesListParamsSortDependentReposCount      GetCriticalPackagesListParamsSort = "dependent_repos_count"
+	GetCriticalPackagesListParamsSortDockerDependentsCount    GetCriticalPackagesListParamsSort = "docker_dependents_count"
+	GetCriticalPackagesListParamsSortDockerDownloadsCount     GetCriticalPackagesListParamsSort = "docker_downloads_count"
+	GetCriticalPackagesListParamsSortDownloads                GetCriticalPackagesListParamsSort = "downloads"
+	GetCriticalPackagesListParamsSortForksCount               GetCriticalPackagesListParamsSort = "forks_count"
+	GetCriticalPackagesListParamsSortLatestReleasePublishedAt GetCriticalPackagesListParamsSort = "latest_release_published_at"
+	GetCriticalPackagesListParamsSortMaintainersCount         GetCriticalPackagesListParamsSort = "maintainers_count"
+	GetCriticalPackagesListParamsSortName                     GetCriticalPackagesListParamsSort = "name"
+	GetCriticalPackagesListParamsSortStargazersCount          GetCriticalPackagesListParamsSort = "stargazers_count"
+	GetCriticalPackagesListParamsSortUpdatedAt                GetCriticalPackagesListParamsSort = "updated_at"
+	GetCriticalPackagesListParamsSortVersionsCount            GetCriticalPackagesListParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the GetCriticalPackagesListParamsSort enum.
+func (e GetCriticalPackagesListParamsSort) Valid() bool {
+	switch e {
+	case GetCriticalPackagesListParamsSortCreatedAt:
+		return true
+	case GetCriticalPackagesListParamsSortDependentPackagesCount:
+		return true
+	case GetCriticalPackagesListParamsSortDependentReposCount:
+		return true
+	case GetCriticalPackagesListParamsSortDockerDependentsCount:
+		return true
+	case GetCriticalPackagesListParamsSortDockerDownloadsCount:
+		return true
+	case GetCriticalPackagesListParamsSortDownloads:
+		return true
+	case GetCriticalPackagesListParamsSortForksCount:
+		return true
+	case GetCriticalPackagesListParamsSortLatestReleasePublishedAt:
+		return true
+	case GetCriticalPackagesListParamsSortMaintainersCount:
+		return true
+	case GetCriticalPackagesListParamsSortName:
+		return true
+	case GetCriticalPackagesListParamsSortStargazersCount:
+		return true
+	case GetCriticalPackagesListParamsSortUpdatedAt:
+		return true
+	case GetCriticalPackagesListParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for LookupPackageParamsSort.
+const (
+	LookupPackageParamsSortCreatedAt                LookupPackageParamsSort = "created_at"
+	LookupPackageParamsSortDependentPackagesCount   LookupPackageParamsSort = "dependent_packages_count"
+	LookupPackageParamsSortDependentReposCount      LookupPackageParamsSort = "dependent_repos_count"
+	LookupPackageParamsSortDockerDependentsCount    LookupPackageParamsSort = "docker_dependents_count"
+	LookupPackageParamsSortDockerDownloadsCount     LookupPackageParamsSort = "docker_downloads_count"
+	LookupPackageParamsSortDownloads                LookupPackageParamsSort = "downloads"
+	LookupPackageParamsSortForksCount               LookupPackageParamsSort = "forks_count"
+	LookupPackageParamsSortLatestReleasePublishedAt LookupPackageParamsSort = "latest_release_published_at"
+	LookupPackageParamsSortMaintainersCount         LookupPackageParamsSort = "maintainers_count"
+	LookupPackageParamsSortName                     LookupPackageParamsSort = "name"
+	LookupPackageParamsSortStargazersCount          LookupPackageParamsSort = "stargazers_count"
+	LookupPackageParamsSortUpdatedAt                LookupPackageParamsSort = "updated_at"
+	LookupPackageParamsSortVersionsCount            LookupPackageParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the LookupPackageParamsSort enum.
+func (e LookupPackageParamsSort) Valid() bool {
+	switch e {
+	case LookupPackageParamsSortCreatedAt:
+		return true
+	case LookupPackageParamsSortDependentPackagesCount:
+		return true
+	case LookupPackageParamsSortDependentReposCount:
+		return true
+	case LookupPackageParamsSortDockerDependentsCount:
+		return true
+	case LookupPackageParamsSortDockerDownloadsCount:
+		return true
+	case LookupPackageParamsSortDownloads:
+		return true
+	case LookupPackageParamsSortForksCount:
+		return true
+	case LookupPackageParamsSortLatestReleasePublishedAt:
+		return true
+	case LookupPackageParamsSortMaintainersCount:
+		return true
+	case LookupPackageParamsSortName:
+		return true
+	case LookupPackageParamsSortStargazersCount:
+		return true
+	case LookupPackageParamsSortUpdatedAt:
+		return true
+	case LookupPackageParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for LookupRegistryPackageParamsSort.
+const (
+	LookupRegistryPackageParamsSortCreatedAt                LookupRegistryPackageParamsSort = "created_at"
+	LookupRegistryPackageParamsSortDependentPackagesCount   LookupRegistryPackageParamsSort = "dependent_packages_count"
+	LookupRegistryPackageParamsSortDependentReposCount      LookupRegistryPackageParamsSort = "dependent_repos_count"
+	LookupRegistryPackageParamsSortDockerDependentsCount    LookupRegistryPackageParamsSort = "docker_dependents_count"
+	LookupRegistryPackageParamsSortDockerDownloadsCount     LookupRegistryPackageParamsSort = "docker_downloads_count"
+	LookupRegistryPackageParamsSortDownloads                LookupRegistryPackageParamsSort = "downloads"
+	LookupRegistryPackageParamsSortForksCount               LookupRegistryPackageParamsSort = "forks_count"
+	LookupRegistryPackageParamsSortLatestReleasePublishedAt LookupRegistryPackageParamsSort = "latest_release_published_at"
+	LookupRegistryPackageParamsSortMaintainersCount         LookupRegistryPackageParamsSort = "maintainers_count"
+	LookupRegistryPackageParamsSortName                     LookupRegistryPackageParamsSort = "name"
+	LookupRegistryPackageParamsSortStargazersCount          LookupRegistryPackageParamsSort = "stargazers_count"
+	LookupRegistryPackageParamsSortUpdatedAt                LookupRegistryPackageParamsSort = "updated_at"
+	LookupRegistryPackageParamsSortVersionsCount            LookupRegistryPackageParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the LookupRegistryPackageParamsSort enum.
+func (e LookupRegistryPackageParamsSort) Valid() bool {
+	switch e {
+	case LookupRegistryPackageParamsSortCreatedAt:
+		return true
+	case LookupRegistryPackageParamsSortDependentPackagesCount:
+		return true
+	case LookupRegistryPackageParamsSortDependentReposCount:
+		return true
+	case LookupRegistryPackageParamsSortDockerDependentsCount:
+		return true
+	case LookupRegistryPackageParamsSortDockerDownloadsCount:
+		return true
+	case LookupRegistryPackageParamsSortDownloads:
+		return true
+	case LookupRegistryPackageParamsSortForksCount:
+		return true
+	case LookupRegistryPackageParamsSortLatestReleasePublishedAt:
+		return true
+	case LookupRegistryPackageParamsSortMaintainersCount:
+		return true
+	case LookupRegistryPackageParamsSortName:
+		return true
+	case LookupRegistryPackageParamsSortStargazersCount:
+		return true
+	case LookupRegistryPackageParamsSortUpdatedAt:
+		return true
+	case LookupRegistryPackageParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetRegistryMaintainersParamsSort.
+const (
+	GetRegistryMaintainersParamsSortCreatedAt     GetRegistryMaintainersParamsSort = "created_at"
+	GetRegistryMaintainersParamsSortLogin         GetRegistryMaintainersParamsSort = "login"
+	GetRegistryMaintainersParamsSortName          GetRegistryMaintainersParamsSort = "name"
+	GetRegistryMaintainersParamsSortPackagesCount GetRegistryMaintainersParamsSort = "packages_count"
+	GetRegistryMaintainersParamsSortUUID          GetRegistryMaintainersParamsSort = "uuid"
+	GetRegistryMaintainersParamsSortUpdatedAt     GetRegistryMaintainersParamsSort = "updated_at"
+)
+
+// Valid indicates whether the value is a known member of the GetRegistryMaintainersParamsSort enum.
+func (e GetRegistryMaintainersParamsSort) Valid() bool {
+	switch e {
+	case GetRegistryMaintainersParamsSortCreatedAt:
+		return true
+	case GetRegistryMaintainersParamsSortLogin:
+		return true
+	case GetRegistryMaintainersParamsSortName:
+		return true
+	case GetRegistryMaintainersParamsSortPackagesCount:
+		return true
+	case GetRegistryMaintainersParamsSortUUID:
+		return true
+	case GetRegistryMaintainersParamsSortUpdatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetRegistryPackageNamesParamsSort.
+const (
+	GetRegistryPackageNamesParamsSortCreatedAt                GetRegistryPackageNamesParamsSort = "created_at"
+	GetRegistryPackageNamesParamsSortDependentPackagesCount   GetRegistryPackageNamesParamsSort = "dependent_packages_count"
+	GetRegistryPackageNamesParamsSortDependentReposCount      GetRegistryPackageNamesParamsSort = "dependent_repos_count"
+	GetRegistryPackageNamesParamsSortDockerDependentsCount    GetRegistryPackageNamesParamsSort = "docker_dependents_count"
+	GetRegistryPackageNamesParamsSortDockerDownloadsCount     GetRegistryPackageNamesParamsSort = "docker_downloads_count"
+	GetRegistryPackageNamesParamsSortDownloads                GetRegistryPackageNamesParamsSort = "downloads"
+	GetRegistryPackageNamesParamsSortForksCount               GetRegistryPackageNamesParamsSort = "forks_count"
+	GetRegistryPackageNamesParamsSortLatestReleasePublishedAt GetRegistryPackageNamesParamsSort = "latest_release_published_at"
+	GetRegistryPackageNamesParamsSortMaintainersCount         GetRegistryPackageNamesParamsSort = "maintainers_count"
+	GetRegistryPackageNamesParamsSortName                     GetRegistryPackageNamesParamsSort = "name"
+	GetRegistryPackageNamesParamsSortStargazersCount          GetRegistryPackageNamesParamsSort = "stargazers_count"
+	GetRegistryPackageNamesParamsSortUpdatedAt                GetRegistryPackageNamesParamsSort = "updated_at"
+	GetRegistryPackageNamesParamsSortVersionsCount            GetRegistryPackageNamesParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the GetRegistryPackageNamesParamsSort enum.
+func (e GetRegistryPackageNamesParamsSort) Valid() bool {
+	switch e {
+	case GetRegistryPackageNamesParamsSortCreatedAt:
+		return true
+	case GetRegistryPackageNamesParamsSortDependentPackagesCount:
+		return true
+	case GetRegistryPackageNamesParamsSortDependentReposCount:
+		return true
+	case GetRegistryPackageNamesParamsSortDockerDependentsCount:
+		return true
+	case GetRegistryPackageNamesParamsSortDockerDownloadsCount:
+		return true
+	case GetRegistryPackageNamesParamsSortDownloads:
+		return true
+	case GetRegistryPackageNamesParamsSortForksCount:
+		return true
+	case GetRegistryPackageNamesParamsSortLatestReleasePublishedAt:
+		return true
+	case GetRegistryPackageNamesParamsSortMaintainersCount:
+		return true
+	case GetRegistryPackageNamesParamsSortName:
+		return true
+	case GetRegistryPackageNamesParamsSortStargazersCount:
+		return true
+	case GetRegistryPackageNamesParamsSortUpdatedAt:
+		return true
+	case GetRegistryPackageNamesParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetRegistryPackagesParamsSort.
+const (
+	GetRegistryPackagesParamsSortCreatedAt                GetRegistryPackagesParamsSort = "created_at"
+	GetRegistryPackagesParamsSortDependentPackagesCount   GetRegistryPackagesParamsSort = "dependent_packages_count"
+	GetRegistryPackagesParamsSortDependentReposCount      GetRegistryPackagesParamsSort = "dependent_repos_count"
+	GetRegistryPackagesParamsSortDockerDependentsCount    GetRegistryPackagesParamsSort = "docker_dependents_count"
+	GetRegistryPackagesParamsSortDockerDownloadsCount     GetRegistryPackagesParamsSort = "docker_downloads_count"
+	GetRegistryPackagesParamsSortDownloads                GetRegistryPackagesParamsSort = "downloads"
+	GetRegistryPackagesParamsSortForksCount               GetRegistryPackagesParamsSort = "forks_count"
+	GetRegistryPackagesParamsSortLatestReleasePublishedAt GetRegistryPackagesParamsSort = "latest_release_published_at"
+	GetRegistryPackagesParamsSortMaintainersCount         GetRegistryPackagesParamsSort = "maintainers_count"
+	GetRegistryPackagesParamsSortName                     GetRegistryPackagesParamsSort = "name"
+	GetRegistryPackagesParamsSortStargazersCount          GetRegistryPackagesParamsSort = "stargazers_count"
+	GetRegistryPackagesParamsSortUpdatedAt                GetRegistryPackagesParamsSort = "updated_at"
+	GetRegistryPackagesParamsSortVersionsCount            GetRegistryPackagesParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the GetRegistryPackagesParamsSort enum.
+func (e GetRegistryPackagesParamsSort) Valid() bool {
+	switch e {
+	case GetRegistryPackagesParamsSortCreatedAt:
+		return true
+	case GetRegistryPackagesParamsSortDependentPackagesCount:
+		return true
+	case GetRegistryPackagesParamsSortDependentReposCount:
+		return true
+	case GetRegistryPackagesParamsSortDockerDependentsCount:
+		return true
+	case GetRegistryPackagesParamsSortDockerDownloadsCount:
+		return true
+	case GetRegistryPackagesParamsSortDownloads:
+		return true
+	case GetRegistryPackagesParamsSortForksCount:
+		return true
+	case GetRegistryPackagesParamsSortLatestReleasePublishedAt:
+		return true
+	case GetRegistryPackagesParamsSortMaintainersCount:
+		return true
+	case GetRegistryPackagesParamsSortName:
+		return true
+	case GetRegistryPackagesParamsSortStargazersCount:
+		return true
+	case GetRegistryPackagesParamsSortUpdatedAt:
+		return true
+	case GetRegistryPackagesParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetRegistryPackageDependentPackagesParamsSort.
+const (
+	GetRegistryPackageDependentPackagesParamsSortCreatedAt                GetRegistryPackageDependentPackagesParamsSort = "created_at"
+	GetRegistryPackageDependentPackagesParamsSortDependentPackagesCount   GetRegistryPackageDependentPackagesParamsSort = "dependent_packages_count"
+	GetRegistryPackageDependentPackagesParamsSortDependentReposCount      GetRegistryPackageDependentPackagesParamsSort = "dependent_repos_count"
+	GetRegistryPackageDependentPackagesParamsSortDockerDependentsCount    GetRegistryPackageDependentPackagesParamsSort = "docker_dependents_count"
+	GetRegistryPackageDependentPackagesParamsSortDockerDownloadsCount     GetRegistryPackageDependentPackagesParamsSort = "docker_downloads_count"
+	GetRegistryPackageDependentPackagesParamsSortDownloads                GetRegistryPackageDependentPackagesParamsSort = "downloads"
+	GetRegistryPackageDependentPackagesParamsSortForksCount               GetRegistryPackageDependentPackagesParamsSort = "forks_count"
+	GetRegistryPackageDependentPackagesParamsSortLatestReleasePublishedAt GetRegistryPackageDependentPackagesParamsSort = "latest_release_published_at"
+	GetRegistryPackageDependentPackagesParamsSortMaintainersCount         GetRegistryPackageDependentPackagesParamsSort = "maintainers_count"
+	GetRegistryPackageDependentPackagesParamsSortName                     GetRegistryPackageDependentPackagesParamsSort = "name"
+	GetRegistryPackageDependentPackagesParamsSortStargazersCount          GetRegistryPackageDependentPackagesParamsSort = "stargazers_count"
+	GetRegistryPackageDependentPackagesParamsSortUpdatedAt                GetRegistryPackageDependentPackagesParamsSort = "updated_at"
+	GetRegistryPackageDependentPackagesParamsSortVersionsCount            GetRegistryPackageDependentPackagesParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the GetRegistryPackageDependentPackagesParamsSort enum.
+func (e GetRegistryPackageDependentPackagesParamsSort) Valid() bool {
+	switch e {
+	case GetRegistryPackageDependentPackagesParamsSortCreatedAt:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortDependentPackagesCount:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortDependentReposCount:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortDockerDependentsCount:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortDockerDownloadsCount:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortDownloads:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortForksCount:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortLatestReleasePublishedAt:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortMaintainersCount:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortName:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortStargazersCount:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortUpdatedAt:
+		return true
+	case GetRegistryPackageDependentPackagesParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetRegistryPackageRelatedPackagesParamsSort.
+const (
+	GetRegistryPackageRelatedPackagesParamsSortCreatedAt                GetRegistryPackageRelatedPackagesParamsSort = "created_at"
+	GetRegistryPackageRelatedPackagesParamsSortDependentPackagesCount   GetRegistryPackageRelatedPackagesParamsSort = "dependent_packages_count"
+	GetRegistryPackageRelatedPackagesParamsSortDependentReposCount      GetRegistryPackageRelatedPackagesParamsSort = "dependent_repos_count"
+	GetRegistryPackageRelatedPackagesParamsSortDockerDependentsCount    GetRegistryPackageRelatedPackagesParamsSort = "docker_dependents_count"
+	GetRegistryPackageRelatedPackagesParamsSortDockerDownloadsCount     GetRegistryPackageRelatedPackagesParamsSort = "docker_downloads_count"
+	GetRegistryPackageRelatedPackagesParamsSortDownloads                GetRegistryPackageRelatedPackagesParamsSort = "downloads"
+	GetRegistryPackageRelatedPackagesParamsSortForksCount               GetRegistryPackageRelatedPackagesParamsSort = "forks_count"
+	GetRegistryPackageRelatedPackagesParamsSortLatestReleasePublishedAt GetRegistryPackageRelatedPackagesParamsSort = "latest_release_published_at"
+	GetRegistryPackageRelatedPackagesParamsSortMaintainersCount         GetRegistryPackageRelatedPackagesParamsSort = "maintainers_count"
+	GetRegistryPackageRelatedPackagesParamsSortName                     GetRegistryPackageRelatedPackagesParamsSort = "name"
+	GetRegistryPackageRelatedPackagesParamsSortStargazersCount          GetRegistryPackageRelatedPackagesParamsSort = "stargazers_count"
+	GetRegistryPackageRelatedPackagesParamsSortUpdatedAt                GetRegistryPackageRelatedPackagesParamsSort = "updated_at"
+	GetRegistryPackageRelatedPackagesParamsSortVersionsCount            GetRegistryPackageRelatedPackagesParamsSort = "versions_count"
+)
+
+// Valid indicates whether the value is a known member of the GetRegistryPackageRelatedPackagesParamsSort enum.
+func (e GetRegistryPackageRelatedPackagesParamsSort) Valid() bool {
+	switch e {
+	case GetRegistryPackageRelatedPackagesParamsSortCreatedAt:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortDependentPackagesCount:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortDependentReposCount:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortDockerDependentsCount:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortDockerDownloadsCount:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortDownloads:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortForksCount:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortLatestReleasePublishedAt:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortMaintainersCount:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortName:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortStargazersCount:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortUpdatedAt:
+		return true
+	case GetRegistryPackageRelatedPackagesParamsSortVersionsCount:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetRegistryPackageVersionsParamsSort.
+const (
+	GetRegistryPackageVersionsParamsSortCreatedAt   GetRegistryPackageVersionsParamsSort = "created_at"
+	GetRegistryPackageVersionsParamsSortNumber      GetRegistryPackageVersionsParamsSort = "number"
+	GetRegistryPackageVersionsParamsSortPublishedAt GetRegistryPackageVersionsParamsSort = "published_at"
+	GetRegistryPackageVersionsParamsSortUpdatedAt   GetRegistryPackageVersionsParamsSort = "updated_at"
+)
+
+// Valid indicates whether the value is a known member of the GetRegistryPackageVersionsParamsSort enum.
+func (e GetRegistryPackageVersionsParamsSort) Valid() bool {
+	switch e {
+	case GetRegistryPackageVersionsParamsSortCreatedAt:
+		return true
+	case GetRegistryPackageVersionsParamsSortNumber:
+		return true
+	case GetRegistryPackageVersionsParamsSortPublishedAt:
+		return true
+	case GetRegistryPackageVersionsParamsSortUpdatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
+// Defines values for GetRegistryRecentVersionsParamsSort.
+const (
+	GetRegistryRecentVersionsParamsSortCreatedAt   GetRegistryRecentVersionsParamsSort = "created_at"
+	GetRegistryRecentVersionsParamsSortNumber      GetRegistryRecentVersionsParamsSort = "number"
+	GetRegistryRecentVersionsParamsSortPublishedAt GetRegistryRecentVersionsParamsSort = "published_at"
+	GetRegistryRecentVersionsParamsSortUpdatedAt   GetRegistryRecentVersionsParamsSort = "updated_at"
+)
+
+// Valid indicates whether the value is a known member of the GetRegistryRecentVersionsParamsSort enum.
+func (e GetRegistryRecentVersionsParamsSort) Valid() bool {
+	switch e {
+	case GetRegistryRecentVersionsParamsSortCreatedAt:
+		return true
+	case GetRegistryRecentVersionsParamsSortNumber:
+		return true
+	case GetRegistryRecentVersionsParamsSortPublishedAt:
+		return true
+	case GetRegistryRecentVersionsParamsSortUpdatedAt:
+		return true
+	default:
+		return false
+	}
+}
+
 // Advisory defines model for Advisory.
 type Advisory struct {
 	Classification nullable.Nullable[string]   `json:"classification"`
@@ -273,6 +858,7 @@ type Package struct {
 	LastSyncedAt             nullable.Nullable[time.Time]              `json:"last_synced_at"`
 	LatestReleaseNumber      nullable.Nullable[string]                 `json:"latest_release_number"`
 	LatestReleasePublishedAt nullable.Nullable[time.Time]              `json:"latest_release_published_at"`
+	LatestVersionURL         string                                    `json:"latest_version_url"`
 	Licenses                 nullable.Nullable[string]                 `json:"licenses"`
 	Maintainers              []Maintainer                              `json:"maintainers"`
 	Metadata                 nullable.Nullable[map[string]interface{}] `json:"metadata"`
@@ -322,6 +908,7 @@ type PackageWithRegistry struct {
 	LastSyncedAt             nullable.Nullable[time.Time]              `json:"last_synced_at"`
 	LatestReleaseNumber      nullable.Nullable[string]                 `json:"latest_release_number"`
 	LatestReleasePublishedAt nullable.Nullable[time.Time]              `json:"latest_release_published_at"`
+	LatestVersionURL         string                                    `json:"latest_version_url"`
 	Licenses                 nullable.Nullable[string]                 `json:"licenses"`
 	Maintainers              []Maintainer                              `json:"maintainers"`
 	Metadata                 nullable.Nullable[map[string]interface{}] `json:"metadata"`
@@ -444,11 +1031,14 @@ type GetCriticalPackagesParams struct {
 	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
 
 	// Sort field to sort results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetCriticalPackagesParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to sort results by (asc or desc)
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetCriticalPackagesParamsSort defines parameters for GetCriticalPackages.
+type GetCriticalPackagesParamsSort string
 
 // GetCriticalMaintainersParams defines parameters for GetCriticalMaintainers.
 type GetCriticalMaintainersParams struct {
@@ -462,11 +1052,14 @@ type GetCriticalMaintainersParams struct {
 	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
 
 	// Sort field to sort results by (login or packages_count)
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetCriticalMaintainersParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to sort results by (asc or desc)
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetCriticalMaintainersParamsSort defines parameters for GetCriticalMaintainers.
+type GetCriticalMaintainersParamsSort string
 
 // GetCriticalMaintainers200JSONResponseBody_Item defines parameters for GetCriticalMaintainers.
 type GetCriticalMaintainers200JSONResponseBody_Item struct {
@@ -492,11 +1085,14 @@ type GetCriticalSoleMaintainersParams struct {
 	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
 
 	// Sort field to sort results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetCriticalSoleMaintainersParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to sort results by (asc or desc)
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetCriticalSoleMaintainersParamsSort defines parameters for GetCriticalSoleMaintainers.
+type GetCriticalSoleMaintainersParamsSort string
 
 // GetDependenciesParams defines parameters for GetDependencies.
 type GetDependenciesParams struct {
@@ -528,11 +1124,14 @@ type GetDependenciesParams struct {
 	After *string `form:"after,omitempty" json:"after,omitempty"`
 
 	// Sort field to order results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetDependenciesParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetDependenciesParamsSort defines parameters for GetDependencies.
+type GetDependenciesParamsSort string
 
 // GetKeywordsParams defines parameters for GetKeywords.
 type GetKeywordsParams struct {
@@ -597,11 +1196,14 @@ type GetCriticalPackagesListParams struct {
 	Funding *bool `form:"funding,omitempty" json:"funding,omitempty"`
 
 	// Sort field to sort results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetCriticalPackagesListParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to sort results by (asc or desc)
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetCriticalPackagesListParamsSort defines parameters for GetCriticalPackagesList.
+type GetCriticalPackagesListParamsSort string
 
 // LookupPackageParams defines parameters for LookupPackage.
 type LookupPackageParams struct {
@@ -618,11 +1220,14 @@ type LookupPackageParams struct {
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 
 	// Sort field to sort results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *LookupPackageParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to sort results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// LookupPackageParamsSort defines parameters for LookupPackage.
+type LookupPackageParamsSort string
 
 // GetRegistriesParams defines parameters for GetRegistries.
 type GetRegistriesParams struct {
@@ -660,11 +1265,14 @@ type LookupRegistryPackageParams struct {
 	Name *string `form:"name,omitempty" json:"name,omitempty"`
 
 	// Sort field to sort results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *LookupRegistryPackageParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to sort results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// LookupRegistryPackageParamsSort defines parameters for LookupRegistryPackage.
+type LookupRegistryPackageParamsSort string
 
 // GetRegistryMaintainersParams defines parameters for GetRegistryMaintainers.
 type GetRegistryMaintainersParams struct {
@@ -681,11 +1289,14 @@ type GetRegistryMaintainersParams struct {
 	UpdatedAfter *time.Time `form:"updated_after,omitempty" json:"updated_after,omitempty"`
 
 	// Sort field to order results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetRegistryMaintainersParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetRegistryMaintainersParamsSort defines parameters for GetRegistryMaintainers.
+type GetRegistryMaintainersParamsSort string
 
 // GetRegistryMaintainerPackagesParams defines parameters for GetRegistryMaintainerPackages.
 type GetRegistryMaintainerPackagesParams struct {
@@ -735,7 +1346,7 @@ type GetRegistryPackageNamesParams struct {
 	UpdatedBefore *time.Time `form:"updated_before,omitempty" json:"updated_before,omitempty"`
 
 	// Sort field to order results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetRegistryPackageNamesParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
@@ -752,6 +1363,9 @@ type GetRegistryPackageNamesParams struct {
 	// Postfix filter by package names ending with this string (case insensitive)
 	Postfix *string `form:"postfix,omitempty" json:"postfix,omitempty"`
 }
+
+// GetRegistryPackageNamesParamsSort defines parameters for GetRegistryPackageNames.
+type GetRegistryPackageNamesParamsSort string
 
 // GetRegistryPackagesParams defines parameters for GetRegistryPackages.
 type GetRegistryPackagesParams struct {
@@ -777,15 +1391,18 @@ type GetRegistryPackagesParams struct {
 	Critical *bool `form:"critical,omitempty" json:"critical,omitempty"`
 
 	// Sort field to order results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetRegistryPackagesParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
 
+// GetRegistryPackagesParamsSort defines parameters for GetRegistryPackages.
+type GetRegistryPackagesParamsSort string
+
 // GetRegistryPackageDependentPackageKindsParams defines parameters for GetRegistryPackageDependentPackageKinds.
 type GetRegistryPackageDependentPackageKindsParams struct {
-	// Latest filter by latest version
+	// Latest only count packages whose latest version depends on this package (default true). Set to false to include historical dependents.
 	Latest *bool `form:"latest,omitempty" json:"latest,omitempty"`
 }
 
@@ -804,17 +1421,20 @@ type GetRegistryPackageDependentPackagesParams struct {
 	UpdatedAfter *time.Time `form:"updated_after,omitempty" json:"updated_after,omitempty"`
 
 	// Sort field to order results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetRegistryPackageDependentPackagesParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 
-	// Latest filter by latest version
+	// Latest only include packages whose latest version depends on this package (default true). Set to false to include historical dependents.
 	Latest *bool `form:"latest,omitempty" json:"latest,omitempty"`
 
 	// Kind filter by dependency kind
 	Kind *string `form:"kind,omitempty" json:"kind,omitempty"`
 }
+
+// GetRegistryPackageDependentPackagesParamsSort defines parameters for GetRegistryPackageDependentPackages.
+type GetRegistryPackageDependentPackagesParamsSort string
 
 // GetRegistryPackageRelatedPackagesParams defines parameters for GetRegistryPackageRelatedPackages.
 type GetRegistryPackageRelatedPackagesParams struct {
@@ -831,11 +1451,14 @@ type GetRegistryPackageRelatedPackagesParams struct {
 	UpdatedAfter *time.Time `form:"updated_after,omitempty" json:"updated_after,omitempty"`
 
 	// Sort field to order results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetRegistryPackageRelatedPackagesParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetRegistryPackageRelatedPackagesParamsSort defines parameters for GetRegistryPackageRelatedPackages.
+type GetRegistryPackageRelatedPackagesParamsSort string
 
 // GetRegistryPackageVersionsParams defines parameters for GetRegistryPackageVersions.
 type GetRegistryPackageVersionsParams struct {
@@ -864,11 +1487,14 @@ type GetRegistryPackageVersionsParams struct {
 	UpdatedBefore *time.Time `form:"updated_before,omitempty" json:"updated_before,omitempty"`
 
 	// Sort field to order results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetRegistryPackageVersionsParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetRegistryPackageVersionsParamsSort defines parameters for GetRegistryPackageVersions.
+type GetRegistryPackageVersionsParamsSort string
 
 // GetRegistryRecentVersionsParams defines parameters for GetRegistryRecentVersions.
 type GetRegistryRecentVersionsParams struct {
@@ -897,11 +1523,14 @@ type GetRegistryRecentVersionsParams struct {
 	UpdatedBefore *time.Time `form:"updated_before,omitempty" json:"updated_before,omitempty"`
 
 	// Sort field to order results by
-	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
+	Sort *GetRegistryRecentVersionsParamsSort `form:"sort,omitempty" json:"sort,omitempty"`
 
 	// Order direction to order results by
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
 }
+
+// GetRegistryRecentVersionsParamsSort defines parameters for GetRegistryRecentVersions.
+type GetRegistryRecentVersionsParamsSort string
 
 // BulkLookupPackagesJSONRequestBody defines body for BulkLookupPackages for application/json ContentType.
 type BulkLookupPackagesJSONRequestBody BulkLookupPackagesJSONBody
@@ -1096,7 +1725,7 @@ type ClientInterface interface {
 	// Corresponds with GET /packages/lookup (the `LookupPackage` operationId).
 	LookupPackage(ctx context.Context, params *LookupPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// GetRegistries list registies
+	// GetRegistries list registries
 	//
 	// Corresponds with GET /registries (the `GetRegistries` operationId).
 	GetRegistries(ctx context.Context, params *GetRegistriesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -1170,6 +1799,11 @@ type ClientInterface interface {
 	//
 	// Corresponds with GET /registries/{registryName}/packages/{packageName}/dependent_packages (the `GetRegistryPackageDependentPackages` operationId).
 	GetRegistryPackageDependentPackages(ctx context.Context, registryName string, packageName string, params *GetRegistryPackageDependentPackagesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// GetRegistryPackageLatestVersion get the latest version of a package
+	//
+	// Corresponds with GET /registries/{registryName}/packages/{packageName}/latest_version (the `GetRegistryPackageLatestVersion` operationId).
+	GetRegistryPackageLatestVersion(ctx context.Context, registryName string, packageName string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetRegistryPackageRelatedPackages get a list of packages that are related to a package
 	//
@@ -1356,7 +1990,7 @@ func (c *Client) LookupPackage(ctx context.Context, params *LookupPackageParams,
 	return c.Client.Do(req)
 }
 
-// GetRegistries list registies
+// GetRegistries list registries
 //
 // Corresponds with GET /registries (the `GetRegistries` operationId).
 func (c *Client) GetRegistries(ctx context.Context, params *GetRegistriesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -1571,6 +2205,21 @@ func (c *Client) GetRegistryPackageDependentPackageKinds(ctx context.Context, re
 // Corresponds with GET /registries/{registryName}/packages/{packageName}/dependent_packages (the `GetRegistryPackageDependentPackages` operationId).
 func (c *Client) GetRegistryPackageDependentPackages(ctx context.Context, registryName string, packageName string, params *GetRegistryPackageDependentPackagesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetRegistryPackageDependentPackagesRequest(c.Server, registryName, packageName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// GetRegistryPackageLatestVersion get the latest version of a package
+//
+// Corresponds with GET /registries/{registryName}/packages/{packageName}/latest_version (the `GetRegistryPackageLatestVersion` operationId).
+func (c *Client) GetRegistryPackageLatestVersion(ctx context.Context, registryName string, packageName string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetRegistryPackageLatestVersionRequest(c.Server, registryName, packageName)
 	if err != nil {
 		return nil, err
 	}
@@ -3954,6 +4603,47 @@ func NewGetRegistryPackageDependentPackagesRequest(server string, registryName s
 	return req, nil
 }
 
+// NewGetRegistryPackageLatestVersionRequest constructs an http.Request for the GetRegistryPackageLatestVersion method
+func NewGetRegistryPackageLatestVersionRequest(server string, registryName string, packageName string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithOptions("simple", false, "registryName", registryName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithOptions("simple", false, "packageName", packageName, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationPath, Type: "string", Format: ""})
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/registries/%s/packages/%s/latest_version", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewGetRegistryPackageRelatedPackagesRequest constructs an http.Request for the GetRegistryPackageRelatedPackages method
 func NewGetRegistryPackageRelatedPackagesRequest(server string, registryName string, packageName string, params *GetRegistryPackageRelatedPackagesParams) (*http.Request, error) {
 	var err error
@@ -4678,7 +5368,7 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /packages/lookup (the `LookupPackage` operationId).
 	LookupPackageWithResponse(ctx context.Context, params *LookupPackageParams, reqEditors ...RequestEditorFn) (*LookupPackageResponse, error)
 
-	// GetRegistriesWithResponse list registies
+	// GetRegistriesWithResponse list registries
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -4782,6 +5472,13 @@ type ClientWithResponsesInterface interface {
 	//
 	// Corresponds with GET /registries/{registryName}/packages/{packageName}/dependent_packages (the `GetRegistryPackageDependentPackages` operationId).
 	GetRegistryPackageDependentPackagesWithResponse(ctx context.Context, registryName string, packageName string, params *GetRegistryPackageDependentPackagesParams, reqEditors ...RequestEditorFn) (*GetRegistryPackageDependentPackagesResponse, error)
+
+	// GetRegistryPackageLatestVersionWithResponse get the latest version of a package
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /registries/{registryName}/packages/{packageName}/latest_version (the `GetRegistryPackageLatestVersion` operationId).
+	GetRegistryPackageLatestVersionWithResponse(ctx context.Context, registryName string, packageName string, reqEditors ...RequestEditorFn) (*GetRegistryPackageLatestVersionResponse, error)
 
 	// GetRegistryPackageRelatedPackagesWithResponse get a list of packages that are related to a package
 	//
@@ -5572,6 +6269,37 @@ func (r GetRegistryPackageDependentPackagesResponse) ContentType() string {
 	return ""
 }
 
+type GetRegistryPackageLatestVersionResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *VersionWithDependencies
+}
+
+// Status returns HTTPResponse.Status
+func (r GetRegistryPackageLatestVersionResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r GetRegistryPackageLatestVersionResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r GetRegistryPackageLatestVersionResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 type GetRegistryPackageRelatedPackagesResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -5888,7 +6616,7 @@ func (c *ClientWithResponses) LookupPackageWithResponse(ctx context.Context, par
 	return ParseLookupPackageResponse(rsp)
 }
 
-// GetRegistriesWithResponse list registies
+// GetRegistriesWithResponse list registries
 //
 // Returns a wrapper object for the known response body format(s).
 //
@@ -6081,6 +6809,19 @@ func (c *ClientWithResponses) GetRegistryPackageDependentPackagesWithResponse(ct
 		return nil, err
 	}
 	return ParseGetRegistryPackageDependentPackagesResponse(rsp)
+}
+
+// GetRegistryPackageLatestVersionWithResponse get the latest version of a package
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /registries/{registryName}/packages/{packageName}/latest_version (the `GetRegistryPackageLatestVersion` operationId).
+func (c *ClientWithResponses) GetRegistryPackageLatestVersionWithResponse(ctx context.Context, registryName string, packageName string, reqEditors ...RequestEditorFn) (*GetRegistryPackageLatestVersionResponse, error) {
+	rsp, err := c.GetRegistryPackageLatestVersion(ctx, registryName, packageName, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseGetRegistryPackageLatestVersionResponse(rsp)
 }
 
 // GetRegistryPackageRelatedPackagesWithResponse get a list of packages that are related to a package
@@ -6786,6 +7527,35 @@ func ParseGetRegistryPackageDependentPackagesResponse(rsp *http.Response) (*GetR
 			return nil, err
 		}
 		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseGetRegistryPackageLatestVersionResponse parses an HTTP response from a GetRegistryPackageLatestVersionWithResponse call
+func ParseGetRegistryPackageLatestVersionResponse(rsp *http.Response) (*GetRegistryPackageLatestVersionResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &GetRegistryPackageLatestVersionResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest VersionWithDependencies
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 404:
+		break // No content-type
 
 	}
 

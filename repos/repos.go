@@ -358,8 +358,8 @@ type TopicWithRepositories struct {
 	TopicURL          *string      `json:"topic_url,omitempty"`
 }
 
-// GetRegistriesParams defines parameters for GetRegistries.
-type GetRegistriesParams struct {
+// GetHostsParams defines parameters for GetHosts.
+type GetHostsParams struct {
 	// Page pagination page number
 	Page *int `form:"page,omitempty" json:"page,omitempty"`
 
@@ -720,10 +720,10 @@ func WithRequestEditorFn(fn RequestEditorFn) ClientOption {
 // The interface specification for the client above.
 type ClientInterface interface {
 
-	// GetRegistries list registies
+	// GetHosts list hosts
 	//
-	// Corresponds with GET /hosts (the `GetRegistries` operationId).
-	GetRegistries(ctx context.Context, params *GetRegistriesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+	// Corresponds with GET /hosts (the `GetHosts` operationId).
+	GetHosts(ctx context.Context, params *GetHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// LookupHostOwner lookup owner by name or email
 	//
@@ -851,11 +851,11 @@ type ClientInterface interface {
 	UsagePackageDependentRepositories(ctx context.Context, ecosystem string, pPackage string, params *UsagePackageDependentRepositoriesParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
-// GetRegistries list registies
+// GetHosts list hosts
 //
-// Corresponds with GET /hosts (the `GetRegistries` operationId).
-func (c *Client) GetRegistries(ctx context.Context, params *GetRegistriesParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
-	req, err := NewGetRegistriesRequest(c.Server, params)
+// Corresponds with GET /hosts (the `GetHosts` operationId).
+func (c *Client) GetHosts(ctx context.Context, params *GetHostsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewGetHostsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1241,8 +1241,8 @@ func (c *Client) UsagePackageDependentRepositories(ctx context.Context, ecosyste
 	return c.Client.Do(req)
 }
 
-// NewGetRegistriesRequest constructs an http.Request for the GetRegistries method
-func NewGetRegistriesRequest(server string, params *GetRegistriesParams) (*http.Request, error) {
+// NewGetHostsRequest constructs an http.Request for the GetHosts method
+func NewGetHostsRequest(server string, params *GetHostsParams) (*http.Request, error) {
 	var err error
 
 	serverURL, err := url.Parse(server)
@@ -3432,12 +3432,12 @@ func WithBaseURL(baseURL string) ClientOption {
 // ClientWithResponsesInterface is the interface specification for the client with responses above.
 type ClientWithResponsesInterface interface {
 
-	// GetRegistriesWithResponse list registies
+	// GetHostsWithResponse list hosts
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
-	// Corresponds with GET /hosts (the `GetRegistries` operationId).
-	GetRegistriesWithResponse(ctx context.Context, params *GetRegistriesParams, reqEditors ...RequestEditorFn) (*GetRegistriesResponse, error)
+	// Corresponds with GET /hosts (the `GetHosts` operationId).
+	GetHostsWithResponse(ctx context.Context, params *GetHostsParams, reqEditors ...RequestEditorFn) (*GetHostsResponse, error)
 
 	// LookupHostOwnerWithResponse lookup owner by name or email
 	//
@@ -3615,7 +3615,7 @@ type ClientWithResponsesInterface interface {
 	UsagePackageDependentRepositoriesWithResponse(ctx context.Context, ecosystem string, pPackage string, params *UsagePackageDependentRepositoriesParams, reqEditors ...RequestEditorFn) (*UsagePackageDependentRepositoriesResponse, error)
 }
 
-type GetRegistriesResponse struct {
+type GetHostsResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
@@ -3623,7 +3623,7 @@ type GetRegistriesResponse struct {
 }
 
 // Status returns HTTPResponse.Status
-func (r GetRegistriesResponse) Status() string {
+func (r GetHostsResponse) Status() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Status
 	}
@@ -3631,7 +3631,7 @@ func (r GetRegistriesResponse) Status() string {
 }
 
 // StatusCode returns HTTPResponse.StatusCode
-func (r GetRegistriesResponse) StatusCode() int {
+func (r GetHostsResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -3639,7 +3639,7 @@ func (r GetRegistriesResponse) StatusCode() int {
 }
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
-func (r GetRegistriesResponse) ContentType() string {
+func (r GetHostsResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -4421,17 +4421,17 @@ func (r UsagePackageDependentRepositoriesResponse) ContentType() string {
 	return ""
 }
 
-// GetRegistriesWithResponse list registies
+// GetHostsWithResponse list hosts
 //
 // Returns a wrapper object for the known response body format(s).
 //
-// Corresponds with GET /hosts (the `GetRegistries` operationId).
-func (c *ClientWithResponses) GetRegistriesWithResponse(ctx context.Context, params *GetRegistriesParams, reqEditors ...RequestEditorFn) (*GetRegistriesResponse, error) {
-	rsp, err := c.GetRegistries(ctx, params, reqEditors...)
+// Corresponds with GET /hosts (the `GetHosts` operationId).
+func (c *ClientWithResponses) GetHostsWithResponse(ctx context.Context, params *GetHostsParams, reqEditors ...RequestEditorFn) (*GetHostsResponse, error) {
+	rsp, err := c.GetHosts(ctx, params, reqEditors...)
 	if err != nil {
 		return nil, err
 	}
-	return ParseGetRegistriesResponse(rsp)
+	return ParseGetHostsResponse(rsp)
 }
 
 // LookupHostOwnerWithResponse lookup owner by name or email
@@ -4759,15 +4759,15 @@ func (c *ClientWithResponses) UsagePackageDependentRepositoriesWithResponse(ctx 
 	return ParseUsagePackageDependentRepositoriesResponse(rsp)
 }
 
-// ParseGetRegistriesResponse parses an HTTP response from a GetRegistriesWithResponse call
-func ParseGetRegistriesResponse(rsp *http.Response) (*GetRegistriesResponse, error) {
+// ParseGetHostsResponse parses an HTTP response from a GetHostsWithResponse call
+func ParseGetHostsResponse(rsp *http.Response) (*GetHostsResponse, error) {
 	bodyBytes, err := io.ReadAll(rsp.Body)
 	defer func() { _ = rsp.Body.Close() }()
 	if err != nil {
 		return nil, err
 	}
 
-	response := &GetRegistriesResponse{
+	response := &GetHostsResponse{
 		Body:         bodyBytes,
 		HTTPResponse: rsp,
 	}

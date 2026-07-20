@@ -1,40 +1,38 @@
----
 openapi: 3.0.1
 info:
-  title: 'Ecosyste.ms: Repos'
-  description: An open API service providing repository metadata for many open source
-    software ecosystems.
+  title: "Ecosyste.ms: Repos"
+  description: "An open API service providing repository metadata for many open source software ecosystems."
   contact:
     name: Ecosyste.ms
     email: support@ecosyste.ms
-    url: https://ecosyste.ms
+    url: https://ecosyste.ms 
   version: 1.0.0
   license:
-    name: CC-BY-SA-4.0
-    url: https://creativecommons.org/licenses/by-sa/4.0/
+      name: CC-BY-SA-4.0
+      url: https://creativecommons.org/licenses/by-sa/4.0/
 externalDocs:
   description: GitHub Repository
   url: https://github.com/ecosyste-ms/repos
 servers:
 - url: https://repos.ecosyste.ms/api/v1
 paths:
-  "/topics":
+  /topics:
     get:
-      summary: Get topics
-      operationId: topics
+      summary: "Get topics"
+      operationId: "topics"
       parameters:
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -43,105 +41,104 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Topic"
-  "/topics/{topic}":
+                  $ref: '#/components/schemas/Topic'
+  /topics/{topic}:
     get:
-      summary: Get topic
-      operationId: topic
+      summary: "Get topic"
+      operationId: "topic"
       parameters:
-      - name: topic
-        in: path
-        description: The topic to get
-        required: true
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: fork
-        in: query
-        description: filter by fork
-        required: false
-        schema:
-          type: boolean
-      - name: archived
-        in: query
-        description: filter by archived
-        required: false
-        schema:
-          type: boolean
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - name: topic
+          in: path
+          description: "The topic to get"
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: fork
+          in: query
+          description: filter by fork
+          required: false
+          schema:
+            type: boolean
+        - name: archived
+          in: query
+          description: filter by archived
+          required: false
+          schema:
+            type: boolean
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/TopicWithRepositories"
-  "/repositories/lookup":
+                $ref: '#/components/schemas/TopicWithRepositories'
+  /repositories/lookup:
     get:
-      summary: Lookup repository metadata by url or purl
-      operationId: repositoriesLookup
+      summary: "Lookup repository metadata by url or purl"
+      operationId: "repositoriesLookup"
       parameters:
-      - name: url
-        in: query
-        description: The URL of the repository to lookup
-        required: false
-        schema:
-          type: string
-      - name: purl
-        in: query
-        description: 'Package URL (PURL) of the repository to lookup. Supported types:
-          github, gitlab, gitea, bitbucket, forgejo, sourcehut'
-        required: false
-        schema:
-          type: string
-          example: pkg:github/ecosyste-ms/repos
+        - name: url
+          in: query
+          description: "The URL of the repository to lookup"
+          required: false
+          schema:
+            type: string
+        - name: purl
+          in: query
+          description: "Package URL (PURL) of the repository to lookup. Supported types: github, gitlab, gitea, bitbucket, forgejo, sourcehut"
+          required: false
+          schema:
+            type: string
+            example: "pkg:github/ecosyste-ms/repos"
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Repository"
-  "/usage":
+                $ref: '#/components/schemas/Repository'
+  /usage:
     get:
-      summary: Get package usage ecosystems
-      operationId: usage
+      summary: "Get package usage ecosystems"
+      operationId: "usage"
       responses:
         200:
           description: OK
@@ -150,30 +147,30 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Ecosystem"
-  "/usage/{ecosystem}":
+                  $ref: '#/components/schemas/Ecosystem'
+  /usage/{ecosystem}:
     get:
-      summary: Get package usage for an ecosystem
-      operationId: usageEcosystem
+      summary: "Get package usage for an ecosystem"
+      operationId: "usageEcosystem"
       parameters:
-      - name: ecosystem
-        in: path
-        description: The ecosystem to get usage for
-        required: true
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - name: ecosystem
+          in: path
+          description: "The ecosystem to get usage for"
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -182,148 +179,66 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/PackageUsage"
-  "/usage/{ecosystem}/{package}":
+                  $ref: '#/components/schemas/PackageUsage'
+  /usage/{ecosystem}/{package}:
     get:
-      summary: Get package usage for a package
-      operationId: usagePackage
+      summary: "Get package usage for a package"
+      operationId: "usagePackage"
       parameters:
-      - name: ecosystem
-        in: path
-        description: The ecosystem to get usage for
-        required: true
-        schema:
-          type: string
-      - name: package
-        in: path
-        description: The package to get usage for
-        required: true
-        schema:
-          type: string
+        - name: ecosystem
+          in: path
+          description: "The ecosystem to get usage for"
+          required: true
+          schema:
+            type: string
+        - name: package
+          in: path
+          description: "The package to get usage for"
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/PackageUsage"
-  "/usage/{ecosystem}/{package}/dependencies":
+                $ref: '#/components/schemas/PackageUsage'
+  /usage/{ecosystem}/{package}/dependencies:
     get:
-      summary: Get dependencies for a package
-      operationId: usagePackageDependencies
+      summary: "Get dependencies for a package"
+      operationId: "usagePackageDependencies"
       parameters:
-      - name: ecosystem
-        in: path
-        description: The ecosystem to get usage for
-        required: true
-        schema:
-          type: string
-      - name: package
-        in: path
-        description: The package to get usage for
-        required: true
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: after
-        in: query
-        description: filter to dependencies with id greater than given value (for
-          keyset pagination)
-        required: false
-        schema:
-          type: integer
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  "$ref": "#/components/schemas/DependencyWithRepository"
-  "/usage/{ecosystem}/{package}/dependent_repositories":
-    get:
-      summary: Get dependent repositories for a package
-      operationId: usagePackageDependentRepositories
-      parameters:
-      - name: ecosystem
-        in: path
-        description: The ecosystem to get usage for
-        required: true
-        schema:
-          type: string
-      - name: package
-        in: path
-        description: The package to get usage for
-        required: true
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
-      - name: after_id
-        in: query
-        description: filter to repositories with id greater than given value (for
-          keyset pagination)
-        required: false
-        schema:
-          type: integer
-      - name: fork
-        in: query
-        description: filter by fork
-        required: false
-        schema:
-          type: boolean
-      - name: archived
-        in: query
-        description: filter by archived
-        required: false
-        schema:
-          type: boolean
-      - name: starred
-        in: query
-        description: filter to only starred repositories
-        required: false
-        schema:
-          type: boolean
-      - name: min_stars
-        in: query
-        description: filter to repositories with at least this many stars
-        required: false
-        schema:
-          type: integer
+        - name: ecosystem
+          in: path
+          description: "The ecosystem to get usage for"
+          required: true
+          schema:
+            type: string
+        - name: package
+          in: path
+          description: "The package to get usage for"
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
+        - name: after
+          in: query
+          description: filter to dependencies with id greater than given value (for keyset pagination)
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -332,24 +247,78 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Repository"
-  "/hosts":
+                  $ref: '#/components/schemas/DependencyWithRepository'
+  /usage/{ecosystem}/{package}/dependent_repositories:
     get:
-      summary: list registies
-      operationId: getRegistries
+      summary: "Get dependent repositories for a package"
+      operationId: "usagePackageDependentRepositories"
       parameters:
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - name: ecosystem
+          in: path
+          description: "The ecosystem to get usage for"
+          required: true
+          schema:
+            type: string
+        - name: package
+          in: path
+          description: "The package to get usage for"
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
+        - name: after_id
+          in: query
+          description: filter to repositories with id greater than given value (for keyset pagination)
+          required: false
+          schema:
+            type: integer
+        - name: fork
+          in: query
+          description: filter by fork
+          required: false
+          schema:
+            type: boolean
+        - name: archived
+          in: query
+          description: filter by archived
+          required: false
+          schema:
+            type: boolean
+        - name: starred
+          in: query
+          description: filter to only starred repositories
+          required: false
+          schema:
+            type: boolean
+        - name: min_stars
+          in: query
+          description: filter to repositories with at least this many stars
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -358,101 +327,125 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Host"
-  "/hosts/{hostName}":
+                  $ref: '#/components/schemas/Repository'
+  /hosts:
+    get:
+      summary: list hosts
+      operationId: getHosts
+      parameters:
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Host'
+  /hosts/{hostName}:
     get:
       summary: get a host by name
       operationId: getHost
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Host"
-  "/hosts/{hostName}/owners":
+                $ref: '#/components/schemas/Host'
+  /hosts/{hostName}/owners:
     get:
       summary: get a list of owners from a host
       operationId: getHostOwners
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
-      - name: kind
-        in: query
-        description: filter by owner kind
-        required: false
-        schema:
-          type: string
-          enum:
-          - user
-          - organization
-      - name: has_sponsors_listing
-        in: query
-        description: filter to owners with a sponsors listing
-        required: false
-        schema:
-          type: boolean
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
+        - name: kind
+          in: query
+          description: filter by owner kind
+          required: false
+          schema:
+            type: string
+            enum: [user, organization]
+        - name: has_sponsors_listing
+          in: query
+          description: filter to owners with a sponsors listing
+          required: false
+          schema:
+            type: boolean
       responses:
         200:
           description: OK
@@ -461,30 +454,30 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Owner"
-  "/hosts/{HostName}/owners/lookup":
+                  $ref: '#/components/schemas/Owner'
+  /hosts/{HostName}/owners/lookup:
     get:
       summary: lookup owner by name or email
       operationId: lookupHostOwner
       parameters:
-      - in: path
-        name: HostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: name
-        in: query
-        description: name of owner
-        required: false
-        schema:
-          type: string
-      - name: email
-        in: query
-        description: email of owner
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: HostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: name
+          in: query
+          description: name of owner
+          required: false
+          schema:
+            type: string
+        - name: email
+          in: query
+          description: email of owner
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -493,98 +486,98 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Owner"
-  "/hosts/{hostName}/owners/{ownerLogin}":
+                  $ref: '#/components/schemas/Owner'
+  /hosts/{hostName}/owners/{ownerLogin}:
     get:
       summary: get a owner by login
       operationId: getHostOwner
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: ownerLogin
-        schema:
-          type: string
-        required: true
-        description: login of owner
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: ownerLogin
+          schema:
+            type: string
+          required: true
+          description: login of owner
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Owner"
-  "/hosts/{hostName}/owners/{ownerLogin}/repositories":
+                $ref: '#/components/schemas/Owner'
+  /hosts/{hostName}/owners/{ownerLogin}/repositories:
     get:
       summary: get a list of repositories from a owner
       operationId: getHostOwnerRepositories
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: ownerLogin
-        schema:
-          type: string
-        required: true
-        description: login of owner
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: fork
-        in: query
-        description: filter by fork
-        required: false
-        schema:
-          type: boolean
-      - name: archived
-        in: query
-        description: filter by archived
-        required: false
-        schema:
-          type: boolean
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: ownerLogin
+          schema:
+            type: string
+          required: true
+          description: login of owner
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: fork
+          in: query
+          description: filter by fork
+          required: false
+          schema:
+            type: boolean
+        - name: archived
+          in: query
+          description: filter by archived
+          required: false
+          schema:
+            type: boolean
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -593,68 +586,68 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Repository"
-  "/hosts/{hostName}/repositories":
+                  $ref: '#/components/schemas/Repository'
+  /hosts/{hostName}/repositories:
     get:
       summary: get a list of repositories from a host
       operationId: getHostRepositories
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: fork
-        in: query
-        description: filter by fork
-        required: false
-        schema:
-          type: boolean
-      - name: archived
-        in: query
-        description: filter by archived
-        required: false
-        schema:
-          type: boolean
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: fork
+          in: query
+          description: filter by fork
+          required: false
+          schema:
+            type: boolean
+        - name: archived
+          in: query
+          description: filter by archived
+          required: false
+          schema:
+            type: boolean
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -663,68 +656,68 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Repository"
-  "/hosts/{hostName}/repository_names":
+                  $ref: '#/components/schemas/Repository'
+  /hosts/{hostName}/repository_names:
     get:
       summary: get a list of repository names from a host
       operationId: getHostRepositoryNames
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: fork
-        in: query
-        description: filter by fork
-        required: false
-        schema:
-          type: boolean
-      - name: archived
-        in: query
-        description: filter by archived
-        required: false
-        schema:
-          type: boolean
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: fork
+          in: query
+          description: filter by fork
+          required: false
+          schema:
+            type: boolean
+        - name: archived
+          in: query
+          description: filter by archived
+          required: false
+          schema:
+            type: boolean
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -734,38 +727,36 @@ paths:
                 type: array
                 items:
                   type: string
-  "/hosts/{hostName}/owners/names":
+  /hosts/{hostName}/owners/names:
     get:
       summary: get a list of owner names from a host
       operationId: getHostOwnerNames
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: kind
-        in: query
-        description: filter by owner kind
-        required: false
-        schema:
-          type: string
-          enum:
-          - user
-          - organization
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: kind
+          in: query
+          description: filter by owner kind
+          required: false
+          schema:
+            type: string
+            enum: [user, organization]
       responses:
         200:
           description: OK
@@ -775,17 +766,17 @@ paths:
                 type: array
                 items:
                   type: string
-  "/hosts/{hostName}/owners/sponsors_logins":
+  /hosts/{hostName}/owners/sponsors_logins:
     get:
       summary: get a list of owner logins with sponsors listings from a host
       operationId: getHostOwnerSponsorsLogins
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
       responses:
         200:
           description: OK
@@ -795,59 +786,59 @@ paths:
                 type: array
                 items:
                   type: string
-  "/hosts/{hostName}/repositories/{repositoryName}":
+  /hosts/{hostName}/repositories/{repositoryName}:
     get:
       summary: get a repository by name
       operationId: getHostRepository
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repositoryName
-        schema:
-          type: string
-        required: true
-        description: name of repository
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repositoryName
+          schema:
+            type: string
+          required: true
+          description: name of repository
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Repository"
-  "/hosts/{hostName}/repositories/{repositoryName}/manifests":
+                $ref: '#/components/schemas/Repository'
+  /hosts/{hostName}/repositories/{repositoryName}/manifests:
     get:
       summary: get a list of manifests for a repository
       operationId: getHostRepositoryManifests
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repositoryName
-        schema:
-          type: string
-        required: true
-        description: name of repository
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repositoryName
+          schema:
+            type: string
+          required: true
+          description: name of repository
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -856,48 +847,48 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Manifest"
-  "/hosts/{hostName}/repositories/{repositoryName}/tags":
+                  $ref: '#/components/schemas/Manifest'
+  /hosts/{hostName}/repositories/{repositoryName}/tags:
     get:
       summary: get a list of tags for a repository
       operationId: getHostRepositoryTags
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repositoryName
-        schema:
-          type: string
-        required: true
-        description: name of repository
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repositoryName
+          schema:
+            type: string
+          required: true
+          description: name of repository
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -906,60 +897,60 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Tag"
-  "/hosts/{hostName}/repositories/{repositoryName}/tags/{tag}":
+                  $ref: '#/components/schemas/Tag'
+  /hosts/{hostName}/repositories/{repositoryName}/tags/{tag}:
     get:
       summary: get a tag for a repository
       operationId: getHostRepositoryTag
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repositoryName
-        schema:
-          type: string
-        required: true
-        description: name of repository
-      - in: path
-        name: tag
-        schema:
-          type: string
-        required: true
-        description: name of tag
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repositoryName
+          schema:
+            type: string
+          required: true
+          description: name of repository
+        - in: path
+          name: tag
+          schema:
+            type: string
+          required: true
+          description: name of tag
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Tag"
-  "/hosts/{hostName}/repositories/{repositoryName}/tags/{tag}/manifests":
+                $ref: '#/components/schemas/Tag'
+  /hosts/{hostName}/repositories/{repositoryName}/tags/{tag}/manifests:
     get:
       summary: get dependency manifests for a tag
       operationId: getHostRepositoryTagManifests
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repositoryName
-        schema:
-          type: string
-        required: true
-        description: name of repository
-      - in: path
-        name: tag
-        schema:
-          type: string
-        required: true
-        description: name of tag
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repositoryName
+          schema:
+            type: string
+          required: true
+          description: name of repository
+        - in: path
+          name: tag
+          schema:
+            type: string
+          required: true
+          description: name of tag
       responses:
         200:
           description: OK
@@ -968,48 +959,48 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Manifest"
-  "/hosts/{hostName}/repositories/{repositoryName}/releases":
+                  $ref: '#/components/schemas/Manifest'
+  /hosts/{hostName}/repositories/{repositoryName}/releases:
     get:
       summary: get a list of releases for a repository
       operationId: getHostRepositoryReleases
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repositoryName
-        schema:
-          type: string
-        required: true
-        description: name of repository
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repositoryName
+          schema:
+            type: string
+          required: true
+          description: name of repository
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -1018,24 +1009,24 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Tag"
-  "/hosts/{hostName}/repositories/{repositoryName}/sbom":
+                  $ref: '#/components/schemas/Tag'
+  /hosts/{hostName}/repositories/{repositoryName}/sbom:
     get:
       summary: get a software bill of materials (SBOM) for a repository
       operationId: getHostRepositorySbom
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repositoryName
-        schema:
-          type: string
-        required: true
-        description: name of repository
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repositoryName
+          schema:
+            type: string
+          required: true
+          description: name of repository
       responses:
         200:
           description: OK
@@ -1043,36 +1034,36 @@ paths:
             application/json:
               schema:
                 type: object
-  "/hosts/{hostName}/repositories/{repositoryName}/releases/{release}":
+  /hosts/{hostName}/repositories/{repositoryName}/releases/{release}:
     get:
       summary: get a release for a repository
       operationId: getHostRepositoryRelease
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repositoryName
-        schema:
-          type: string
-        required: true
-        description: name of repository
-      - in: path
-        name: release
-        schema:
-          type: string
-        required: true
-        description: tag_name of release
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repositoryName
+          schema:
+            type: string
+          required: true
+          description: name of repository
+        - in: path
+          name: release
+          schema:
+            type: string
+          required: true
+          description: tag_name of release
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Release"
+                $ref: '#/components/schemas/Release'
 components:
   schemas:
     Host:
@@ -1108,13 +1099,7 @@ components:
           format: date-time
         status:
           type: string
-          enum:
-          - online
-          - timeout
-          - connection_failed
-          - http_error
-          - ssl_error
-          - error
+          enum: [online, timeout, connection_failed, http_error, ssl_error, error]
           description: Current status of the host
         status_checked_at:
           type: string
@@ -1130,12 +1115,7 @@ components:
           nullable: true
         robots_txt_status:
           type: string
-          enum:
-          - success
-          - not_found
-          - error_404
-          - error_500
-          - error_timeout
+          enum: [success, not_found, error_404, error_500, error_timeout]
           description: Status of robots.txt fetch
         robots_txt_updated_at:
           type: string
@@ -1267,33 +1247,33 @@ components:
         scorecard:
           type: object
           nullable: true
-          "$ref": "#/components/schemas/Scorecard"
+          $ref: '#/components/schemas/Scorecard'
         host:
           type: object
-          "$ref": "#/components/schemas/Host"
+          $ref: '#/components/schemas/Host'
     Manifest:
       type: object
       properties:
-        ecosystem:
-          type: string
-        filepath:
-          type: string
-        sha:
-          type: string
-        kind:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        repository_link:
-          type: string
-        dependencies:
-          type: array
-          items:
-            "$ref": "#/components/schemas/Dependency"
+          ecosystem:
+            type: string
+          filepath:
+            type: string
+          sha:
+            type: string
+          kind:
+            type: string
+          created_at:
+            type: string
+            format: date-time
+          updated_at:
+            type: string
+            format: date-time
+          repository_link:
+            type: string
+          dependencies:
+            type: array
+            items:
+              $ref: '#/components/schemas/Dependency'
     Dependency:
       type: object
       properties:
@@ -1330,10 +1310,10 @@ components:
           type: boolean
         repository:
           type: object
-          "$ref": "#/components/schemas/Repository"
+          $ref: '#/components/schemas/Repository'
         manifest:
           type: object
-          "$ref": "#/components/schemas/Manifest"
+          $ref: '#/components/schemas/Manifest'
     Tag:
       type: object
       properties:
@@ -1458,11 +1438,11 @@ components:
         related_topics:
           type: array
           items:
-            "$ref": "#/components/schemas/Topic"
+            $ref: '#/components/schemas/Topic'
         repositories:
           type: array
           items:
-            "$ref": "#/components/schemas/Repository"
+            $ref: '#/components/schemas/Repository'
     Release:
       type: object
       properties:
