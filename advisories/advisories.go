@@ -16,6 +16,9 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// ServerURLHTTPSAdvisoriesEcosysteMsAPIV1 defines the Server URL for https://advisories.ecosyste.ms/api/v1
+const ServerURLHTTPSAdvisoriesEcosysteMsAPIV1 = "https://advisories.ecosyste.ms/api/v1"
+
 // Advisory defines model for Advisory.
 type Advisory struct {
 	// APIURL API URL for this advisory

@@ -16,6 +16,9 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// ServerURLHTTPSCommitsEcosysteMsAPIV1 defines the Server URL for https://commits.ecosyste.ms/api/v1
+const ServerURLHTTPSCommitsEcosysteMsAPIV1 = "https://commits.ecosyste.ms/api/v1"
+
 // Commit defines model for Commit.
 type Commit struct {
 	Author    *string    `json:"author,omitempty"`

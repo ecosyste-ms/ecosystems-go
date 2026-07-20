@@ -17,6 +17,9 @@ import (
 	"github.com/oapi-codegen/runtime"
 )
 
+// ServerURLHTTPSReposEcosysteMsAPIV1 defines the Server URL for https://repos.ecosyste.ms/api/v1
+const ServerURLHTTPSReposEcosysteMsAPIV1 = "https://repos.ecosyste.ms/api/v1"
+
 // Defines values for HostRobotsTxtStatus.
 const (
 	HostRobotsTxtStatusError404     HostRobotsTxtStatus = "error_404"
