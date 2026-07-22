@@ -1,12 +1,11 @@
----
 openapi: 3.0.1
 info:
-  title: 'Ecosyste.ms: issues'
-  description: 'An open API service providing issue metadata for open source projects. '
+  title: "Ecosyste.ms: issues"
+  description: "An open API service providing issue metadata for open source projects. "
   contact:
     name: Ecosyste.ms
     email: support@ecosyste.ms
-    url: https://ecosyste.ms
+    url: https://ecosyste.ms 
   version: 1.0.0
   license:
     name: CC-BY-SA-4.0
@@ -17,41 +16,41 @@ externalDocs:
 servers:
 - url: https://issues.ecosyste.ms/api/v1
 paths:
-  "/repositories/lookup":
+  /repositories/lookup:
     get:
-      summary: Lookup repository metadata
-      operationId: repositoriesLookup
+      summary: "Lookup repository metadata"
+      operationId: "repositoriesLookup"
       parameters:
-      - name: url
-        in: query
-        description: The URL of the repository to lookup
-        required: true
-        schema:
-          type: string
+        - name: url
+          in: query
+          description: "The URL of the repository to lookup"
+          required: true
+          schema:
+            type: string
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Repository"
-  "/hosts":
+                $ref: '#/components/schemas/Repository'
+  /hosts:
     get:
-      summary: list registries
-      operationId: getRegistries
+      summary: list hosts
+      operationId: getHosts
       parameters:
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -60,74 +59,74 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Host"
-  "/hosts/{hostName}":
+                  $ref: '#/components/schemas/Host'
+  /hosts/{hostName}:
     get:
       summary: get a host by name
       operationId: getHost
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Host"
-  "/hosts/{hostName}/repositories":
+                $ref: '#/components/schemas/Host'
+  /hosts/{hostName}/repositories:
     get:
       summary: get a list of repositories from a host
       operationId: getHostRepositories
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -136,104 +135,104 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Repository"
-  "/hosts/{hostName}/repositories/{repoName}":
+                  $ref: '#/components/schemas/Repository'
+  /hosts/{hostName}/repositories/{repoName}:
     get:
       summary: get a repository from a host
       operationId: getHostRepository
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repoName
-        schema:
-          type: string
-        required: true
-        description: name of repository
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repoName
+          schema:
+            type: string
+          required: true
+          description: name of repository
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Repository"
-  "/hosts/{hostName}/repositories/{repoName}/issues":
+                $ref: '#/components/schemas/Repository'
+  /hosts/{hostName}/repositories/{repoName}/issues:
     get:
       summary: get a list of issues from a repository
       operationId: getHostRepositoryIssues
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repoName
-        schema:
-          type: string
-        required: true
-        description: name of repository
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
-      - name: pull_request
-        in: query
-        description: filter by if it's a pull request
-        required: false
-        schema:
-          type: boolean
-      - name: state
-        in: query
-        description: filter by issue state (open, closed)
-        required: false
-        schema:
-          type: string
-      - name: label
-        in: query
-        description: filter by label name
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repoName
+          schema:
+            type: string
+          required: true
+          description: name of repository
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
+        - name: pull_request
+          in: query
+          description: filter by if it's a pull request
+          required: false
+          schema:
+            type: boolean
+        - name: state
+          in: query
+          description: filter by issue state (open, closed)
+          required: false
+          schema:
+            type: string
+        - name: label
+          in: query
+          description: filter by label name
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -242,54 +241,54 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Issue"
-  "/hosts/{hostName}/repositories/{repoName}/issues/{issueNumber}":
+                  $ref: '#/components/schemas/Issue'
+  /hosts/{hostName}/repositories/{repoName}/issues/{issueNumber}:
     get:
       summary: get an issue from a repository
       operationId: getHostRepositoryIssue
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repoName
-        schema:
-          type: string
-        required: true
-        description: name of repository
-      - in: path
-        name: issueNumber
-        schema:
-          type: integer
-        required: true
-        description: number of issue
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repoName
+          schema:
+            type: string
+          required: true
+          description: name of repository
+        - in: path
+          name: issueNumber
+          schema:
+            type: integer
+          required: true
+          description: number of issue
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Issue"
-  "/hosts/{hostName}/repositories/{repoName}/labels":
+                $ref: '#/components/schemas/Issue'
+  /hosts/{hostName}/repositories/{repoName}/labels:
     get:
       summary: get a list of labels used in issues for a repository
       operationId: getHostRepositoryLabels
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: repoName
-        schema:
-          type: string
-        required: true
-        description: name of repository
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: repoName
+          schema:
+            type: string
+          required: true
+          description: name of repository
       responses:
         200:
           description: OK
@@ -298,30 +297,30 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/LabelCount"
-  "/hosts/{hostName}/owners":
+                  $ref: '#/components/schemas/LabelCount'
+  /hosts/{hostName}/owners:
     get:
       summary: get a list of owners from a host
       operationId: getHostOwners
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -330,78 +329,78 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/OwnerSummary"
-  "/hosts/{hostName}/owners/{ownerName}":
+                  $ref: '#/components/schemas/OwnerSummary'
+  /hosts/{hostName}/owners/{ownerName}:
     get:
       summary: get owner statistics from a host
       operationId: getHostOwner
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: ownerName
-        schema:
-          type: string
-        required: true
-        description: name of owner
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: ownerName
+          schema:
+            type: string
+          required: true
+          description: name of owner
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Owner"
-  "/hosts/{hostName}/owners/{ownerName}/maintainers":
+                $ref: '#/components/schemas/Owner'
+  /hosts/{hostName}/owners/{ownerName}/maintainers:
     get:
       summary: get maintainers for an owner
       operationId: getHostOwnerMaintainers
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: ownerName
-        schema:
-          type: string
-        required: true
-        description: name of owner
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: ownerName
+          schema:
+            type: string
+          required: true
+          description: name of owner
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Maintainers"
-  "/hosts/{hostName}/authors":
+                $ref: '#/components/schemas/Maintainers'
+  /hosts/{hostName}/authors:
     get:
       summary: get a list of authors from a host
       operationId: getHostAuthors
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -410,32 +409,32 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/AuthorSummary"
-  "/hosts/{hostName}/authors/{authorName}":
+                  $ref: '#/components/schemas/AuthorSummary'
+  /hosts/{hostName}/authors/{authorName}:
     get:
       summary: get author statistics from a host
       operationId: getHostAuthor
       parameters:
-      - in: path
-        name: hostName
-        schema:
-          type: string
-        required: true
-        description: name of host
-      - in: path
-        name: authorName
-        schema:
-          type: string
-        required: true
-        description: username of author
+        - in: path
+          name: hostName
+          schema:
+            type: string
+          required: true
+          description: name of host
+        - in: path
+          name: authorName
+          schema:
+            type: string
+          required: true
+          description: username of author
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Author"
-  "/jobs":
+                $ref: '#/components/schemas/Author'
+  /jobs:
     post:
       summary: create a job to sync issues from a URL
       operationId: createJob
@@ -450,7 +449,7 @@ paths:
                   type: string
                   description: URL of the repository to sync issues from
               required:
-              - url
+                - url
       responses:
         302:
           description: Redirect to the created job
@@ -467,24 +466,24 @@ paths:
                     type: array
                     items:
                       type: string
-  "/jobs/{jobId}":
+  /jobs/{jobId}:
     get:
       summary: get the status of a job
       operationId: getJob
       parameters:
-      - in: path
-        name: jobId
-        schema:
-          type: integer
-        required: true
-        description: ID of the job
+        - in: path
+          name: jobId
+          schema:
+            type: integer
+          required: true
+          description: ID of the job
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Job"
+                $ref: '#/components/schemas/Job'
 components:
   schemas:
     Host:
@@ -665,43 +664,43 @@ components:
         issue_repos:
           type: array
           items:
-            "$ref": "#/components/schemas/RepoCount"
+            $ref: '#/components/schemas/RepoCount'
         pull_request_repos:
           type: array
           items:
-            "$ref": "#/components/schemas/RepoCount"
+            $ref: '#/components/schemas/RepoCount'
         issue_author_associations_count:
           type: array
           items:
-            "$ref": "#/components/schemas/AuthorAssociationCount"
+            $ref: '#/components/schemas/AuthorAssociationCount'
         pull_request_author_associations_count:
           type: array
           items:
-            "$ref": "#/components/schemas/AuthorAssociationCount"
+            $ref: '#/components/schemas/AuthorAssociationCount'
         issue_labels_count:
           type: array
           items:
-            "$ref": "#/components/schemas/LabelCount"
+            $ref: '#/components/schemas/LabelCount'
         pull_request_labels_count:
           type: array
           items:
-            "$ref": "#/components/schemas/LabelCount"
+            $ref: '#/components/schemas/LabelCount'
         issue_authors:
           type: array
           items:
-            "$ref": "#/components/schemas/AuthorCount"
+            $ref: '#/components/schemas/AuthorCount'
         pull_request_authors:
           type: array
           items:
-            "$ref": "#/components/schemas/AuthorCount"
+            $ref: '#/components/schemas/AuthorCount'
         maintainers:
           type: array
           items:
-            "$ref": "#/components/schemas/MaintainerCount"
+            $ref: '#/components/schemas/MaintainerCount'
         active_maintainers:
           type: array
           items:
-            "$ref": "#/components/schemas/MaintainerCount"
+            $ref: '#/components/schemas/MaintainerCount'
     Maintainers:
       type: object
       properties:
@@ -710,11 +709,11 @@ components:
         maintainers:
           type: array
           items:
-            "$ref": "#/components/schemas/MaintainerCount"
+            $ref: '#/components/schemas/MaintainerCount'
         active_maintainers:
           type: array
           items:
-            "$ref": "#/components/schemas/MaintainerCount"
+            $ref: '#/components/schemas/MaintainerCount'
     AuthorSummary:
       type: object
       properties:
@@ -746,35 +745,35 @@ components:
         issue_repos:
           type: array
           items:
-            "$ref": "#/components/schemas/RepoCount"
+            $ref: '#/components/schemas/RepoCount'
         pull_request_repos:
           type: array
           items:
-            "$ref": "#/components/schemas/RepoCount"
+            $ref: '#/components/schemas/RepoCount'
         issue_author_associations_count:
           type: array
           items:
-            "$ref": "#/components/schemas/AuthorAssociationCount"
+            $ref: '#/components/schemas/AuthorAssociationCount'
         pull_request_author_associations_count:
           type: array
           items:
-            "$ref": "#/components/schemas/AuthorAssociationCount"
+            $ref: '#/components/schemas/AuthorAssociationCount'
         issue_labels_count:
           type: array
           items:
-            "$ref": "#/components/schemas/LabelCount"
+            $ref: '#/components/schemas/LabelCount'
         pull_request_labels_count:
           type: array
           items:
-            "$ref": "#/components/schemas/LabelCount"
+            $ref: '#/components/schemas/LabelCount'
         maintaining:
           type: array
           items:
-            "$ref": "#/components/schemas/RepoCount"
+            $ref: '#/components/schemas/RepoCount'
         active_maintaining:
           type: array
           items:
-            "$ref": "#/components/schemas/RepoCount"
+            $ref: '#/components/schemas/RepoCount'
     Job:
       type: object
       properties:

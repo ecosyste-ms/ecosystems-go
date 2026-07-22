@@ -1,13 +1,11 @@
----
 openapi: 3.0.1
 info:
-  title: 'Ecosyste.ms: Packages'
-  description: An open API service providing package, version and dependency metadata
-    of many open source software ecosystems and registries.
+  title: "Ecosyste.ms: Packages"
+  description: "An open API service providing package, version and dependency metadata of many open source software ecosystems and registries."
   contact:
     name: Ecosyste.ms
     email: support@ecosyste.ms
-    url: https://ecosyste.ms
+    url: https://ecosyste.ms 
   version: 1.1.0
   license:
     name: CC-BY-SA-4.0
@@ -18,43 +16,57 @@ externalDocs:
 servers:
 - url: https://packages.ecosyste.ms/api/v1
 paths:
-  "/critical":
+  /critical:
     get:
       summary: list critical packages
       operationId: getCriticalPackages
       tags:
-      - critical
+        - critical
       parameters:
-      - name: registry
-        in: query
-        description: filter by registry name
-        required: false
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: sort
-        in: query
-        description: field to sort results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to sort results by (asc or desc)
-        required: false
-        schema:
-          type: string
+        - name: registry
+          in: query
+          description: filter by registry name
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: field to sort results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to sort results by (asc or desc)
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -63,44 +75,58 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/PackageWithRegistry"
-  "/critical/sole_maintainers":
+                  $ref: '#/components/schemas/PackageWithRegistry'
+  /critical/sole_maintainers:
     get:
       summary: list critical packages with sole maintainers
       operationId: getCriticalSoleMaintainers
       tags:
-      - critical
+        - critical
       parameters:
-      - name: registry
-        in: query
-        description: filter by registry name
-        required: false
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: sort
-        in: query
-        description: field to sort results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to sort results by (asc or desc)
-        required: false
-        schema:
-          type: string
+        - name: registry
+          in: query
+          description: filter by registry name
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: field to sort results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to sort results by (asc or desc)
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -109,44 +135,47 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/PackageWithRegistry"
-  "/critical/maintainers":
+                  $ref: '#/components/schemas/PackageWithRegistry'
+  /critical/maintainers:
     get:
       summary: list unique maintainers of critical packages
       operationId: getCriticalMaintainers
       tags:
-      - critical
+        - critical
       parameters:
-      - name: registry
-        in: query
-        description: filter by registry name
-        required: false
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: sort
-        in: query
-        description: field to sort results by (login or packages_count)
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to sort results by (asc or desc)
-        required: false
-        schema:
-          type: string
+        - name: registry
+          in: query
+          description: filter by registry name
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          in: query
+          description: field to sort results by (login or packages_count)
+          required: false
+          schema:
+            type: string
+            enum:
+              - login
+              - packages_count
+        - name: order
+          in: query
+          description: direction to sort results by (asc or desc)
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -169,50 +198,64 @@ paths:
                     packages:
                       type: array
                       items:
-                        "$ref": "#/components/schemas/PackageWithRegistry"
-  "/packages/lookup":
+                        $ref: '#/components/schemas/PackageWithRegistry'
+  /packages/lookup:
     get:
       summary: lookup a package by repository URL, purl or ecosystem+name
       operationId: lookupPackage
       tags:
-      - packages
+        - packages
       parameters:
-      - name: repository_url
-        in: query
-        description: repository URL
-        required: false
-        schema:
-          type: string
-      - name: purl
-        in: query
-        description: package URL
-        required: false
-        schema:
-          type: string
-      - name: ecosystem
-        in: query
-        description: ecosystem name
-        required: false
-        schema:
-          type: string
-      - name: name
-        in: query
-        description: package name
-        required: false
-        schema:
-          type: string
-      - name: sort
-        in: query
-        description: field to sort results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to sort results by
-        required: false
-        schema:
-          type: string
+        - name: repository_url
+          in: query
+          description: repository URL
+          required: false
+          schema:
+            type: string
+        - name: purl
+          in: query
+          description: package URL
+          required: false
+          schema:
+            type: string
+        - name: ecosystem
+          in: query
+          description: ecosystem name
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: package name
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: field to sort results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to sort results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -221,72 +264,86 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/PackageWithRegistry"
-  "/packages/critical":
+                  $ref: '#/components/schemas/PackageWithRegistry'
+  /packages/critical:
     get:
       summary: list all critical packages
       operationId: getCriticalPackagesList
       tags:
-      - packages
+        - packages
       parameters:
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: created_before
-        in: query
-        description: filter by created_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_before
-        in: query
-        description: filter by updated_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: funding
-        in: query
-        description: filter by packages with funding information
-        required: false
-        schema:
-          type: boolean
-      - name: sort
-        in: query
-        description: field to sort results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to sort results by (asc or desc)
-        required: false
-        schema:
-          type: string
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: created_before
+          in: query
+          description: filter by created_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_before
+          in: query
+          description: filter by updated_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: funding
+          in: query
+          description: filter by packages with funding information
+          required: false
+          schema:
+            type: boolean
+        - name: sort
+          in: query
+          description: field to sort results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to sort results by (asc or desc)
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -295,13 +352,13 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/PackageWithRegistry"
-  "/packages/bulk_lookup":
+                  $ref: '#/components/schemas/PackageWithRegistry'
+  /packages/bulk_lookup:
     post:
       summary: lookup multiple packages by repository URLs, PURLs, or names
       operationId: bulkLookupPackages
       tags:
-      - packages
+        - packages
       requestBody:
         required: true
         content:
@@ -336,7 +393,7 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/PackageWithRegistry"
+                  $ref: '#/components/schemas/PackageWithRegistry'
         400:
           description: Bad Request - too many PURLs provided
           content:
@@ -346,26 +403,26 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: Maximum 100 PURLs allowed per request
-  "/keywords":
+                    example: "Maximum 100 PURLs allowed per request"
+  /keywords:
     get:
       summary: list keywords
       operationId: getKeywords
       tags:
-      - keywords
+        - keywords
       parameters:
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -374,64 +431,64 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Keyword"
-  "/keywords/{keywordName}":
+                  $ref: '#/components/schemas/Keyword'
+  /keywords/{keywordName}:
     get:
       summary: get a keyword by name
       operationId: getKeyword
       tags:
-      - keywords
+        - keywords
       parameters:
-      - in: path
-        name: keywordName
-        schema:
-          type: string
-        required: true
-        description: name of keyword
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: keywordName
+          schema:
+            type: string
+          required: true
+          description: name of keyword
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/KeywordWithPackages"
-  "/registries":
+                $ref: '#/components/schemas/KeywordWithPackages'
+  /registries:
     get:
-      summary: list registies
+      summary: list registries
       operationId: getRegistries
       tags:
-      - registries
+        - registries
       parameters:
-      - name: ecosystem
-        in: query
-        description: filter by ecosystem name
-        required: false
-        schema:
-          type: string
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - name: ecosystem
+          in: query
+          description: filter by ecosystem name
+          required: false
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: pagination page number
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -440,88 +497,102 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Registry"
-  "/registries/{registryName}":
+                  $ref: '#/components/schemas/Registry'
+  /registries/{registryName}:
     get:
       summary: get a registry by name
       operationId: getRegistry
       tags:
-      - registries
+        - registries
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Registry"
-  "/registries/{registryName}/lookup":
+                $ref: '#/components/schemas/Registry'
+  /registries/{registryName}/lookup:
     get:
       summary: lookup a package within a registry by repository URL, purl or ecosystem+name
       operationId: lookupRegistryPackage
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - name: repository_url
-        in: query
-        description: repository URL
-        required: false
-        schema:
-          type: string
-      - name: purl
-        in: query
-        description: package URL
-        required: false
-        schema:
-          type: string
-      - name: ecosystem
-        in: query
-        description: ecosystem name
-        required: false
-        schema:
-          type: string
-      - name: name
-        in: query
-        description: package name
-        required: false
-        schema:
-          type: string
-      - name: sort
-        in: query
-        description: field to sort results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to sort results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - name: repository_url
+          in: query
+          description: repository URL
+          required: false
+          schema:
+            type: string
+        - name: purl
+          in: query
+          description: package URL
+          required: false
+          schema:
+            type: string
+        - name: ecosystem
+          in: query
+          description: ecosystem name
+          required: false
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: package name
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: field to sort results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to sort results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -530,58 +601,65 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/PackageWithRegistry"
-  "/registries/{registryName}/maintainers":
+                  $ref: '#/components/schemas/PackageWithRegistry'
+  /registries/{registryName}/maintainers:
     get:
       summary: get a list of maintainers from a registry
       operationId: getRegistryMaintainers
       tags:
-      - maintainers
+        - maintainers
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - login
+              - packages_count
+              - updated_at
+              - created_at
+              - name
+              - uuid
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -590,64 +668,64 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Maintainer"
-  "/registries/{registryName}/maintainers/{MaintainerLoginOrUUID}":
+                  $ref: '#/components/schemas/Maintainer'
+  /registries/{registryName}/maintainers/{MaintainerLoginOrUUID}:
     get:
       summary: get a maintainer by login or UUID
       operationId: getRegistryMaintainer
       tags:
-      - maintainers
+        - maintainers
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: MaintainerLoginOrUUID
-        schema:
-          type: string
-        required: true
-        description: login or uuid of maintainer
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: MaintainerLoginOrUUID
+          schema:
+            type: string
+          required: true
+          description: login or uuid of maintainer
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Maintainer"
-  "/registries/{registryName}/maintainers/{MaintainerLoginOrUUID}/packages":
+                $ref: '#/components/schemas/Maintainer'
+  /registries/{registryName}/maintainers/{MaintainerLoginOrUUID}/packages:
     get:
       summary: get packages for a maintainer by login or UUID
       operationId: getRegistryMaintainerPackages
       tags:
-      - maintainers
+        - maintainers
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: MaintainerLoginOrUUID
-        schema:
-          type: string
-        required: true
-        description: login or uuid of maintainer
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: MaintainerLoginOrUUID
+          schema:
+            type: string
+          required: true
+          description: login or uuid of maintainer
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -656,32 +734,32 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Package"
-  "/registries/{registryName}/namespaces":
+                  $ref: '#/components/schemas/Package'
+  /registries/{registryName}/namespaces:
     get:
       summary: get a list of namespaces from a registry
       operationId: getRegistryNamespaces
       tags:
-      - namespaces
+        - namespaces
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -690,64 +768,64 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Namespace"
-  "/registries/{registryName}/namespaces/{namespaceName}":
+                  $ref: '#/components/schemas/Namespace'
+  /registries/{registryName}/namespaces/{namespaceName}:
     get:
       summary: get a namespace by name
       operationId: getRegistryNamespace
       tags:
-      - namespaces
+        - namespaces
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: namespaceName
-        schema:
-          type: string
-        required: true
-        description: name of namespace
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: namespaceName
+          schema:
+            type: string
+          required: true
+          description: name of namespace
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Namespace"
-  "/registries/{registryName}/namespaces/{namespaceName}/packages":
+                $ref: '#/components/schemas/Namespace'
+  /registries/{registryName}/namespaces/{namespaceName}/packages:
     get:
       summary: get packages for a namespace by login or UUID
       operationId: getRegistryNamespacePackages
       tags:
-      - namespaces
+        - namespaces
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: namespaceName
-        schema:
-          type: string
-        required: true
-        description: lname of namespace
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: namespaceName
+          schema:
+            type: string
+          required: true
+          description: lname of namespace
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
       responses:
         200:
           description: OK
@@ -756,78 +834,92 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Package"
-  "/registries/{registryName}/packages":
+                  $ref: '#/components/schemas/Package'
+  /registries/{registryName}/packages:
     get:
       summary: get a list of packages from a registry
       operationId: getRegistryPackages
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: created_before
-        in: query
-        description: filter by created_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_before
-        in: query
-        description: filter by updated_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: critical
-        in: query
-        description: filter by critical packages
-        required: false
-        schema:
-          type: boolean
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: created_before
+          in: query
+          description: filter by created_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_before
+          in: query
+          description: filter by updated_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: critical
+          in: query
+          description: filter by critical packages
+          required: false
+          schema:
+            type: boolean
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -836,96 +928,110 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Package"
-  "/registries/{registryName}/package_names":
+                  $ref: '#/components/schemas/Package'
+  /registries/{registryName}/package_names:
     get:
       summary: get a list of package names from a registry
       operationId: getRegistryPackageNames
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: created_before
-        in: query
-        description: filter by created_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_before
-        in: query
-        description: filter by updated_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
-      - name: critical
-        in: query
-        description: filter by critical packages
-        required: false
-        schema:
-          type: boolean
-      - name: funding
-        in: query
-        description: filter by packages with funding information
-        required: false
-        schema:
-          type: boolean
-      - name: prefix
-        in: query
-        description: filter by package names starting with this string (case insensitive)
-        required: false
-        schema:
-          type: string
-      - name: postfix
-        in: query
-        description: filter by package names ending with this string (case insensitive)
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: created_before
+          in: query
+          description: filter by created_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_before
+          in: query
+          description: filter by updated_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
+        - name: critical
+          in: query
+          description: filter by critical packages
+          required: false
+          schema:
+            type: boolean
+        - name: funding
+          in: query
+          description: filter by packages with funding information
+          required: false
+          schema:
+            type: boolean
+        - name: prefix
+          in: query
+          description: filter by package names starting with this string (case insensitive)
+          required: false
+          schema:
+            type: string
+        - name: postfix
+          in: query
+          description: filter by package names ending with this string (case insensitive)
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -935,85 +1041,90 @@ paths:
                 type: array
                 items:
                   type: string
-  "/registries/{registryName}/versions":
+  /registries/{registryName}/versions:
     get:
       summary: get a list of recently published versions from a registry
       operationId: getRegistryRecentVersions
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: published_after
-        in: query
-        description: filter by published_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: published_before
-        in: query
-        description: filter by published_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: created_before
-        in: query
-        description: filter by created_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_before
-        in: query
-        description: filter by updated_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: published_after
+          in: query
+          description: filter by published_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: published_before
+          in: query
+          description: filter by published_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: created_before
+          in: query
+          description: filter by created_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_before
+          in: query
+          description: filter by updated_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - published_at
+              - created_at
+              - updated_at
+              - number
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -1022,102 +1133,117 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/VersionWithPackage"
-  "/registries/{registryName}/packages/{packageName}":
+                  $ref: '#/components/schemas/VersionWithPackage'
+  /registries/{registryName}/packages/{packageName}:
     get:
       summary: get a package by name
       operationId: getRegistryPackage
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Package"
-  "/registries/{registryName}/packages/{packageName}/dependent_packages":
+                $ref: '#/components/schemas/Package'
+  /registries/{registryName}/packages/{packageName}/dependent_packages:
     get:
       summary: get a list of packages that depend on a package
       operationId: getRegistryPackageDependentPackages
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
-      - name: latest
-        in: query
-        description: filter by latest version
-        required: false
-        schema:
-          type: boolean
-      - name: kind
-        in: query
-        description: filter by dependency kind
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
+        - name: latest
+          in: query
+          description: only include packages whose latest version depends on this package (default true). Set to false to include historical dependents.
+          required: false
+          schema:
+            type: boolean
+            default: true
+        - name: kind
+          in: query
+          description: filter by dependency kind
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -1126,58 +1252,59 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Package"
-  "/registries/{registryName}/packages/{packageName}/codemeta":
+                  $ref: '#/components/schemas/Package'
+  /registries/{registryName}/packages/{packageName}/codemeta:
     get:
       summary: get CodeMeta metadata for a package
       operationId: getRegistryPackageCodeMeta
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/CodeMeta"
-  "/registries/{registryName}/packages/{packageName}/dependent_package_kinds":
+                $ref: '#/components/schemas/CodeMeta'
+  /registries/{registryName}/packages/{packageName}/dependent_package_kinds:
     get:
       summary: get a list of dependency kinds for a package
       operationId: getRegistryPackageDependentPackageKinds
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
-      - name: latest
-        in: query
-        description: filter by latest version
-        required: false
-        schema:
-          type: boolean
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
+        - name: latest
+          in: query
+          description: only count packages whose latest version depends on this package (default true). Set to false to include historical dependents.
+          required: false
+          schema:
+            type: boolean
+            default: true
       responses:
         200:
           description: OK
@@ -1187,63 +1314,77 @@ paths:
                 type: array
                 items:
                   type: string
-  "/registries/{registryName}/packages/{packageName}/related_packages":
+  /registries/{registryName}/packages/{packageName}/related_packages:
     get:
       summary: get a list of packages that are related to a package
       operationId: getRegistryPackageRelatedPackages
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - updated_at
+              - created_at
+              - name
+              - downloads
+              - dependent_repos_count
+              - dependent_packages_count
+              - latest_release_published_at
+              - versions_count
+              - maintainers_count
+              - docker_downloads_count
+              - docker_dependents_count
+              - stargazers_count
+              - forks_count
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -1252,26 +1393,54 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Package"
-  "/registries/{registryName}/packages/{packageName}/version_numbers":
+                  $ref: '#/components/schemas/Package'
+  /registries/{registryName}/packages/{packageName}/latest_version:
+    get:
+      summary: get the latest version of a package
+      operationId: getRegistryPackageLatestVersion
+      tags:
+        - packages
+      parameters:
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionWithDependencies'
+        404:
+          description: package not found or no versions available
+  /registries/{registryName}/packages/{packageName}/version_numbers:
     get:
       summary: get a list of version numbers for a package from a registry
       operationId: getRegistryPackageVersionNumbers
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
       responses:
         200:
           description: OK
@@ -1281,91 +1450,96 @@ paths:
                 type: array
                 items:
                   type: string
-  "/registries/{registryName}/packages/{packageName}/versions":
+  /registries/{registryName}/packages/{packageName}/versions:
     get:
       summary: get a list of versions for a package
       operationId: getRegistryPackageVersions
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: created_after
-        in: query
-        description: filter by created_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_after
-        in: query
-        description: filter by updated_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: published_after
-        in: query
-        description: filter by published_at after given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: published_before
-        in: query
-        description: filter by published_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: created_before
-        in: query
-        description: filter by created_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: updated_before
-        in: query
-        description: filter by updated_at before given time
-        required: false
-        schema:
-          type: string
-          format: date-time
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: created_after
+          in: query
+          description: filter by created_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_after
+          in: query
+          description: filter by updated_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: published_after
+          in: query
+          description: filter by published_at after given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: published_before
+          in: query
+          description: filter by published_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: created_before
+          in: query
+          description: filter by created_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: updated_before
+          in: query
+          description: filter by updated_at before given time
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - published_at
+              - created_at
+              - updated_at
+              - number
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -1374,144 +1548,151 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Version"
-  "/registries/{registryName}/packages/{packageName}/versions/{versionNumber}":
+                  $ref: '#/components/schemas/Version'
+  /registries/{registryName}/packages/{packageName}/versions/{versionNumber}:
     get:
       summary: get a version of a package
       operationId: getRegistryPackageVersion
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
-      - in: path
-        name: versionNumber
-        schema:
-          type: string
-        required: true
-        description: number of version
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
+        - in: path
+          name: versionNumber
+          schema:
+            type: string
+          required: true
+          description: number of version
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/VersionWithDependencies"
-  "/registries/{registryName}/packages/{packageName}/versions/{versionNumber}/codemeta":
+                $ref: '#/components/schemas/VersionWithDependencies'
+  /registries/{registryName}/packages/{packageName}/versions/{versionNumber}/codemeta:
     get:
       summary: get CodeMeta metadata for a version
       operationId: getRegistryPackageVersionCodeMeta
       tags:
-      - packages
+        - packages
       parameters:
-      - in: path
-        name: registryName
-        schema:
-          type: string
-        required: true
-        description: name of registry
-      - in: path
-        name: packageName
-        schema:
-          type: string
-        required: true
-        description: name of package
-      - in: path
-        name: versionNumber
-        schema:
-          type: string
-        required: true
-        description: number of version
+        - in: path
+          name: registryName
+          schema:
+            type: string
+          required: true
+          description: name of registry
+        - in: path
+          name: packageName
+          schema:
+            type: string
+          required: true
+          description: name of package
+        - in: path
+          name: versionNumber
+          schema:
+            type: string
+          required: true
+          description: number of version
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/CodeMeta"
-  "/dependencies":
+                $ref: '#/components/schemas/CodeMeta'
+  /dependencies:
     get:
       summary: list dependencies
       operationId: getDependencies
       tags:
-      - dependencies
+        - dependencies
       parameters:
-      - name: page
-        in: query
-        description: pagination page number
-        required: false
-        schema:
-          type: integer
-      - name: per_page
-        in: query
-        description: Number of records to return
-        required: false
-        schema:
-          type: integer
-      - name: ecosystem
-        in: query
-        description: ecosystem name
-        required: false
-        schema:
-          type: string
-      - name: package_name
-        in: query
-        description: package name
-        required: false
-        schema:
-          type: string
-      - name: package_id
-        in: query
-        description: package id
-        required: false
-        schema:
-          type: string
-      - name: requirements
-        in: query
-        description: requirements
-        required: false
-        schema:
-          type: string
-      - name: kind
-        in: query
-        description: kind
-        required: false
-        schema:
-          type: string
-      - name: optional
-        in: query
-        description: optional
-        required: false
-        schema:
-          type: boolean
-      - name: after
-        in: query
-        description: filter by id after given id
-        required: false
-        schema:
-          type: string
-      - name: sort
-        in: query
-        description: field to order results by
-        required: false
-        schema:
-          type: string
-      - name: order
-        in: query
-        description: direction to order results by
-        required: false
-        schema:
-          type: string
+        - name: page
+          in: query
+          description: pagination page number 
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          description: Number of records to return 
+          required: false
+          schema:
+            type: integer
+        - name: ecosystem
+          in: query
+          description: ecosystem name
+          required: false
+          schema:
+            type: string
+        - name: package_name
+          in: query
+          description: package name
+          required: false
+          schema:
+            type: string
+        - name: package_id
+          in: query
+          description: package id
+          required: false
+          schema:
+            type: string
+        - name: requirements
+          in: query
+          description: requirements
+          required: false
+          schema:
+            type: string
+        - name: kind
+          in: query
+          description: kind
+          required: false
+          schema:
+            type: string
+        - name: optional
+          in: query
+          description: optional
+          required: false
+          schema:
+            type: boolean
+        - name: after
+          in: query
+          description: filter by id after given id
+          required: false
+          schema:
+            type: string
+        - name: sort
+          in: query
+          description: field to order results by
+          required: false
+          schema:
+            type: string
+            enum:
+              - id
+              - created_at
+              - updated_at
+              - package_name
+              - ecosystem
+              - kind
+        - name: order
+          in: query
+          description: direction to order results by
+          required: false
+          schema:
+            type: string
       responses:
         200:
           description: OK
@@ -1520,28 +1701,28 @@ paths:
               schema:
                 type: array
                 items:
-                  "$ref": "#/components/schemas/Dependency"
+                  $ref: '#/components/schemas/Dependency'
 components:
   schemas:
     Registry:
       required:
-      - name
-      - url
-      - ecosystem
-      - default
-      - packages_count
-      - maintainers_count
-      - namespaces_count
-      - keywords_count
-      - downloads
-      - github
-      - metadata
-      - created_at
-      - updated_at
-      - packages_url
-      - maintainers_url
-      - icon_url
-      - purl_type
+        - name
+        - url
+        - ecosystem
+        - default
+        - packages_count
+        - maintainers_count
+        - namespaces_count
+        - keywords_count
+        - downloads
+        - github
+        - metadata
+        - created_at
+        - updated_at
+        - packages_url
+        - maintainers_url
+        - icon_url
+        - purl_type
       type: object
       properties:
         name:
@@ -1592,50 +1773,51 @@ components:
           type: string
     Package:
       required:
-      - id
-      - name
-      - ecosystem
-      - description
-      - homepage
-      - licenses
-      - normalized_licenses
-      - repository_url
-      - keywords_array
-      - namespace
-      - versions_count
-      - first_release_published_at
-      - latest_release_published_at
-      - latest_release_number
-      - last_synced_at
-      - created_at
-      - updated_at
-      - registry_url
-      - documentation_url
-      - install_command
-      - metadata
-      - repo_metadata
-      - repo_metadata_updated_at
-      - dependent_packages_count
-      - downloads
-      - downloads_period
-      - dependent_repos_count
-      - rankings
-      - purl
-      - advisories
-      - versions_url
-      - dependent_packages_url
-      - related_packages_url
-      - codemeta_url
-      - docker_usage_url
-      - docker_dependents_count
-      - docker_downloads_count
-      - maintainers
-      - usage_url
-      - dependent_repositories_url
-      - status
-      - funding_links
-      - critical
-      - issue_metadata
+        - id
+        - name
+        - ecosystem
+        - description
+        - homepage
+        - licenses
+        - normalized_licenses
+        - repository_url
+        - keywords_array
+        - namespace
+        - versions_count
+        - first_release_published_at
+        - latest_release_published_at
+        - latest_release_number
+        - last_synced_at
+        - created_at
+        - updated_at
+        - registry_url
+        - documentation_url
+        - install_command
+        - metadata
+        - repo_metadata
+        - repo_metadata_updated_at
+        - dependent_packages_count
+        - downloads
+        - downloads_period
+        - dependent_repos_count
+        - rankings
+        - purl
+        - advisories
+        - versions_url
+        - latest_version_url
+        - dependent_packages_url
+        - related_packages_url
+        - codemeta_url
+        - docker_usage_url
+        - docker_dependents_count
+        - docker_downloads_count
+        - maintainers
+        - usage_url
+        - dependent_repositories_url
+        - status
+        - funding_links
+        - critical
+        - issue_metadata
       type: object
       properties:
         id:
@@ -1725,8 +1907,10 @@ components:
         advisories:
           type: array
           items:
-            "$ref": "#/components/schemas/Advisory"
+            $ref: '#/components/schemas/Advisory'
         versions_url:
+          type: string
+        latest_version_url:
           type: string
         version_numbers_url:
           type: string
@@ -1756,40 +1940,40 @@ components:
         maintainers:
           type: array
           items:
-            "$ref": "#/components/schemas/Maintainer"
+            $ref: '#/components/schemas/Maintainer'
         critical:
           type: boolean
         issue_metadata:
           type: object
     PackageWithRegistry:
       allOf:
-      - "$ref": "#/components/schemas/Package"
-      - type: object
-        properties:
-          registry:
-            "$ref": "#/components/schemas/Registry"
-        required:
-        - registry
+        - $ref: '#/components/schemas/Package'
+        - type: object
+          properties:
+            registry:
+              $ref: '#/components/schemas/Registry'
+          required:
+            - registry
     Version:
       required:
-      - id
-      - number
-      - published_at
-      - licenses
-      - integrity
-      - status
-      - download_url
-      - registry_url
-      - documentation_url
-      - install_command
-      - metadata
-      - created_at
-      - updated_at
-      - purl
-      - version_url
-      - codemeta_url
-      - related_tag
-      - latest
+        - id
+        - number
+        - published_at
+        - licenses
+        - integrity
+        - status
+        - download_url
+        - registry_url
+        - documentation_url
+        - install_command
+        - metadata
+        - created_at
+        - updated_at
+        - purl
+        - version_url
+        - codemeta_url
+        - related_tag
+        - latest
       type: object
       properties:
         id:
@@ -1839,98 +2023,98 @@ components:
           type: object
     VersionWithDependencies:
       required:
-      - number
-      - published_at
-      - licenses
-      - integrity
-      - status
-      - download_url
-      - registry_url
-      - documentation_url
-      - install_command
-      - metadata
-      - created_at
-      - updated_at
-      - purl
-      - version_url
-      - codemeta_url
-      - related_tag
-      - latest
-      - dependencies
+        - number
+        - published_at
+        - licenses
+        - integrity
+        - status
+        - download_url
+        - registry_url
+        - documentation_url
+        - install_command
+        - metadata
+        - created_at
+        - updated_at
+        - purl
+        - version_url
+        - codemeta_url
+        - related_tag
+        - latest
+        - dependencies
       type: object
       properties:
-        id:
-          type: integer
-        number:
-          type: string
-        published_at:
-          type: string
-          nullable: true
-        licenses:
-          type: string
-          nullable: true
-        integrity:
-          type: string
-          nullable: true
-        status:
-          type: string
-          nullable: true
-        download_url:
-          type: string
-          nullable: true
-        registry_url:
-          type: string
-          nullable: true
-        documentation_url:
-          type: string
-          nullable: true
-        install_command:
-          type: string
-          nullable: true
-        metadata:
-          type: object
-          nullable: true
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        purl:
-          type: string
-        version_url:
-          type: string
-        codemeta_url:
-          type: string
-        related_tag:
-          type: object
-        latest:
-          type: boolean
-        dependencies:
-          type: array
-          items:
-            "$ref": "#/components/schemas/Dependency"
+          id:
+            type: integer
+          number:
+            type: string
+          published_at:
+            type: string
+            nullable: true
+          licenses:
+            type: string
+            nullable: true
+          integrity:
+            type: string
+            nullable: true
+          status:
+            type: string
+            nullable: true
+          download_url:
+            type: string
+            nullable: true
+          registry_url:
+            type: string
+            nullable: true
+          documentation_url:
+            type: string
+            nullable: true
+          install_command:
+            type: string
+            nullable: true
+          metadata:
+            type: object
+            nullable: true
+          created_at:
+            type: string
+            format: date-time
+          updated_at:
+            type: string
+            format: date-time
+          purl:
+            type: string
+          version_url:
+            type: string
+          codemeta_url:
+            type: string
+          related_tag:
+            type: object
+          latest:
+            type: boolean
+          dependencies:
+            type: array
+            items:
+              $ref: '#/components/schemas/Dependency'
     VersionWithPackage:
       required:
-      - id
-      - number
-      - published_at
-      - licenses
-      - integrity
-      - status
-      - download_url
-      - registry_url
-      - documentation_url
-      - install_command
-      - metadata
-      - created_at
-      - updated_at
-      - purl
-      - version_url
-      - codemeta_url
-      - related_tag
-      - latest
-      - package_url
+        - id
+        - number
+        - published_at
+        - licenses
+        - integrity
+        - status
+        - download_url
+        - registry_url
+        - documentation_url
+        - install_command
+        - metadata
+        - created_at
+        - updated_at
+        - purl
+        - version_url
+        - codemeta_url
+        - related_tag
+        - latest
+        - package_url
       type: object
       properties:
         id:
@@ -1975,19 +2159,19 @@ components:
         latest:
           type: boolean
         version_url:
-          type: string
+            type: string
         codemeta_url:
           type: string
         package_url:
           type: string
     Dependency:
       required:
-      - id
-      - ecosystem
-      - package_name
-      - requirements
-      - kind
-      - optional
+        - id
+        - ecosystem
+        - package_name
+        - requirements
+        - kind
+        - optional
       type: object
       properties:
         id:
@@ -2007,18 +2191,18 @@ components:
           nullable: true
     Maintainer:
       required:
-      - uuid
-      - login
-      - name
-      - email
-      - url
-      - created_at
-      - updated_at
-      - packages_count
-      - packages_url
-      - total_downloads
-      - html_url
-      - role
+        - uuid
+        - login
+        - name
+        - email
+        - url
+        - created_at
+        - updated_at
+        - packages_count
+        - packages_url
+        - total_downloads
+        - html_url
+        - role
       type: object
       properties:
         uuid:
@@ -2055,10 +2239,10 @@ components:
           nullable: true
     Namespace:
       required:
-      - uuid
-      - name
-      - packages_count
-      - packages_url
+        - uuid
+        - name
+        - packages_count
+        - packages_url
       type: object
       properties:
         name:
@@ -2069,23 +2253,23 @@ components:
           type: string
     Advisory:
       required:
-      - uuid
-      - url
-      - title
-      - description
-      - origin
-      - severity
-      - published_at
-      - withdrawn_at
-      - classification
-      - cvss_score
-      - cvss_vector
-      - references
-      - source_kind
-      - identifiers
-      - packages
-      - created_at
-      - updated_at
+        - uuid
+        - url
+        - title
+        - description
+        - origin
+        - severity
+        - published_at
+        - withdrawn_at
+        - classification
+        - cvss_score
+        - cvss_vector
+        - references
+        - source_kind
+        - identifiers
+        - packages
+        - created_at
+        - updated_at
       type: object
       properties:
         uuid:
@@ -2143,9 +2327,9 @@ components:
           type: string
     Keyword:
       required:
-      - name
-      - packages_count
-      - packages_url
+        - name
+        - packages_count
+        - packages_url
       type: object
       properties:
         name:
@@ -2156,11 +2340,11 @@ components:
           type: string
     KeywordWithPackages:
       required:
-      - name
-      - packages_count
-      - packages_url
-      - related_keywords
-      - packages
+        - name
+        - packages_count
+        - packages_url
+        - related_keywords
+        - packages
       type: object
       properties:
         name:
@@ -2172,33 +2356,32 @@ components:
         related_keywords:
           type: array
           items:
-            "$ref": "#/components/schemas/Keyword"
+            $ref: '#/components/schemas/Keyword'
         packages:
           type: array
           items:
-            "$ref": "#/components/schemas/Package"
+            $ref: '#/components/schemas/Package'
     CodeMeta:
       required:
-      - "@context"
-      - "@type"
-      - identifier
-      - name
+        - "@context"
+        - "@type"
+        - identifier
+        - name
       type: object
-      description: CodeMeta JSON-LD metadata format for software packages, compatible
-        with Software Heritage
+      description: CodeMeta JSON-LD metadata format for software packages, compatible with Software Heritage
       properties:
         "@context":
           type: string
           description: JSON-LD context URL
-          example: https://w3id.org/codemeta/3.0
+          example: "https://w3id.org/codemeta/3.0"
         "@type":
           type: string
           description: Type of software artifact
-          example: SoftwareSourceCode
+          example: "SoftwareSourceCode"
         identifier:
           type: string
           description: Package URL (purl) identifier
-          example: pkg:cargo/rand@0.8.5
+          example: "pkg:cargo/rand@0.8.5"
         name:
           type: string
           description: Package name
@@ -2216,10 +2399,10 @@ components:
           nullable: true
         license:
           oneOf:
-          - type: string
-          - type: array
-            items:
-              type: string
+            - type: string
+            - type: array
+              items:
+                type: string
           description: SPDX license URL(s)
           nullable: true
         codeRepository:
@@ -2247,10 +2430,10 @@ components:
           properties:
             "@type":
               type: string
-              example: ComputerLanguage
+              example: "ComputerLanguage"
             name:
               type: string
-              example: Rust
+              example: "Rust"
         maintainer:
           type: array
           description: Package maintainers
@@ -2260,7 +2443,7 @@ components:
             properties:
               "@type":
                 type: string
-                example: Person
+                example: "Person"
               name:
                 type: string
               url:
@@ -2275,7 +2458,7 @@ components:
             properties:
               "@type":
                 type: string
-                example: Person
+                example: "Person"
               name:
                 type: string
               url:
@@ -2290,7 +2473,7 @@ components:
             properties:
               "@type":
                 type: string
-                example: Person
+                example: "Person"
               name:
                 type: string
               url:
@@ -2326,7 +2509,7 @@ components:
           properties:
             "@type":
               type: string
-              example: WebSite
+              example: "WebSite"
             url:
               type: string
         applicationCategory:
@@ -2356,14 +2539,14 @@ components:
             properties:
               "@type":
                 type: string
-                example: Organization
+                example: "Organization"
               url:
                 type: string
-        https://www.w3.org/ns/activitystreams#likes:
+        "https://www.w3.org/ns/activitystreams#likes":
           type: integer
           description: Star/like count (ActivityStreams)
           nullable: true
-        https://forgefed.org/ns#forks:
+        "https://forgefed.org/ns#forks":
           type: integer
           description: Fork count (ForgeFed)
           nullable: true
