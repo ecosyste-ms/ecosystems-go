@@ -135,6 +135,19 @@ make update-specs  # Download latest OpenAPI specs
 make generate      # Regenerate Go clients
 ```
 
+## Documentation
+
+Reference docs for every exported symbol, with a source link back to the line it is
+defined on, can be built locally:
+
+```bash
+make docs   # renders docs/dist (requires Go + Node)
+```
+
+The godoc snapshot is generated from the current source rather than committed, so the
+reference always matches the code. The `Docs` workflow builds and publishes the same
+site to GitHub Pages.
+
 ## Testing
 
 ```bash

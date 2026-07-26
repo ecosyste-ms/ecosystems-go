@@ -1,1 +1,6 @@
 *.test
+
+# Generated docs artifacts (see `make docs`)
+docs/godoc.json
+docs/dist/
+docs/node_modules/
