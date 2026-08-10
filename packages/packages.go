@@ -974,6 +974,30 @@ type Version struct {
 	VersionURL       string                                    `json:"version_url"`
 }
 
+// VersionLookup defines model for VersionLookup.
+type VersionLookup struct {
+	CodemetaURL      string                                    `json:"codemeta_url"`
+	CreatedAt        time.Time                                 `json:"created_at"`
+	Dependencies     []Dependency                              `json:"dependencies"`
+	DocumentationURL nullable.Nullable[string]                 `json:"documentation_url"`
+	DownloadURL      nullable.Nullable[string]                 `json:"download_url"`
+	ID               *int                                      `json:"id,omitempty"`
+	InstallCommand   nullable.Nullable[string]                 `json:"install_command"`
+	Integrity        nullable.Nullable[string]                 `json:"integrity"`
+	Latest           bool                                      `json:"latest"`
+	Licenses         nullable.Nullable[string]                 `json:"licenses"`
+	Metadata         nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Number           string                                    `json:"number"`
+	Package          PackageWithRegistry                       `json:"package"`
+	PublishedAt      nullable.Nullable[string]                 `json:"published_at"`
+	PURL             string                                    `json:"purl"`
+	RegistryURL      nullable.Nullable[string]                 `json:"registry_url"`
+	RelatedTag       map[string]interface{}                    `json:"related_tag"`
+	Status           nullable.Nullable[string]                 `json:"status"`
+	UpdatedAt        time.Time                                 `json:"updated_at"`
+	VersionURL       string                                    `json:"version_url"`
+}
+
 // VersionWithDependencies defines model for VersionWithDependencies.
 type VersionWithDependencies struct {
 	CodemetaURL      string                                    `json:"codemeta_url"`
@@ -1532,6 +1556,27 @@ type GetRegistryRecentVersionsParams struct {
 // GetRegistryRecentVersionsParamsSort defines parameters for GetRegistryRecentVersions.
 type GetRegistryRecentVersionsParamsSort string
 
+// LookupVersionsParams defines parameters for LookupVersions.
+type LookupVersionsParams struct {
+	// Integrity integrity hash (SRI format)
+	Integrity *string `form:"integrity,omitempty" json:"integrity,omitempty"`
+
+	// Sha256 sha256 hash (hex)
+	Sha256 *string `form:"sha256,omitempty" json:"sha256,omitempty"`
+
+	// Sha1 sha1 hash (hex)
+	Sha1 *string `form:"sha1,omitempty" json:"sha1,omitempty"`
+
+	// Sha512 sha512 hash (hex)
+	Sha512 *string `form:"sha512,omitempty" json:"sha512,omitempty"`
+
+	// Page page number
+	Page *int `form:"page,omitempty" json:"page,omitempty"`
+
+	// PerPage Number of records to return
+	PerPage *int `form:"per_page,omitempty" json:"per_page,omitempty"`
+}
+
 // BulkLookupPackagesJSONRequestBody defines body for BulkLookupPackages for application/json ContentType.
 type BulkLookupPackagesJSONRequestBody BulkLookupPackagesJSONBody
 
@@ -1834,6 +1879,11 @@ type ClientInterface interface {
 	//
 	// Corresponds with GET /registries/{registryName}/versions (the `GetRegistryRecentVersions` operationId).
 	GetRegistryRecentVersions(ctx context.Context, registryName string, params *GetRegistryRecentVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LookupVersions lookup versions by integrity hash
+	//
+	// Corresponds with GET /versions/lookup (the `LookupVersions` operationId).
+	LookupVersions(ctx context.Context, params *LookupVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 // GetCriticalPackages list critical packages
@@ -2310,6 +2360,21 @@ func (c *Client) GetRegistryPackageVersionCodeMeta(ctx context.Context, registry
 // Corresponds with GET /registries/{registryName}/versions (the `GetRegistryRecentVersions` operationId).
 func (c *Client) GetRegistryRecentVersions(ctx context.Context, registryName string, params *GetRegistryRecentVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewGetRegistryRecentVersionsRequest(c.Server, registryName, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// LookupVersions lookup versions by integrity hash
+//
+// Corresponds with GET /versions/lookup (the `LookupVersions` operationId).
+func (c *Client) LookupVersions(ctx context.Context, params *LookupVersionsParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLookupVersionsRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -5254,6 +5319,120 @@ func NewGetRegistryRecentVersionsRequest(server string, registryName string, par
 	return req, nil
 }
 
+// NewLookupVersionsRequest constructs an http.Request for the LookupVersions method
+func NewLookupVersionsRequest(server string, params *LookupVersionsParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/versions/lookup")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if params.Integrity != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "integrity", *params.Integrity, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sha256 != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sha256", *params.Sha256, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sha1 != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sha1", *params.Sha1, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Sha512 != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "sha512", *params.Sha512, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Page != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "page", *params.Page, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.PerPage != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "per_page", *params.PerPage, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 func (c *Client) applyEditors(ctx context.Context, req *http.Request, additionalEditors []RequestEditorFn) error {
 	for _, r := range c.RequestEditors {
 		if err := r(ctx, req); err != nil {
@@ -5521,6 +5700,13 @@ type ClientWithResponsesInterface interface {
 	//
 	// Corresponds with GET /registries/{registryName}/versions (the `GetRegistryRecentVersions` operationId).
 	GetRegistryRecentVersionsWithResponse(ctx context.Context, registryName string, params *GetRegistryRecentVersionsParams, reqEditors ...RequestEditorFn) (*GetRegistryRecentVersionsResponse, error)
+
+	// LookupVersionsWithResponse lookup versions by integrity hash
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /versions/lookup (the `LookupVersions` operationId).
+	LookupVersionsWithResponse(ctx context.Context, params *LookupVersionsParams, reqEditors ...RequestEditorFn) (*LookupVersionsResponse, error)
 }
 
 type GetCriticalPackagesResponse struct {
@@ -6486,6 +6672,37 @@ func (r GetRegistryRecentVersionsResponse) ContentType() string {
 	return ""
 }
 
+type LookupVersionsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *[]VersionLookup
+}
+
+// Status returns HTTPResponse.Status
+func (r LookupVersionsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LookupVersionsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r LookupVersionsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
 // GetCriticalPackagesWithResponse list critical packages
 //
 // Returns a wrapper object for the known response body format(s).
@@ -6900,6 +7117,19 @@ func (c *ClientWithResponses) GetRegistryRecentVersionsWithResponse(ctx context.
 		return nil, err
 	}
 	return ParseGetRegistryRecentVersionsResponse(rsp)
+}
+
+// LookupVersionsWithResponse lookup versions by integrity hash
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /versions/lookup (the `LookupVersions` operationId).
+func (c *ClientWithResponses) LookupVersionsWithResponse(ctx context.Context, params *LookupVersionsParams, reqEditors ...RequestEditorFn) (*LookupVersionsResponse, error) {
+	rsp, err := c.LookupVersions(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLookupVersionsResponse(rsp)
 }
 
 // ParseGetCriticalPackagesResponse parses an HTTP response from a GetCriticalPackagesWithResponse call
@@ -7712,6 +7942,35 @@ func ParseGetRegistryRecentVersionsResponse(rsp *http.Response) (*GetRegistryRec
 			return nil, err
 		}
 		response.JSON200 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseLookupVersionsResponse parses an HTTP response from a LookupVersionsWithResponse call
+func ParseLookupVersionsResponse(rsp *http.Response) (*LookupVersionsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LookupVersionsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []VersionLookup
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 400:
+		break // No content-type
 
 	}
 
