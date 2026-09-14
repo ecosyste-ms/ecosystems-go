@@ -1234,7 +1234,7 @@ type LookupPackageParams struct {
 	// RepositoryURL repository URL
 	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 
-	// PURL package URL
+	// PURL single package URL. For multiple purls use POST /packages/bulk_lookup.
 	PURL *string `form:"purl,omitempty" json:"purl,omitempty"`
 
 	// Ecosystem ecosystem name
@@ -1279,7 +1279,7 @@ type LookupRegistryPackageParams struct {
 	// RepositoryURL repository URL
 	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 
-	// PURL package URL
+	// PURL single package URL. For multiple purls use POST /packages/bulk_lookup.
 	PURL *string `form:"purl,omitempty" json:"purl,omitempty"`
 
 	// Ecosystem ecosystem name
@@ -1765,7 +1765,7 @@ type ClientInterface interface {
 	// Corresponds with GET /packages/critical (the `GetCriticalPackagesList` operationId).
 	GetCriticalPackagesList(ctx context.Context, params *GetCriticalPackagesListParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	// LookupPackage lookup a package by repository URL, purl or ecosystem+name
+	// LookupPackage lookup a single package by repository URL, purl or ecosystem+name. For multiple packages use POST /packages/bulk_lookup.
 	//
 	// Corresponds with GET /packages/lookup (the `LookupPackage` operationId).
 	LookupPackage(ctx context.Context, params *LookupPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -2025,7 +2025,7 @@ func (c *Client) GetCriticalPackagesList(ctx context.Context, params *GetCritica
 	return c.Client.Do(req)
 }
 
-// LookupPackage lookup a package by repository URL, purl or ecosystem+name
+// LookupPackage lookup a single package by repository URL, purl or ecosystem+name. For multiple packages use POST /packages/bulk_lookup.
 //
 // Corresponds with GET /packages/lookup (the `LookupPackage` operationId).
 func (c *Client) LookupPackage(ctx context.Context, params *LookupPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -5540,7 +5540,7 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /packages/critical (the `GetCriticalPackagesList` operationId).
 	GetCriticalPackagesListWithResponse(ctx context.Context, params *GetCriticalPackagesListParams, reqEditors ...RequestEditorFn) (*GetCriticalPackagesListResponse, error)
 
-	// LookupPackageWithResponse lookup a package by repository URL, purl or ecosystem+name
+	// LookupPackageWithResponse lookup a single package by repository URL, purl or ecosystem+name. For multiple packages use POST /packages/bulk_lookup.
 	//
 	// Returns a wrapper object for the known response body format(s).
 	//
@@ -6820,7 +6820,7 @@ func (c *ClientWithResponses) GetCriticalPackagesListWithResponse(ctx context.Co
 	return ParseGetCriticalPackagesListResponse(rsp)
 }
 
-// LookupPackageWithResponse lookup a package by repository URL, purl or ecosystem+name
+// LookupPackageWithResponse lookup a single package by repository URL, purl or ecosystem+name. For multiple packages use POST /packages/bulk_lookup.
 //
 // Returns a wrapper object for the known response body format(s).
 //
