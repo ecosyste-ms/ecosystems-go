@@ -7368,6 +7368,9 @@ func ParseLookupPackageResponse(rsp *http.Response) (*LookupPackageResponse, err
 		}
 		response.JSON200 = &dest
 
+	case rsp.StatusCode == 400:
+		break // No content-type
+
 	}
 
 	return response, nil
