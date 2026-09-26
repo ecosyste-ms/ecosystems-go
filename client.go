@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"io"
 	"math/rand/v2"
-	"net"
 	"net/http"
 	"strconv"
 	"strings"
@@ -179,38 +178,11 @@ func WithBatchSize(size int) Option {
 	}
 }
 
-// defaultHTTPClient creates an optimized HTTP client for the ecosyste.ms APIs.
-// Features:
-//   - HTTP/2 enabled (automatic over HTTPS)
-//   - Connection keep-alive with pooling
-//   - Gzip compression (Accept-Encoding handled by transport)
+// defaultHTTPClient applies retries and a timeout to the platform transport.
 func defaultHTTPClient() *http.Client {
-	transport := &http.Transport{
-		// Connection pooling
-		MaxIdleConns:        100,
-		MaxIdleConnsPerHost: 10,
-		MaxConnsPerHost:     100,
-		IdleConnTimeout:     90 * time.Second,
-
-		// Timeouts
-		DialContext: (&net.Dialer{
-			Timeout:   10 * time.Second,
-			KeepAlive: 30 * time.Second,
-		}).DialContext,
-		TLSHandshakeTimeout:   10 * time.Second,
-		ResponseHeaderTimeout: 30 * time.Second,
-		ExpectContinueTimeout: 1 * time.Second,
-
-		// Enable compression (gzip)
-		DisableCompression: false,
-
-		// HTTP/2 is enabled by default for HTTPS when using http.Transport
-		ForceAttemptHTTP2: true,
-	}
-
 	return &http.Client{
 		Transport: &retryRoundTripper{
-			base:      transport,
+			base:      defaultTransport(),
 			attempts:  defaultRetryAttempts,
 			baseDelay: defaultRetryBaseDelay,
 			maxDelay:  defaultRetryMaxDelay,
