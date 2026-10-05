@@ -1129,6 +1129,9 @@ type GetDependenciesParams struct {
 	// Ecosystem ecosystem name
 	Ecosystem *string `form:"ecosystem,omitempty" json:"ecosystem,omitempty"`
 
+	// VersionID id of the version that declares the dependencies
+	VersionID *int `form:"version_id,omitempty" json:"version_id,omitempty"`
+
 	// PackageName package name
 	PackageName *string `form:"package_name,omitempty" json:"package_name,omitempty"`
 
@@ -2746,6 +2749,18 @@ func NewGetDependenciesRequest(server string, params *GetDependenciesParams) (*h
 		if params.Ecosystem != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "ecosystem", *params.Ecosystem, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.VersionID != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "version_id", *params.VersionID, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "integer", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {

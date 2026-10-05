@@ -134,11 +134,16 @@ type GetAdvisoriesParams struct {
 	// UpdatedAfter filter by updated_at after given time
 	UpdatedAfter *time.Time `form:"updated_after,omitempty" json:"updated_after,omitempty"`
 
-	// Sort field to order results by
+	// Sort Comma-separated advisory column names to sort by. Defaults to published_at. Unknown columns return 400.
 	Sort *string `form:"sort,omitempty" json:"sort,omitempty"`
 
-	// Order direction to order results by
+	// Order Comma-separated asc or desc directions corresponding to sort fields, case-insensitive. Missing directions default to desc. Invalid or extra directions return 400.
 	Order *string `form:"order,omitempty" json:"order,omitempty"`
+}
+
+// GetAdvisories400JSONResponseBody defines parameters for GetAdvisories.
+type GetAdvisories400JSONResponseBody struct {
+	Error *string `json:"error,omitempty"`
 }
 
 // LookupAdvisoriesParams defines parameters for LookupAdvisories.
@@ -811,6 +816,8 @@ type GetAdvisoriesResponse struct {
 	HTTPResponse *http.Response
 	// JSON200 the response for an HTTP 200 `application/json` response
 	JSON200 *[]Advisory
+	// JSON400 the response for an HTTP 400 `application/json` response
+	JSON400 *GetAdvisories400JSONResponseBody
 }
 
 // Status returns HTTPResponse.Status
@@ -1094,6 +1101,13 @@ func ParseGetAdvisoriesResponse(rsp *http.Response) (*GetAdvisoriesResponse, err
 			return nil, err
 		}
 		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 400:
+		var dest GetAdvisories400JSONResponseBody
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON400 = &dest
 
 	}
 
