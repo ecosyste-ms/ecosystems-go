@@ -243,20 +243,31 @@ type PackageUsage struct {
 
 // Release defines model for Release.
 type Release struct {
-	Assets          []map[string]interface{} `json:"assets,omitempty"`
-	Author          *string                  `json:"author,omitempty"`
-	Body            *string                  `json:"body,omitempty"`
-	CreatedAt       *time.Time               `json:"created_at,omitempty"`
-	Draft           *bool                    `json:"draft,omitempty"`
-	HTMLURL         *string                  `json:"html_url,omitempty"`
-	LastSyncedAt    *time.Time               `json:"last_synced_at,omitempty"`
-	Name            *string                  `json:"name,omitempty"`
-	Prerelease      *bool                    `json:"prerelease,omitempty"`
-	PublishedAt     *time.Time               `json:"published_at,omitempty"`
-	TagName         *string                  `json:"tag_name,omitempty"`
-	TagURL          *string                  `json:"tag_url,omitempty"`
-	TargetCommitish *string                  `json:"target_commitish,omitempty"`
-	UUID            *string                  `json:"uuid,omitempty"`
+	Assets       []map[string]interface{} `json:"assets,omitempty"`
+	Author       *string                  `json:"author,omitempty"`
+	Body         *string                  `json:"body,omitempty"`
+	CreatedAt    *time.Time               `json:"created_at,omitempty"`
+	Draft        *bool                    `json:"draft,omitempty"`
+	HTMLURL      *string                  `json:"html_url,omitempty"`
+	LastSyncedAt *time.Time               `json:"last_synced_at,omitempty"`
+	Name         *string                  `json:"name,omitempty"`
+	Prerelease   *bool                    `json:"prerelease,omitempty"`
+	PublishedAt  *time.Time               `json:"published_at,omitempty"`
+
+	// Tag The tag this release is attached to (null if the tag has not been synced)
+	Tag             nullable.Nullable[Release_Tag] `json:"tag,omitempty"`
+	TagName         *string                        `json:"tag_name,omitempty"`
+	TagURL          *string                        `json:"tag_url,omitempty"`
+	TargetCommitish *string                        `json:"target_commitish,omitempty"`
+	UUID            *string                        `json:"uuid,omitempty"`
+}
+
+// Release_Tag The tag this release is attached to (null if the tag has not been synced)
+type Release_Tag struct {
+	Kind        *string    `json:"kind,omitempty"`
+	Name        *string    `json:"name,omitempty"`
+	PublishedAt *time.Time `json:"published_at,omitempty"`
+	Sha         *string    `json:"sha,omitempty"`
 }
 
 // Repository defines model for Repository.
@@ -273,6 +284,9 @@ type Repository struct {
 	Fork                 *bool                  `json:"fork,omitempty"`
 	ForksCount           *int                   `json:"forks_count,omitempty"`
 	FullName             *string                `json:"full_name,omitempty"`
+
+	// FundingLinks Only included in single repository responses (getHostRepository, repositoriesLookup).
+	FundingLinks         []string               `json:"funding_links,omitempty"`
 	HasIssues            *bool                  `json:"has_issues,omitempty"`
 	HasPages             *bool                  `json:"has_pages,omitempty"`
 	HasWiki              *bool                  `json:"has_wiki,omitempty"`
@@ -338,8 +352,11 @@ type Tag struct {
 	Name                 *string    `json:"name,omitempty"`
 	PublishedAt          *time.Time `json:"published_at,omitempty"`
 	PURL                 *string    `json:"purl,omitempty"`
-	Sha                  *string    `json:"sha,omitempty"`
-	TagURL               *string    `json:"tag_url,omitempty"`
+
+	// ReleaseURL API URL of the release attached to this tag (null if the tag has no release)
+	ReleaseURL nullable.Nullable[string] `json:"release_url,omitempty"`
+	Sha        *string                   `json:"sha,omitempty"`
+	TagURL     *string                   `json:"tag_url,omitempty"`
 }
 
 // Topic defines model for Topic.

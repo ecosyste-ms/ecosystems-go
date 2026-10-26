@@ -116,6 +116,9 @@ type GetAdvisoriesParams struct {
 	// Severity Severity to filter by
 	Severity *string `form:"severity,omitempty" json:"severity,omitempty"`
 
+	// Version Return advisories whose affected ranges match this version. Requires ecosystem and package_name. Advisories without a matching range are excluded.
+	Version *string `form:"version,omitempty" json:"version,omitempty"`
+
 	// RepositoryURL Repository URL to filter by
 	RepositoryURL *string `form:"repository_url,omitempty" json:"repository_url,omitempty"`
 
@@ -148,7 +151,7 @@ type GetAdvisories400JSONResponseBody struct {
 
 // LookupAdvisoriesParams defines parameters for LookupAdvisories.
 type LookupAdvisoriesParams struct {
-	// PURL Package URL (PURL) to lookup advisories for. Format: pkg:type/namespace/name@version
+	// PURL Package URL (PURL) to lookup advisories for. Format: pkg:type/namespace/name@version. When a version is provided, only advisories with a matching affected range are returned.
 	PURL *string `form:"purl,omitempty" json:"purl,omitempty"`
 
 	// RepositoryURL Source repository URL to lookup advisories for
@@ -415,6 +418,18 @@ func NewGetAdvisoriesRequest(server string, params *GetAdvisoriesParams) (*http.
 		if params.Severity != nil {
 
 			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "severity", *params.Severity, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+				return nil, err
+			} else {
+				for _, qp := range strings.Split(queryFrag, "&") {
+					rawQueryFragments = append(rawQueryFragments, qp)
+				}
+			}
+
+		}
+
+		if params.Version != nil {
+
+			if queryFrag, err := runtime.StyleParamWithOptions("form", true, "version", *params.Version, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
 				return nil, err
 			} else {
 				for _, qp := range strings.Split(queryFrag, "&") {
