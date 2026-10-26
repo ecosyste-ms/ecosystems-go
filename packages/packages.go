@@ -21,6 +21,27 @@ import (
 // ServerURLHTTPSPackagesEcosysteMsAPIV1 defines the Server URL for https://packages.ecosyste.ms/api/v1
 const ServerURLHTTPSPackagesEcosysteMsAPIV1 = "https://packages.ecosyste.ms/api/v1"
 
+// Defines values for PURLLookupResultMatchStatus.
+const (
+	PURLLookupResultMatchStatusAmbiguous PURLLookupResultMatchStatus = "ambiguous"
+	PURLLookupResultMatchStatusMatched   PURLLookupResultMatchStatus = "matched"
+	PURLLookupResultMatchStatusMissing   PURLLookupResultMatchStatus = "missing"
+)
+
+// Valid indicates whether the value is a known member of the PURLLookupResultMatchStatus enum.
+func (e PURLLookupResultMatchStatus) Valid() bool {
+	switch e {
+	case PURLLookupResultMatchStatusAmbiguous:
+		return true
+	case PURLLookupResultMatchStatusMatched:
+		return true
+	case PURLLookupResultMatchStatusMissing:
+		return true
+	default:
+		return false
+	}
+}
+
 // Defines values for GetCriticalPackagesParamsSort.
 const (
 	GetCriticalPackagesParamsSortCreatedAt                GetCriticalPackagesParamsSort = "created_at"
@@ -832,103 +853,143 @@ type Namespace struct {
 
 // Package defines model for Package.
 type Package struct {
-	Advisories               []Advisory                                `json:"advisories"`
-	CodemetaURL              string                                    `json:"codemeta_url"`
-	CreatedAt                time.Time                                 `json:"created_at"`
-	Critical                 bool                                      `json:"critical"`
-	DependentPackagesCount   int                                       `json:"dependent_packages_count"`
-	DependentPackagesURL     string                                    `json:"dependent_packages_url"`
-	DependentReposCount      int                                       `json:"dependent_repos_count"`
-	DependentRepositoriesURL string                                    `json:"dependent_repositories_url"`
-	Description              nullable.Nullable[string]                 `json:"description"`
-	DockerDependentsCount    int                                       `json:"docker_dependents_count"`
-	DockerDownloadsCount     int                                       `json:"docker_downloads_count"`
-	DockerUsageURL           string                                    `json:"docker_usage_url"`
-	DocumentationURL         nullable.Nullable[string]                 `json:"documentation_url"`
-	Downloads                int                                       `json:"downloads"`
-	DownloadsPeriod          nullable.Nullable[string]                 `json:"downloads_period"`
-	Ecosystem                string                                    `json:"ecosystem"`
-	FirstReleasePublishedAt  nullable.Nullable[time.Time]              `json:"first_release_published_at"`
-	FundingLinks             []string                                  `json:"funding_links"`
-	Homepage                 nullable.Nullable[string]                 `json:"homepage"`
-	ID                       int                                       `json:"id"`
-	InstallCommand           nullable.Nullable[string]                 `json:"install_command"`
-	IssueMetadata            map[string]interface{}                    `json:"issue_metadata"`
-	KeywordsArray            []string                                  `json:"keywords_array"`
-	LastSyncedAt             nullable.Nullable[time.Time]              `json:"last_synced_at"`
-	LatestReleaseNumber      nullable.Nullable[string]                 `json:"latest_release_number"`
-	LatestReleasePublishedAt nullable.Nullable[time.Time]              `json:"latest_release_published_at"`
-	LatestVersionURL         string                                    `json:"latest_version_url"`
-	Licenses                 nullable.Nullable[string]                 `json:"licenses"`
-	Maintainers              []Maintainer                              `json:"maintainers"`
-	Metadata                 nullable.Nullable[map[string]interface{}] `json:"metadata"`
-	Name                     string                                    `json:"name"`
-	Namespace                nullable.Nullable[string]                 `json:"namespace"`
-	NormalizedLicenses       []string                                  `json:"normalized_licenses"`
-	PURL                     string                                    `json:"purl"`
-	Rankings                 map[string]interface{}                    `json:"rankings"`
-	RegistryURL              nullable.Nullable[string]                 `json:"registry_url"`
-	RelatedPackagesURL       string                                    `json:"related_packages_url"`
-	RepoMetadata             nullable.Nullable[map[string]interface{}] `json:"repo_metadata"`
-	RepoMetadataUpdatedAt    nullable.Nullable[time.Time]              `json:"repo_metadata_updated_at"`
-	RepositoryURL            nullable.Nullable[string]                 `json:"repository_url"`
-	Status                   nullable.Nullable[string]                 `json:"status"`
-	UpdatedAt                time.Time                                 `json:"updated_at"`
-	UsageURL                 string                                    `json:"usage_url"`
-	VersionNumbersURL        *string                                   `json:"version_numbers_url,omitempty"`
-	VersionsCount            int                                       `json:"versions_count"`
-	VersionsURL              string                                    `json:"versions_url"`
+	Advisories               []Advisory                   `json:"advisories"`
+	CodemetaURL              string                       `json:"codemeta_url"`
+	CreatedAt                time.Time                    `json:"created_at"`
+	Critical                 bool                         `json:"critical"`
+	DependentPackagesCount   int                          `json:"dependent_packages_count"`
+	DependentPackagesURL     string                       `json:"dependent_packages_url"`
+	DependentReposCount      int                          `json:"dependent_repos_count"`
+	DependentRepositoriesURL string                       `json:"dependent_repositories_url"`
+	Description              nullable.Nullable[string]    `json:"description"`
+	DockerDependentsCount    int                          `json:"docker_dependents_count"`
+	DockerDownloadsCount     int                          `json:"docker_downloads_count"`
+	DockerUsageURL           string                       `json:"docker_usage_url"`
+	DocumentationURL         nullable.Nullable[string]    `json:"documentation_url"`
+	Downloads                int                          `json:"downloads"`
+	DownloadsPeriod          nullable.Nullable[string]    `json:"downloads_period"`
+	Ecosystem                string                       `json:"ecosystem"`
+	FirstReleasePublishedAt  nullable.Nullable[time.Time] `json:"first_release_published_at"`
+	FundingLinks             []string                     `json:"funding_links"`
+	Homepage                 nullable.Nullable[string]    `json:"homepage"`
+	ID                       int                          `json:"id"`
+	InstallCommand           nullable.Nullable[string]    `json:"install_command"`
+	IssueMetadata            map[string]interface{}       `json:"issue_metadata"`
+	KeywordsArray            []string                     `json:"keywords_array"`
+	LastSyncedAt             nullable.Nullable[time.Time] `json:"last_synced_at"`
+
+	// LatestPublishedReleaseNumber Newest published release number, including deprecated or unlisted versions. Null when the package has no versions. Differs from latest_release_number when every version is deprecated or unlisted.
+	LatestPublishedReleaseNumber nullable.Nullable[string]                 `json:"latest_published_release_number"`
+	LatestReleaseNumber          nullable.Nullable[string]                 `json:"latest_release_number"`
+	LatestReleasePublishedAt     nullable.Nullable[time.Time]              `json:"latest_release_published_at"`
+	LatestVersionURL             string                                    `json:"latest_version_url"`
+	Licenses                     nullable.Nullable[string]                 `json:"licenses"`
+	Maintainers                  []Maintainer                              `json:"maintainers"`
+	Metadata                     nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Name                         string                                    `json:"name"`
+	Namespace                    nullable.Nullable[string]                 `json:"namespace"`
+	NormalizedLicenses           []string                                  `json:"normalized_licenses"`
+	PURL                         string                                    `json:"purl"`
+	Rankings                     map[string]interface{}                    `json:"rankings"`
+	RegistryURL                  nullable.Nullable[string]                 `json:"registry_url"`
+	RelatedPackagesURL           string                                    `json:"related_packages_url"`
+	RepoMetadata                 nullable.Nullable[map[string]interface{}] `json:"repo_metadata"`
+	RepoMetadataUpdatedAt        nullable.Nullable[time.Time]              `json:"repo_metadata_updated_at"`
+	RepositoryURL                nullable.Nullable[string]                 `json:"repository_url"`
+	Status                       nullable.Nullable[string]                 `json:"status"`
+	UpdatedAt                    time.Time                                 `json:"updated_at"`
+	UsageURL                     string                                    `json:"usage_url"`
+	VersionNumbersURL            *string                                   `json:"version_numbers_url,omitempty"`
+	VersionsCount                int                                       `json:"versions_count"`
+	VersionsURL                  string                                    `json:"versions_url"`
 }
 
 // PackageWithRegistry defines model for PackageWithRegistry.
 type PackageWithRegistry struct {
-	Advisories               []Advisory                                `json:"advisories"`
-	CodemetaURL              string                                    `json:"codemeta_url"`
-	CreatedAt                time.Time                                 `json:"created_at"`
-	Critical                 bool                                      `json:"critical"`
-	DependentPackagesCount   int                                       `json:"dependent_packages_count"`
-	DependentPackagesURL     string                                    `json:"dependent_packages_url"`
-	DependentReposCount      int                                       `json:"dependent_repos_count"`
-	DependentRepositoriesURL string                                    `json:"dependent_repositories_url"`
-	Description              nullable.Nullable[string]                 `json:"description"`
-	DockerDependentsCount    int                                       `json:"docker_dependents_count"`
-	DockerDownloadsCount     int                                       `json:"docker_downloads_count"`
-	DockerUsageURL           string                                    `json:"docker_usage_url"`
-	DocumentationURL         nullable.Nullable[string]                 `json:"documentation_url"`
-	Downloads                int                                       `json:"downloads"`
-	DownloadsPeriod          nullable.Nullable[string]                 `json:"downloads_period"`
-	Ecosystem                string                                    `json:"ecosystem"`
-	FirstReleasePublishedAt  nullable.Nullable[time.Time]              `json:"first_release_published_at"`
-	FundingLinks             []string                                  `json:"funding_links"`
-	Homepage                 nullable.Nullable[string]                 `json:"homepage"`
-	ID                       int                                       `json:"id"`
-	InstallCommand           nullable.Nullable[string]                 `json:"install_command"`
-	IssueMetadata            map[string]interface{}                    `json:"issue_metadata"`
-	KeywordsArray            []string                                  `json:"keywords_array"`
-	LastSyncedAt             nullable.Nullable[time.Time]              `json:"last_synced_at"`
-	LatestReleaseNumber      nullable.Nullable[string]                 `json:"latest_release_number"`
-	LatestReleasePublishedAt nullable.Nullable[time.Time]              `json:"latest_release_published_at"`
-	LatestVersionURL         string                                    `json:"latest_version_url"`
-	Licenses                 nullable.Nullable[string]                 `json:"licenses"`
-	Maintainers              []Maintainer                              `json:"maintainers"`
-	Metadata                 nullable.Nullable[map[string]interface{}] `json:"metadata"`
-	Name                     string                                    `json:"name"`
-	Namespace                nullable.Nullable[string]                 `json:"namespace"`
-	NormalizedLicenses       []string                                  `json:"normalized_licenses"`
-	PURL                     string                                    `json:"purl"`
-	Rankings                 map[string]interface{}                    `json:"rankings"`
-	Registry                 Registry                                  `json:"registry"`
-	RegistryURL              nullable.Nullable[string]                 `json:"registry_url"`
-	RelatedPackagesURL       string                                    `json:"related_packages_url"`
-	RepoMetadata             nullable.Nullable[map[string]interface{}] `json:"repo_metadata"`
-	RepoMetadataUpdatedAt    nullable.Nullable[time.Time]              `json:"repo_metadata_updated_at"`
-	RepositoryURL            nullable.Nullable[string]                 `json:"repository_url"`
-	Status                   nullable.Nullable[string]                 `json:"status"`
-	UpdatedAt                time.Time                                 `json:"updated_at"`
-	UsageURL                 string                                    `json:"usage_url"`
-	VersionNumbersURL        *string                                   `json:"version_numbers_url,omitempty"`
-	VersionsCount            int                                       `json:"versions_count"`
-	VersionsURL              string                                    `json:"versions_url"`
+	Advisories               []Advisory                   `json:"advisories"`
+	CodemetaURL              string                       `json:"codemeta_url"`
+	CreatedAt                time.Time                    `json:"created_at"`
+	Critical                 bool                         `json:"critical"`
+	DependentPackagesCount   int                          `json:"dependent_packages_count"`
+	DependentPackagesURL     string                       `json:"dependent_packages_url"`
+	DependentReposCount      int                          `json:"dependent_repos_count"`
+	DependentRepositoriesURL string                       `json:"dependent_repositories_url"`
+	Description              nullable.Nullable[string]    `json:"description"`
+	DockerDependentsCount    int                          `json:"docker_dependents_count"`
+	DockerDownloadsCount     int                          `json:"docker_downloads_count"`
+	DockerUsageURL           string                       `json:"docker_usage_url"`
+	DocumentationURL         nullable.Nullable[string]    `json:"documentation_url"`
+	Downloads                int                          `json:"downloads"`
+	DownloadsPeriod          nullable.Nullable[string]    `json:"downloads_period"`
+	Ecosystem                string                       `json:"ecosystem"`
+	FirstReleasePublishedAt  nullable.Nullable[time.Time] `json:"first_release_published_at"`
+	FundingLinks             []string                     `json:"funding_links"`
+	Homepage                 nullable.Nullable[string]    `json:"homepage"`
+	ID                       int                          `json:"id"`
+	InstallCommand           nullable.Nullable[string]    `json:"install_command"`
+	IssueMetadata            map[string]interface{}       `json:"issue_metadata"`
+	KeywordsArray            []string                     `json:"keywords_array"`
+	LastSyncedAt             nullable.Nullable[time.Time] `json:"last_synced_at"`
+
+	// LatestPublishedReleaseNumber Newest published release number, including deprecated or unlisted versions. Null when the package has no versions. Differs from latest_release_number when every version is deprecated or unlisted.
+	LatestPublishedReleaseNumber nullable.Nullable[string]                 `json:"latest_published_release_number"`
+	LatestReleaseNumber          nullable.Nullable[string]                 `json:"latest_release_number"`
+	LatestReleasePublishedAt     nullable.Nullable[time.Time]              `json:"latest_release_published_at"`
+	LatestVersionURL             string                                    `json:"latest_version_url"`
+	Licenses                     nullable.Nullable[string]                 `json:"licenses"`
+	Maintainers                  []Maintainer                              `json:"maintainers"`
+	Metadata                     nullable.Nullable[map[string]interface{}] `json:"metadata"`
+	Name                         string                                    `json:"name"`
+	Namespace                    nullable.Nullable[string]                 `json:"namespace"`
+	NormalizedLicenses           []string                                  `json:"normalized_licenses"`
+	PURL                         string                                    `json:"purl"`
+	Rankings                     map[string]interface{}                    `json:"rankings"`
+	Registry                     Registry                                  `json:"registry"`
+	RegistryURL                  nullable.Nullable[string]                 `json:"registry_url"`
+	RelatedPackagesURL           string                                    `json:"related_packages_url"`
+	RepoMetadata                 nullable.Nullable[map[string]interface{}] `json:"repo_metadata"`
+	RepoMetadataUpdatedAt        nullable.Nullable[time.Time]              `json:"repo_metadata_updated_at"`
+	RepositoryURL                nullable.Nullable[string]                 `json:"repository_url"`
+	Status                       nullable.Nullable[string]                 `json:"status"`
+	UpdatedAt                    time.Time                                 `json:"updated_at"`
+	UsageURL                     string                                    `json:"usage_url"`
+	VersionNumbersURL            *string                                   `json:"version_numbers_url,omitempty"`
+	VersionsCount                int                                       `json:"versions_count"`
+	VersionsURL                  string                                    `json:"versions_url"`
+}
+
+// PURLLookupResult defines model for PurlLookupResult.
+type PURLLookupResult struct {
+	MatchStatus PURLLookupResultMatchStatus `json:"match_status"`
+	PURL        string                      `json:"purl"`
+	Version     *PURLVersion                `json:"version,omitempty"`
+}
+
+// PURLLookupResultMatchStatus defines model for PURLLookupResult.MatchStatus.
+type PURLLookupResultMatchStatus string
+
+// PURLVersion defines model for PurlVersion.
+type PURLVersion struct {
+	Advisories        []VersionAdvisory         `json:"advisories"`
+	Artifacts         []PURLVersion_Artifacts   `json:"artifacts"`
+	Dependencies      []Dependency              `json:"dependencies"`
+	Identifiers       PURLVersion_Identifiers   `json:"identifiers"`
+	LicenseExpression nullable.Nullable[string] `json:"license_expression,omitempty"`
+	Name              string                    `json:"name"`
+	PURL              string                    `json:"purl"`
+	Version           string                    `json:"version"`
+}
+
+// PURLVersion_Artifacts defines model for PURLVersion.Artifacts.
+type PURLVersion_Artifacts struct {
+	DownloadURL *string `json:"download_url,omitempty"`
+	Integrity   *string `json:"integrity,omitempty"`
+}
+
+// PURLVersion_Identifiers defines model for PURLVersion.Identifiers.
+type PURLVersion_Identifiers struct {
+	Integrity *string `json:"integrity,omitempty"`
+	PURL      *string `json:"purl,omitempty"`
 }
 
 // Registry defines model for Registry.
@@ -955,6 +1016,7 @@ type Registry struct {
 
 // Version defines model for Version.
 type Version struct {
+	Advisories       []VersionAdvisory                         `json:"advisories"`
 	CodemetaURL      string                                    `json:"codemeta_url"`
 	CreatedAt        time.Time                                 `json:"created_at"`
 	DocumentationURL nullable.Nullable[string]                 `json:"documentation_url"`
@@ -974,8 +1036,21 @@ type Version struct {
 	VersionURL       string                                    `json:"version_url"`
 }
 
+// VersionAdvisory defines model for VersionAdvisory.
+type VersionAdvisory struct {
+	Affected      bool                      `json:"affected"`
+	Fixed         bool                      `json:"fixed"`
+	FixedVersions []string                  `json:"fixed_versions"`
+	Identifiers   []string                  `json:"identifiers"`
+	Severity      nullable.Nullable[string] `json:"severity,omitempty"`
+	Title         nullable.Nullable[string] `json:"title,omitempty"`
+	URL           nullable.Nullable[string] `json:"url,omitempty"`
+	UUID          nullable.Nullable[string] `json:"uuid,omitempty"`
+}
+
 // VersionLookup defines model for VersionLookup.
 type VersionLookup struct {
+	Advisories       []VersionAdvisory                         `json:"advisories"`
 	CodemetaURL      string                                    `json:"codemeta_url"`
 	CreatedAt        time.Time                                 `json:"created_at"`
 	Dependencies     []Dependency                              `json:"dependencies"`
@@ -1000,6 +1075,7 @@ type VersionLookup struct {
 
 // VersionWithDependencies defines model for VersionWithDependencies.
 type VersionWithDependencies struct {
+	Advisories       []VersionAdvisory                         `json:"advisories"`
 	CodemetaURL      string                                    `json:"codemeta_url"`
 	CreatedAt        time.Time                                 `json:"created_at"`
 	Dependencies     []Dependency                              `json:"dependencies"`
@@ -1023,6 +1099,7 @@ type VersionWithDependencies struct {
 
 // VersionWithPackage defines model for VersionWithPackage.
 type VersionWithPackage struct {
+	Advisories       []VersionAdvisory                         `json:"advisories"`
 	CodemetaURL      string                                    `json:"codemeta_url"`
 	CreatedAt        time.Time                                 `json:"created_at"`
 	DocumentationURL nullable.Nullable[string]                 `json:"documentation_url"`
@@ -1255,6 +1332,18 @@ type LookupPackageParams struct {
 
 // LookupPackageParamsSort defines parameters for LookupPackage.
 type LookupPackageParamsSort string
+
+// BulkLookupPURLsJSONBody defines parameters for BulkLookupPURLs.
+type BulkLookupPURLsJSONBody struct {
+	// PURLs package URLs to lookup (maximum 100)
+	PURLs []string `json:"purls"`
+}
+
+// LookupPURLParams defines parameters for LookupPURL.
+type LookupPURLParams struct {
+	// PURL package URL, with an optional version
+	PURL string `form:"purl" json:"purl"`
+}
 
 // GetRegistriesParams defines parameters for GetRegistries.
 type GetRegistriesParams struct {
@@ -1583,6 +1672,9 @@ type LookupVersionsParams struct {
 // BulkLookupPackagesJSONRequestBody defines body for BulkLookupPackages for application/json ContentType.
 type BulkLookupPackagesJSONRequestBody BulkLookupPackagesJSONBody
 
+// BulkLookupPURLsJSONRequestBody defines body for BulkLookupPURLs for application/json ContentType.
+type BulkLookupPURLsJSONRequestBody BulkLookupPURLsJSONBody
+
 // AsCodeMetaLicense0 returns the union data inside the CodeMeta_License as a CodeMetaLicense0
 func (t CodeMeta_License) AsCodeMetaLicense0() (CodeMetaLicense0, error) {
 	var body CodeMetaLicense0
@@ -1772,6 +1864,25 @@ type ClientInterface interface {
 	//
 	// Corresponds with GET /packages/lookup (the `LookupPackage` operationId).
 	LookupPackage(ctx context.Context, params *LookupPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// BulkLookupPURLsWithBody lookup package versions by PURL
+	//
+	// Takes any type of body and a specified content type.
+	//
+	// Corresponds with POST /purls/bulk_lookup (the `BulkLookupPURLs` operationId).
+	BulkLookupPURLsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// BulkLookupPURLs lookup package versions by PURL
+	//
+	// Takes a body of the `application/json` content type.
+	//
+	// Corresponds with POST /purls/bulk_lookup (the `BulkLookupPURLs` operationId).
+	BulkLookupPURLs(ctx context.Context, body BulkLookupPURLsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// LookupPURL lookup a package version by PURL
+	//
+	// Corresponds with GET /purls/lookup (the `LookupPURL` operationId).
+	LookupPURL(ctx context.Context, params *LookupPURLParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// GetRegistries list registries
 	//
@@ -2033,6 +2144,55 @@ func (c *Client) GetCriticalPackagesList(ctx context.Context, params *GetCritica
 // Corresponds with GET /packages/lookup (the `LookupPackage` operationId).
 func (c *Client) LookupPackage(ctx context.Context, params *LookupPackageParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewLookupPackageRequest(c.Server, params)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkLookupPURLsWithBody lookup package versions by PURL
+//
+// Takes any type of body and a specified content type.
+//
+// Corresponds with POST /purls/bulk_lookup (the `BulkLookupPURLs` operationId).
+func (c *Client) BulkLookupPURLsWithBody(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkLookupPURLsRequestWithBody(c.Server, contentType, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// BulkLookupPURLs lookup package versions by PURL
+//
+// Takes a body of the `application/json` content type.
+//
+// Corresponds with POST /purls/bulk_lookup (the `BulkLookupPURLs` operationId).
+func (c *Client) BulkLookupPURLs(ctx context.Context, body BulkLookupPURLsJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewBulkLookupPURLsRequest(c.Server, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+// LookupPURL lookup a package version by PURL
+//
+// Corresponds with GET /purls/lookup (the `LookupPURL` operationId).
+func (c *Client) LookupPURL(ctx context.Context, params *LookupPURLParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewLookupPURLRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -3307,6 +3467,96 @@ func NewLookupPackageRequest(server string, params *LookupPackageParams) (*http.
 				}
 			}
 
+		}
+
+		if encoded := queryValues.Encode(); encoded != "" {
+			rawQueryFragments = append(rawQueryFragments, encoded)
+		}
+		queryURL.RawQuery = strings.Join(rawQueryFragments, "&")
+	}
+
+	req, err := http.NewRequest(http.MethodGet, queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
+// NewBulkLookupPURLsRequest calls the generic BulkLookupPURLs builder with application/json body
+func NewBulkLookupPURLsRequest(server string, body BulkLookupPURLsJSONRequestBody) (*http.Request, error) {
+	var bodyReader io.Reader
+	buf, err := json.Marshal(body)
+	if err != nil {
+		return nil, err
+	}
+	bodyReader = bytes.NewReader(buf)
+	return NewBulkLookupPURLsRequestWithBody(server, "application/json", bodyReader)
+}
+
+// NewBulkLookupPURLsRequestWithBody constructs an http.Request for the BulkLookupPURLs method, with any body, and a specified content type
+func NewBulkLookupPURLsRequestWithBody(server string, contentType string, body io.Reader) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/purls/bulk_lookup")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest(http.MethodPost, queryURL.String(), body)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewLookupPURLRequest constructs an http.Request for the LookupPURL method
+func NewLookupPURLRequest(server string, params *LookupPURLParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/purls/lookup")
+	if operationPath[0] == '/' {
+		operationPath = "." + operationPath
+	}
+
+	queryURL, err := serverURL.Parse(operationPath)
+	if err != nil {
+		return nil, err
+	}
+
+	if params != nil {
+		// queryValues collects non-styled parameters (passthrough, JSON)
+		// that are safe to round-trip through url.Values.Encode().
+		queryValues := queryURL.Query()
+		// rawQueryFragments collects pre-encoded query fragments from
+		// styled parameters, preserving literal commas as delimiters
+		// per the OpenAPI spec (e.g. "color=blue,black,brown").
+		var rawQueryFragments []string
+
+		if queryFrag, err := runtime.StyleParamWithOptions("form", true, "purl", params.PURL, runtime.StyleParamOptions{ParamLocation: runtime.ParamLocationQuery, Type: "string", Format: ""}); err != nil {
+			return nil, err
+		} else {
+			for _, qp := range strings.Split(queryFrag, "&") {
+				rawQueryFragments = append(rawQueryFragments, qp)
+			}
 		}
 
 		if encoded := queryValues.Encode(); encoded != "" {
@@ -5562,6 +5812,27 @@ type ClientWithResponsesInterface interface {
 	// Corresponds with GET /packages/lookup (the `LookupPackage` operationId).
 	LookupPackageWithResponse(ctx context.Context, params *LookupPackageParams, reqEditors ...RequestEditorFn) (*LookupPackageResponse, error)
 
+	// BulkLookupPURLsWithBodyWithResponse lookup package versions by PURL
+	//
+	// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /purls/bulk_lookup (the `BulkLookupPURLs` operationId).
+	BulkLookupPURLsWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BulkLookupPURLsResponse, error)
+
+	// BulkLookupPURLsWithResponse lookup package versions by PURL
+	//
+	// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with POST /purls/bulk_lookup (the `BulkLookupPURLs` operationId).
+	BulkLookupPURLsWithResponse(ctx context.Context, body BulkLookupPURLsJSONRequestBody, reqEditors ...RequestEditorFn) (*BulkLookupPURLsResponse, error)
+
+	// LookupPURLWithResponse lookup a package version by PURL
+	//
+	// Returns a wrapper object for the known response body format(s).
+	//
+	// Corresponds with GET /purls/lookup (the `LookupPURL` operationId).
+	LookupPURLWithResponse(ctx context.Context, params *LookupPURLParams, reqEditors ...RequestEditorFn) (*LookupPURLResponse, error)
+
 	// GetRegistriesWithResponse list registries
 	//
 	// Returns a wrapper object for the known response body format(s).
@@ -5999,6 +6270,68 @@ func (r LookupPackageResponse) StatusCode() int {
 
 // ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
 func (r LookupPackageResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type BulkLookupPURLsResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *[]PURLLookupResult
+}
+
+// Status returns HTTPResponse.Status
+func (r BulkLookupPURLsResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r BulkLookupPURLsResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r BulkLookupPURLsResponse) ContentType() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Header.Get("Content-Type")
+	}
+	return ""
+}
+
+type LookupPURLResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	// JSON200 the response for an HTTP 200 `application/json` response
+	JSON200 *PURLLookupResult
+}
+
+// Status returns HTTPResponse.Status
+func (r LookupPURLResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r LookupPURLResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+// ContentType is a convenience method to retrieve the Content-Type value from the HTTP response headers
+func (r LookupPURLResponse) ContentType() string {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.Header.Get("Content-Type")
 	}
@@ -6848,6 +7181,45 @@ func (c *ClientWithResponses) LookupPackageWithResponse(ctx context.Context, par
 	return ParseLookupPackageResponse(rsp)
 }
 
+// BulkLookupPURLsWithBodyWithResponse lookup package versions by PURL
+//
+// Takes any type of body and a specified content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /purls/bulk_lookup (the `BulkLookupPURLs` operationId).
+func (c *ClientWithResponses) BulkLookupPURLsWithBodyWithResponse(ctx context.Context, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*BulkLookupPURLsResponse, error) {
+	rsp, err := c.BulkLookupPURLsWithBody(ctx, contentType, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBulkLookupPURLsResponse(rsp)
+}
+
+// BulkLookupPURLsWithResponse lookup package versions by PURL
+//
+// Takes a body of the `application/json` content type, and returns a wrapper object for the known response body format(s).
+//
+// Corresponds with POST /purls/bulk_lookup (the `BulkLookupPURLs` operationId).
+func (c *ClientWithResponses) BulkLookupPURLsWithResponse(ctx context.Context, body BulkLookupPURLsJSONRequestBody, reqEditors ...RequestEditorFn) (*BulkLookupPURLsResponse, error) {
+	rsp, err := c.BulkLookupPURLs(ctx, body, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseBulkLookupPURLsResponse(rsp)
+}
+
+// LookupPURLWithResponse lookup a package version by PURL
+//
+// Returns a wrapper object for the known response body format(s).
+//
+// Corresponds with GET /purls/lookup (the `LookupPURL` operationId).
+func (c *ClientWithResponses) LookupPURLWithResponse(ctx context.Context, params *LookupPURLParams, reqEditors ...RequestEditorFn) (*LookupPURLResponse, error) {
+	rsp, err := c.LookupPURL(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseLookupPURLResponse(rsp)
+}
+
 // GetRegistriesWithResponse list registries
 //
 // Returns a wrapper object for the known response body format(s).
@@ -7378,6 +7750,64 @@ func ParseLookupPackageResponse(rsp *http.Response) (*LookupPackageResponse, err
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest []PackageWithRegistry
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 400:
+		break // No content-type
+
+	}
+
+	return response, nil
+}
+
+// ParseBulkLookupPURLsResponse parses an HTTP response from a BulkLookupPURLsWithResponse call
+func ParseBulkLookupPURLsResponse(rsp *http.Response) (*BulkLookupPURLsResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &BulkLookupPURLsResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []PURLLookupResult
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case rsp.StatusCode == 400:
+		break // No content-type
+
+	}
+
+	return response, nil
+}
+
+// ParseLookupPURLResponse parses an HTTP response from a LookupPURLWithResponse call
+func ParseLookupPURLResponse(rsp *http.Response) (*LookupPURLResponse, error) {
+	bodyBytes, err := io.ReadAll(rsp.Body)
+	defer func() { _ = rsp.Body.Close() }()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &LookupPURLResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest PURLLookupResult
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
