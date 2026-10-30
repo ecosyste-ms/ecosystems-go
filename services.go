@@ -106,6 +106,7 @@ func (c *Client) GetDependentPackages(ctx context.Context, registry, name string
 }
 
 // GetCommitsSummary looks up commit summary metadata for a source repository.
+// It returns nil without an error when synchronization is queued or the repository is not found.
 func (c *Client) GetCommitsSummary(ctx context.Context, repositoryURL string) (*commits.Repository, error) {
 	resp, err := c.commitsClient.RepositoriesLookupWithResponse(ctx, &commits.RepositoriesLookupParams{
 		URL: repositoryURL,
@@ -113,7 +114,7 @@ func (c *Client) GetCommitsSummary(ctx context.Context, repositoryURL string) (*
 	if err != nil {
 		return nil, fmt.Errorf("get commits summary: %w", err)
 	}
-	if resp.StatusCode() == http.StatusNotFound {
+	if resp.StatusCode() == http.StatusAccepted || resp.StatusCode() == http.StatusNotFound {
 		return nil, nil
 	}
 	if resp.StatusCode() != http.StatusOK {
@@ -123,6 +124,7 @@ func (c *Client) GetCommitsSummary(ctx context.Context, repositoryURL string) (*
 }
 
 // GetIssuesSummary looks up issue and pull-request summary metadata for a source repository.
+// It returns nil without an error when synchronization is queued or the repository is not found.
 func (c *Client) GetIssuesSummary(ctx context.Context, repositoryURL string) (*issues.Repository, error) {
 	resp, err := c.issuesClient.RepositoriesLookupWithResponse(ctx, &issues.RepositoriesLookupParams{
 		URL: repositoryURL,
@@ -130,7 +132,7 @@ func (c *Client) GetIssuesSummary(ctx context.Context, repositoryURL string) (*i
 	if err != nil {
 		return nil, fmt.Errorf("get issues summary: %w", err)
 	}
-	if resp.StatusCode() == http.StatusNotFound {
+	if resp.StatusCode() == http.StatusAccepted || resp.StatusCode() == http.StatusNotFound {
 		return nil, nil
 	}
 	if resp.StatusCode() != http.StatusOK {

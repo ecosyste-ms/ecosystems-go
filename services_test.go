@@ -160,15 +160,72 @@ func TestGetCommitsAndIssuesSummary(t *testing.T) {
 	if err != nil {
 		t.Fatalf("GetCommitsSummary() error = %v", err)
 	}
-	if commits.TotalCommits == nil || *commits.TotalCommits != 42 {
+	if commits == nil || commits.TotalCommits == nil || *commits.TotalCommits != 42 {
 		t.Fatalf("commits summary = %+v", commits)
 	}
 	issues, err := client.GetIssuesSummary(context.Background(), "https://github.com/acme/widget")
 	if err != nil {
 		t.Fatalf("GetIssuesSummary() error = %v", err)
 	}
-	if issues.IssuesCount == nil || *issues.IssuesCount != 7 {
+	if issues == nil || issues.IssuesCount == nil || *issues.IssuesCount != 7 {
 		t.Fatalf("issues summary = %+v", issues)
+	}
+}
+
+func TestGetSummariesAbsentOrError(t *testing.T) {
+	methods := []struct {
+		name string
+		get  func(*Client) (bool, error)
+	}{
+		{"commits", func(c *Client) (bool, error) {
+			got, err := c.GetCommitsSummary(context.Background(), "https://github.com/acme/widget")
+			return got == nil, err
+		}},
+		{"issues", func(c *Client) (bool, error) {
+			got, err := c.GetIssuesSummary(context.Background(), "https://github.com/acme/widget")
+			return got == nil, err
+		}},
+	}
+	cases := []struct {
+		name    string
+		status  int
+		wantErr bool
+	}{
+		{"accepted_empty", http.StatusAccepted, false},
+		{"not_found", http.StatusNotFound, false},
+		{"server_error", http.StatusInternalServerError, true},
+		{"forbidden", http.StatusForbidden, true},
+	}
+	for _, method := range methods {
+		for _, tt := range cases {
+			t.Run(method.name+"/"+tt.name, func(t *testing.T) {
+				srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					if r.Method != http.MethodGet || r.URL.Path != "/repositories/lookup" || r.URL.Query().Get("url") != "https://github.com/acme/widget" {
+						t.Errorf("unexpected request: %s %s", r.Method, r.URL)
+					}
+					w.Header().Set("Content-Type", "application/json")
+					w.WriteHeader(tt.status)
+				}))
+				defer srv.Close()
+
+				client, err := NewClient("test-agent/1.0", WithCommitsServer(srv.URL), WithIssuesServer(srv.URL))
+				if err != nil {
+					t.Fatalf("NewClient() error = %v", err)
+				}
+				absent, err := method.get(client)
+				if !absent {
+					t.Fatal("summary should be nil")
+				}
+				if tt.wantErr {
+					want := fmt.Sprintf("get %s summary failed with status %d", method.name, tt.status)
+					if err == nil || err.Error() != want {
+						t.Fatalf("error = %v, want %q", err, want)
+					}
+				} else if err != nil {
+					t.Fatalf("unexpected error: %v", err)
+				}
+			})
+		}
 	}
 }
 
