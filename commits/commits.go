@@ -13,6 +13,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/oapi-codegen/nullable"
 	"github.com/oapi-codegen/runtime"
 )
 
@@ -81,11 +82,14 @@ type Repository struct {
 	PastYearTotalBotCommitters *int                     `json:"past_year_total_bot_committers,omitempty"`
 	PastYearTotalCommits       *int                     `json:"past_year_total_commits,omitempty"`
 	PastYearTotalCommitters    *int                     `json:"past_year_total_committers,omitempty"`
-	TotalBotCommits            *int                     `json:"total_bot_commits,omitempty"`
-	TotalBotCommitters         *int                     `json:"total_bot_committers,omitempty"`
-	TotalCommits               *int                     `json:"total_commits,omitempty"`
-	TotalCommitters            *int                     `json:"total_committers,omitempty"`
-	UpdatedAt                  *time.Time               `json:"updated_at,omitempty"`
+
+	// Status Null when stats are current. too_large, not_found or invalid when sync is skipped and stats are not updated.
+	Status             nullable.Nullable[string] `json:"status,omitempty"`
+	TotalBotCommits    *int                      `json:"total_bot_commits,omitempty"`
+	TotalBotCommitters *int                      `json:"total_bot_committers,omitempty"`
+	TotalCommits       *int                      `json:"total_commits,omitempty"`
+	TotalCommitters    *int                      `json:"total_committers,omitempty"`
+	UpdatedAt          *time.Time                `json:"updated_at,omitempty"`
 }
 
 // GetHostsParams defines parameters for GetHosts.
